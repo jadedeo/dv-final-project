@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+    import Map from "../routes/Map.svelte";
+</script>
+
+<h1>DV Final Project</h1>
+<p>This is going to be a hot ass mess.</p>
+
+<Map/>
