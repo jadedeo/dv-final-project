@@ -8,6 +8,7 @@ export const countrySummary = [
     numVoyages: 534,
     numIndentures: 239000,
     route: "indiaToGuyana",
+    shipDataAvailable: false,
   },
   {
     countryName: "Trinidad & Tobago",
@@ -18,6 +19,7 @@ export const countrySummary = [
     numVoyages: 328,
     numIndentures: 144000,
     route: "indiaToTrinidad",
+    shipDataAvailable: true,
   },
   {
     countryName: "Jamaica",
@@ -28,6 +30,7 @@ export const countrySummary = [
     numVoyages: 10,
     numIndentures: 36000,
     route: "indiaToJamaica",
+    shipDataAvailable: false,
   },
   {
     countryName: "Suriname",
@@ -38,6 +41,7 @@ export const countrySummary = [
     numVoyages: 10,
     numIndentures: 34000,
     route: "indiaToSuriname",
+    shipDataAvailable: true,
   },
   {
     countryName: "South Africa",
@@ -48,6 +52,7 @@ export const countrySummary = [
     numVoyages: 384,
     numIndentures: 152000,
     route: "indiaToSouthAfrica",
+    shipDataAvailable: false,
   },
   {
     countryName: "Mauritius",
@@ -58,15 +63,17 @@ export const countrySummary = [
     numVoyages: 10,
     numIndentures: 10,
     route: "indiaToMauritius",
+    shipDataAvailable: false,
   },
   {
     countryName: "Fiji",
     geographicRegion: ["Oceania", "Pacific Ocean"],
-    startYear: "1840",
-    endYear: "1907",
+    startYear: "1879",
+    endYear: "1916",
     origins: ["Uttar Pradesh", "Bihar"],
-    numVoyages: 10,
-    numIndentures: 10,
+    numVoyages: 114,
+    numIndentures: 60513,
     route: "indiaToFiji",
+    shipDataAvailable: true,
   },
 ];
