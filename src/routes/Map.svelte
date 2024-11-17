@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { slide } from 'svelte/transition';
     import mapboxgl from 'mapbox-gl';
     import { routes } from '../lib/routes';
     import { countrySummary } from '../lib/countrySummary';
@@ -12,42 +13,42 @@
     let tooltip;
     let shipData = [];
     let filteredShipData = [];
+    let selectedCountry = null;
+    let selectedCountryColor = '#087F8C';
 
     // let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
     const maxIndentures = Math.max(...countrySummary.map(d => d.numIndentures));
     const lineThicknessScale = d3.scaleLinear()
         .domain([0, maxIndentures])
-        .range([3, 13]);
+        .range([3, 6]);
 
     function getLineColor(numIndentures) {
         if (numIndentures > 200000) return '#E54F6D';
-        if (numIndentures > 100000) return '#F6AE2D';
+        if (numIndentures > 100000) return '#faae20';
         if (numIndentures > 50000) return '#86A873';
         return '#087F8C';
     }
 
-    function getShipListInfo(countryName) {
-        // console.log('fetching shiplist data for', countryName);
-
-        filteredShipData = shipData.filter(d => d.Country === countryName);
-        // console.log('filteredData',filteredShipData);
+    function getOpacity(totalPassengers) {
+        if (!totalPassengers) return 1; // Minimum opacity for ships with undefined or 0 passengers
+        return 0.1 + (totalPassengers / 800) * 0.7; // Scale opacity between 0.3 and 1 based on max passengers ~800
     }
 
     
     onMount(async() => {
-        const parseDate = d3.timeParse("%Y-%m-%d");
         shipData = await d3.csv("shipListData.csv", row => ({
             ...row,
             'ArrivalFormatted': new Date(row['Date of Arrival'])
         }));
-        console.log("shipData", shipData);
+        // console.log("shipData", shipData);
 
         map = new mapboxgl.Map({
             container: 'map',
+            projection: 'mercator',
             style: 'mapbox://styles/mapbox/light-v11',
-            center: [0, 0],
-            zoom: 2
+            // center: [79.0947321558388, 22.960021056344114],
+            zoom: 1.5
         });
 
         tooltip = document.getElementById('tooltip');
@@ -84,6 +85,7 @@
                     },
                     'paint': {
                         'line-color': getLineColor(country.numIndentures),
+                        'line-width' : 6,
                         'line-width': lineThicknessScale(country.numIndentures),
                         'line-dasharray': country.shipDataAvailable ? [1, 0] : [2, 2]  
                     }
@@ -110,9 +112,9 @@
 
                 map.on('click', layerId, (e) => {
                     if (e.features[0].properties.shipDataAvailable) {
-                        getShipListInfo(country.countryName);
+                        selectCountry(country.countryName);
                     } else {
-                        console.log("dashed line clicked, no action");
+                        // console.log("dashed line clicked, no action");
                     }
                 });
             });
@@ -131,15 +133,15 @@
         minYear = d3.min(filteredShipData, d => d['ArrivalFormatted'] ? d['ArrivalFormatted'].getFullYear() : new Date().getFullYear());
         maxYear = d3.max(filteredShipData, d => d['ArrivalFormatted'] ? d['ArrivalFormatted'].getFullYear() : new Date().getFullYear());
 
-        console.log(minYear, '---', maxYear);
+        // console.log(minYear, '---', maxYear);
         selectedYear = maxYear;
     }
     
     $: filteredByYearShipData = filteredShipData.filter(d => {
-        console.log("d['ArrivalFormatted'].getFullYear()", d['ArrivalFormatted'].getFullYear());
+        // console.log("d['ArrivalFormatted'].getFullYear()", d['ArrivalFormatted'].getFullYear());
         return d['ArrivalFormatted'] && d['ArrivalFormatted'].getFullYear() <= selectedYear;
     });
-    $: console.log('filteredByYearShipData', filteredByYearShipData);
+    // $: console.log('filteredByYearShipData', filteredByYearShipData);
 
 
     let selectedShip = null;
@@ -149,14 +151,36 @@
 
     function selectShip(ship, index) {
         selectedShip = index;
+        selectedCountry = ship.Country;
+        // console.log('selectedCountry', selectedCountry);
         // console.log('SELECT SHIP', ship, selectedShip);
     }
+
+    function selectCountry(countryName) {
+        selectedCountryColor = getLineColor(countrySummary.find(c => c.countryName === countryName).numIndentures);
+        filteredShipData = shipData.filter(d => d.Country === countryName);
+        selectedCountry = countryName;  // This ensures we keep track of the current selected country
+    }
+
 
     function scrollTo(node) {
         // console.log('HERE');
         node.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 </script>
+
+<div class="header-and-paragraphs">
+    <div>
+        <h2>Where Did They Go?</h2>
+        <h4>Each of the dots below represents a single ship, most carrying hundreds of people.</h4>
+    </div>
+    
+    <p>Mauris auctor aliquam cursus. Praesent id vehicula est. Maecenas ut eros enim. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec euismod dui, et maximus velit. Donec nec consequat libero.</p>
+
+    <p>With recent generations, many descendents of indenture have attempted to trace their roots. This is an extremely difficult and time consuming process for most, made worse by the fact that <span class="emphasis">not every country has digitized their indentureship records</span>, whether that be ship or passenger lists.</p>
+
+    <p><span class="emphasis">Guyana, previously both a Dutch and English colony, recevied the single largest population of indentured laborers from South Asia, and yet this information has not been compiled in any accessible or searchable form.</span> There are <a href="https://westindiandiplomacy.com/petition-to-preserve-digitize-indian-indentured-enslaved-african-records-in-the-caribbean/">ongoing petitions</a> to urge local governments to take up this important work before physical record books become irreversibly damaged.</p>
+</div>
 
 <div id="map-container">
     <div id="map" style="width: 100%; height: 600px;"></div>
@@ -174,19 +198,27 @@
 
 {#if filteredShipData.length > 0}
 <div id="ship-list-info" use:scrollTo>
-    <h2>Ship Lists for {filteredByYearShipData[0]['Country']}</h2>
-    <div>
-        <span>Show voyages until: {selectedYear}</span>
-        <input type="range" min="{minYear}" max="{maxYear}" bind:value="{selectedYear}" style="width:100%;" />
+    <div class="header-and-paragraphs">
+        <div>
+            <h2>Voyages Destined for {filteredByYearShipData[0]['Country']}</h2>
+            <h4>Each of the dots below represents a single ship, most carrying hundreds of people.</h4>
+        </div>
+        
+        <p>Mauris auctor aliquam cursus. Praesent id vehicula est. Maecenas ut eros enim. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec euismod dui, et maximus velit. Donec nec consequat libero.</p>
     </div>
+
     {#if selectedShip !== null}
-        <div id="voyage-details">
+        <div id="voyage-details" transition:slide="{{ duration: 500 }}">
             <h3>The {filteredByYearShipData[selectedShip]['Name of Ship']}</h3>
+
             <p>Arrived in {filteredByYearShipData[selectedShip]['Country']} on <span class="emphasis">{filteredByYearShipData[selectedShip]['ArrivalFormatted'].toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"long", day:"numeric"})}</span>
+
                 {#if filteredByYearShipData[selectedShip]['Total Passengers']}
                     <span>carrying <span class="emphasis">{filteredByYearShipData[selectedShip]['Total Passengers']} passengers</span></span>
+
                     {#if filteredByYearShipData[selectedShip]['Total Passengers']}
                         <span>with <span class="emphasis">registration numbers {filteredByYearShipData[selectedShip]['Registration Numbers']}</span>.</span>
+
                     {:else}
                         .
                     {/if}
@@ -197,22 +229,30 @@
             <p></p>
         </div>
     {/if}
+    
     <div id="units">
         {#each filteredByYearShipData as ship, index}
             <div
                 class="ship"
-                style="background-color: {selectedShip === index ? 'gray' : 'black'}"
+                style="background-color: {selectedCountryColor}; opacity: {getOpacity(ship['Total Passengers'])}"
                 on:click={() => selectShip(ship, index)}
             ></div>
         {/each}
     </div>
+
+    <div>
+        <span>Show voyages until: {selectedYear}</span>
+        <input type="range" min="{minYear}" max="{maxYear}" bind:value="{selectedYear}" style="width:100%;" />
+    </div>
 </div>
+
+<hr>
 {/if}
 
 <style>
 
     .emphasis {
-        color:coral;
+        color:#E54F6D;
     }
 
     #voyage-details{
@@ -224,6 +264,7 @@
         flex-direction: column;
         gap:10px;
     }
+    
 
     #ship-list-info{
         display:flex;
@@ -237,6 +278,13 @@
         aspect-ratio: 1;
         background: steelblue;
         border-radius: 50%;
+        transition: transform 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .ship:hover {
+        transform: scale(1.5);
+        /* border:3px solid white; */
     }
 
     #units {
@@ -280,6 +328,10 @@
 
 .legend-line.dotted {
     border-bottom: 5px dotted #000;
+}
+
+input[type="range"]::-webkit-slider-runnable-track{
+    /* background:rgb(155, 155, 155); */
 }
 
 </style>
