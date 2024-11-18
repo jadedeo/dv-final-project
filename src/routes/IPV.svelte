@@ -1,4 +1,3 @@
-this now works:
 <script>
     import { onMount } from "svelte";
   

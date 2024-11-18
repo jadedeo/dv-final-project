@@ -1,12 +1,16 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
+    import { countrySummary } from '../lib/countrySummary';
 
     let suicideData = [];
     let processedData = [];
     let svgElement;
+    const summaryCountries = new Set(countrySummary.map(entry => entry.countryName));
 
     onMount(async () => {
+
+
         suicideData = await d3.csv("suicideRates.csv", d => ({
             country: d.country,
             year: +d.year,
@@ -15,11 +19,9 @@
         }));
         // console.log(suicideData);
 
-        processedData = d3.rollups(suicideData, v => {
-            // console.log("Group data:", v);
+        let countryRates = d3.rollups(suicideData, v => {
             const suicides = d3.sum(v, d => d.suicides);
             const population = d3.sum(v, d => d.population);
-            // console.log("Suicides sum:", suicides, "Population sum:", population);
             return {suicides, population};
         }, d => d.country, d => d.year)
         .map(([country, years]) => ({
@@ -27,19 +29,27 @@
             years: years.map(([year, data]) => ({
                 year,
                 rate: (data.suicides / data.population) * 100000
-            }))
+            })),
+            averageRate: d3.mean(years, ([, data]) => (data.suicides / data.population) * 100000)
         }));
+
+        processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, 50);
+
         console.log("Processed Data", processedData);
-        drawChart();
+        drawChart(summaryCountries);
     });
 
 
-    function drawChart() {
+
+    function drawChart(summaryCountries) {
         if (!processedData.length) return;
 
+        const colors = d3.scaleOrdinal(d3.schemeCategory10);
+        const colorFallback = '#ccc';  // Gray color for countries not in summary
+
         const margin = {top: 20, right: 30, bottom: 30, left: 60},
-              width = 800 - margin.left - margin.right,
-              height = 400 - margin.top - margin.bottom;
+            width = 800 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
 
         const svg = d3.select(svgElement)
             .attr('width', width + margin.left + margin.right)
@@ -55,6 +65,12 @@
             .domain([0, d3.max(processedData, c => d3.max(c.years, d => d.rate))])
             .range([height, 0]);
 
+        // Define the line generator
+        const line = d3.line()
+            .defined(d => d.rate !== null)  // Skip undefined values to not draw part of the line
+            .x(d => x(d.year))
+            .y(d => y(d.rate));
+
         svg.append('g')
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(x).tickFormat(d3.format('d')));
@@ -62,35 +78,20 @@
         svg.append('g')
             .call(d3.axisLeft(y));
 
-        const line = d3.line()
-            .x(d => x(d.year))
-            .y(d => y(d.rate));
-
-        const colors = d3.scaleOrdinal(d3.schemeCategory10);
-
-        const tooltip = d3.select('#tooltip');
-
-        svg.selectAll('.line')
+        const lines = svg.selectAll('.line')
             .data(processedData)
             .enter()
             .append('path')
             .attr('fill', 'none')
-            .attr('stroke', d => colors(d.country))
+            .attr('stroke', d => summaryCountries.has(d.country) ? colors(d.country) : colorFallback)
             .attr('stroke-width', 2)
             .attr('class', 'line')
-            .attr('d', d => line(d.years))
-            .on('mouseover', (event, d) => {
-                tooltip.style('visibility', 'visible')
-                       .text(`Country: ${d.country}`);
-            })
-            .on('mousemove', event => {
-                tooltip.style('top', (event.pageY - 10) + 'px')
-                       .style('left', (event.pageX + 10) + 'px');
-            })
-            .on('mouseout', () => {
-                tooltip.style('visibility', 'hidden');
-            });
+            .attr('d', d => line(d.years));
+
+        lines.filter(d => summaryCountries.has(d.country)).raise();
     }
+
+
 </script>
 
 
