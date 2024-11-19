@@ -1,16 +1,18 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
+    import {northCentralAmerica, southAmerica, caribbean} from '../lib/filteringGroups';
     import { countrySummary } from '../lib/countrySummary';
 
     let suicideData = [];
     let processedData = [];
     let svgElement;
+    let topCutoff = 25;
     const summaryCountries = new Set(countrySummary.map(entry => entry.countryName));
+    const countryColors = new Map(countrySummary.map((entry, index) => [entry.countryName, d3.schemeCategory10[index % 10]]));
 
-    onMount(async () => {
 
-
+    async function fetchData() {
         suicideData = await d3.csv("suicideRates.csv", d => ({
             country: d.country,
             year: +d.year,
@@ -18,7 +20,10 @@
             population: +d.population
         }));
         // console.log(suicideData);
+        processAndDraw();
+    }
 
+    function processAndDraw() {
         let countryRates = d3.rollups(suicideData, v => {
             const suicides = d3.sum(v, d => d.suicides);
             const population = d3.sum(v, d => d.population);
@@ -33,19 +38,27 @@
             averageRate: d3.mean(years, ([, data]) => (data.suicides / data.population) * 100000)
         }));
 
-        processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, 50);
-
-        console.log("Processed Data", processedData);
+        processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, topCutoff);
+        console.log(processedData);
         drawChart(summaryCountries);
+    }
+
+    onMount(() => {
+        fetchData();
     });
 
-
+    $: if (topCutoff && suicideData.length > 0) {
+        processAndDraw();
+    }
 
     function drawChart(summaryCountries) {
+        d3.select(svgElement).selectAll('*').remove();
+
         if (!processedData.length) return;
 
         const colors = d3.scaleOrdinal(d3.schemeCategory10);
-        const colorFallback = '#ccc';  // Gray color for countries not in summary
+        const colorFallback = '#e0e0e0';
+        const hoverColor = '#707070';
 
         const margin = {top: 20, right: 30, bottom: 30, left: 60},
             width = 800 - margin.left - margin.right,
@@ -61,13 +74,15 @@
             .domain(d3.extent(processedData.flatMap(c => c.years), d => d.year))
             .range([0, width]);
 
+        const yMin = d3.min(processedData, c => d3.min(c.years, d => d.rate));
+        const yMax = d3.max(processedData, c => d3.max(c.years, d => d.rate));
+
         const y = d3.scaleLinear()
-            .domain([0, d3.max(processedData, c => d3.max(c.years, d => d.rate))])
+            .domain([yMin > 0 ? yMin * 0.9 : yMin * 1.1, yMax * 1.1]) // Reduce or increase by 10% for padding
             .range([height, 0]);
 
-        // Define the line generator
         const line = d3.line()
-            .defined(d => d.rate !== null)  // Skip undefined values to not draw part of the line
+            .defined(d => d.rate !== null)  
             .x(d => x(d.year))
             .y(d => y(d.rate));
 
@@ -83,15 +98,34 @@
             .enter()
             .append('path')
             .attr('fill', 'none')
-            .attr('stroke', d => summaryCountries.has(d.country) ? colors(d.country) : colorFallback)
+            .attr('stroke', d => summaryCountries.has(d.country) ? countryColors.get(d.country) : colorFallback)
             .attr('stroke-width', 2)
             .attr('class', 'line')
-            .attr('d', d => line(d.years));
+            .attr('d', d => line(d.years))
+            .on('mouseover', function(event, d) {
+                if (!summaryCountries.has(d.country)) {
+                    d3.select(this).attr('stroke', hoverColor);
+                }
+                const xPosition = event.pageX;
+                const yPosition = event.pageY;
+                d3.select('#tooltipSuicide')
+                    .style('left', xPosition + 'px')
+                    .style('top', yPosition + 'px')
+                    .style('visibility', 'visible')
+                    .html(`${d.country}<br/>Average Rate: ${d.averageRate.toFixed(2)}`);
+            })
+            .on('mouseout', function(event, d) {
+                console.log(d);
+                console.log(d.country, summaryCountries.has(d.country));
+                // Restore the color using the fixed mapping or fallback color
+                d3.select(this).attr('stroke', summaryCountries.has(d.country) ? countryColors.get(d.country) : colorFallback);
+                d3.select('#tooltipSuicide').style('visibility', 'hidden');
+            });
+
+
 
         lines.filter(d => summaryCountries.has(d.country)).raise();
     }
-
-
 </script>
 
 
@@ -99,14 +133,31 @@
     <h3>Prevalence of Suicide</h3>
     <p>Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo. Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est vitae maximus faucibus.</p>
 </div>
-<svg bind:this={svgElement}></svg>
-<div id="tooltip" style="position: absolute; visibility: hidden; background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></div>
 
+
+<h4>Average Suicide Rates per 100k, 1986-2016</h4>
+
+<div>
+    <label>Show Top </label>
+    <select bind:value = {topCutoff}>
+        <option value={25}>25</option>
+        <option value={50}>50</option>
+    </select>
+</div>
+<div>
+
+</div>
+
+<div>
+<svg id="suicideChart" bind:this={svgElement}></svg>
+<div id="tooltipSuicide" style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></div>
+</div>
 
 
 <style>
-    path {
-        stroke-linejoin: round;
-        stroke-linecap: round;
+    #suicideChart {
+        background-color:white;
     }
+
+
 </style>

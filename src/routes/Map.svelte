@@ -330,8 +330,4 @@
     border-bottom: 5px dotted #000;
 }
 
-input[type="range"]::-webkit-slider-runnable-track{
-    /* background:rgb(155, 155, 155); */
-}
-
 </style>
