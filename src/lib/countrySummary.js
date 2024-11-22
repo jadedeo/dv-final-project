@@ -9,6 +9,7 @@ export const countrySummary = [
     numIndentures: 239000,
     route: "indiaToGuyana",
     shipDataAvailable: false,
+    color: "red",
   },
   {
     countryName: "Trinidad & Tobago",
@@ -20,6 +21,7 @@ export const countrySummary = [
     numIndentures: 144000,
     route: "indiaToTrinidad",
     shipDataAvailable: true,
+    color: "#ff8c21",
   },
   {
     countryName: "Jamaica",
@@ -31,6 +33,7 @@ export const countrySummary = [
     numIndentures: 36000,
     route: "indiaToJamaica",
     shipDataAvailable: false,
+    color: "cornflowerblue",
   },
   {
     countryName: "Suriname",
@@ -42,6 +45,7 @@ export const countrySummary = [
     numIndentures: 34000,
     route: "indiaToSuriname",
     shipDataAvailable: true,
+    color: "#1fb84f",
   },
   {
     countryName: "South Africa",
@@ -53,6 +57,7 @@ export const countrySummary = [
     numIndentures: 152000,
     route: "indiaToSouthAfrica",
     shipDataAvailable: false,
+    color: "blue",
   },
   {
     countryName: "Mauritius",
@@ -64,6 +69,7 @@ export const countrySummary = [
     numIndentures: 10,
     route: "indiaToMauritius",
     shipDataAvailable: false,
+    color: "purple",
   },
   {
     countryName: "Fiji",
@@ -75,5 +81,6 @@ export const countrySummary = [
     numIndentures: 60513,
     route: "indiaToFiji",
     shipDataAvailable: true,
+    color: "#cf57a9",
   },
 ];

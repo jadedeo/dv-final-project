@@ -1,29 +1,37 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
-    import {northCentralAmerica, southAmerica, caribbean} from '../lib/filteringGroups';
     import { countrySummary } from '../lib/countrySummary';
+    import { caribbeanCountries, southAmericaCountries } from '../lib/filteringGroups';
 
     let suicideData = [];
     let processedData = [];
+    let genderSpecificData = {};
     let svgElement;
+    let countrySelected = false;
     let topCutoff = 25;
     const summaryCountries = new Set(countrySummary.map(entry => entry.countryName));
-    const countryColors = new Map(countrySummary.map((entry, index) => [entry.countryName, d3.schemeCategory10[index % 10]]));
+    const countryColors = new Map(countrySummary.map(entry => [entry.countryName, entry.color]));
 
+    let radioSelected = 'top25';
+	
+	function onChange(event) {
+		radioSelected = event.currentTarget.value;
+	}
 
     async function fetchData() {
         suicideData = await d3.csv("suicideRates.csv", d => ({
             country: d.country,
             year: +d.year,
             suicides: +d.suicides_no,
-            population: +d.population
+            population: +d.population,
+            gender: d.sex,
         }));
-        // console.log(suicideData);
         processAndDraw();
     }
 
     function processAndDraw() {
+
         let countryRates = d3.rollups(suicideData, v => {
             const suicides = d3.sum(v, d => d.suicides);
             const population = d3.sum(v, d => d.population);
@@ -38,25 +46,62 @@
             averageRate: d3.mean(years, ([, data]) => (data.suicides / data.population) * 100000)
         }));
 
-        processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, topCutoff);
-        console.log(processedData);
-        drawChart(summaryCountries);
+        console.log('countryRates', countryRates);
+
+        if(radioSelected == 'top50'){
+            processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, 50);
+        }
+        else if(radioSelected == "countriesInterest"){
+            processedData = countryRates.filter(d => summaryCountries.has(d.country));
+        }
+        else if(radioSelected == "caribbean"){
+            processedData = countryRates.filter(d => caribbeanCountries.includes(d.country));
+        }
+        else if(radioSelected == "southAmerica"){
+            processedData = countryRates.filter(d => southAmericaCountries.includes(d.country));
+        }
+        else{
+            processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, topCutoff);
+        }
+
+        // console.log('processedData', processedData);
+
+        genderSpecificData = d3.rollups(suicideData, 
+            (v) => ({
+                suicides: d3.sum(v, d => d.suicides),
+                population: d3.sum(v, d => d.population)
+            }),
+            d => d.country,
+            d => d.year,
+            d => d.gender
+        ).map(([country, years]) => ({
+            country,
+            years: years.map(([year, genders]) => ({
+                year,
+                genders: genders.map(([gender, data]) => ({
+                    gender,
+                    rate: (data.suicides / data.population) * 100000
+                }))
+            }))
+        }));
+        
+        drawMainChart();
     }
 
     onMount(() => {
         fetchData();
     });
 
-    $: if (topCutoff && suicideData.length > 0) {
+    $: if (radioSelected && suicideData.length > 0) {
+        console.log('triggered');
         processAndDraw();
     }
 
-    function drawChart(summaryCountries) {
+    function drawMainChart() {
         d3.select(svgElement).selectAll('*').remove();
 
         if (!processedData.length) return;
 
-        const colors = d3.scaleOrdinal(d3.schemeCategory10);
         const colorFallback = '#e0e0e0';
         const hoverColor = '#707070';
 
@@ -78,7 +123,7 @@
         const yMax = d3.max(processedData, c => d3.max(c.years, d => d.rate));
 
         const y = d3.scaleLinear()
-            .domain([yMin > 0 ? yMin * 0.9 : yMin * 1.1, yMax * 1.1]) // Reduce or increase by 10% for padding
+            .domain([yMin > 0 ? yMin * 0.9 : yMin * 1.1, yMax * 1.1])
             .range([height, 0]);
 
         const line = d3.line()
@@ -106,49 +151,163 @@
                 if (!summaryCountries.has(d.country)) {
                     d3.select(this).attr('stroke', hoverColor);
                 }
-                const xPosition = event.pageX;
-                const yPosition = event.pageY;
+            })
+            .on('mousemove', function(event, d) {
+                const pointer = d3.pointer(event, this);
+                const x0 = x.invert(pointer[0]);
+                const bisect = d3.bisector(d => d.year).left;
+                const idx = bisect(d.years, x0, 1);
+                const a = d.years[idx - 1];
+                const b = d.years[idx];
+                const yearData = b && (x0 - a.year > b.year - x0) ? b : a;
+                if (!yearData) return;
+
                 d3.select('#tooltipSuicide')
-                    .style('left', xPosition + 'px')
-                    .style('top', yPosition + 'px')
+                    .style('left', event.pageX + 'px')
+                    .style('top', event.pageY + 'px')
                     .style('visibility', 'visible')
-                    .html(`${d.country}<br/>Average Rate: ${d.averageRate.toFixed(2)}`);
+                    .html(`${d.country}<br>Year: ${yearData.year}<br>Rate: ${yearData.rate.toFixed(2)}`);
             })
             .on('mouseout', function(event, d) {
-                console.log(d);
-                console.log(d.country, summaryCountries.has(d.country));
-                // Restore the color using the fixed mapping or fallback color
                 d3.select(this).attr('stroke', summaryCountries.has(d.country) ? countryColors.get(d.country) : colorFallback);
                 d3.select('#tooltipSuicide').style('visibility', 'hidden');
             });
 
-
+        lines.filter(d => summaryCountries.has(d.country)).on('click', function(event, d){
+            countrySelected = true;
+            drawRatesBySexChart(d);
+            d3.select('#tooltipSuicide').style('visibility', 'hidden');
+        });
 
         lines.filter(d => summaryCountries.has(d.country)).raise();
     }
-</script>
 
+    function drawRatesBySexChart(selectedData) {
+        // console.log("overall:", selectedData);
+        d3.select(svgElement).selectAll('*').remove();
+
+        const countryData =  genderSpecificData.find((item) => item.country == selectedData.country);
+
+        // console.log('sex breakdown', countryData);
+
+        if (!countryData) return;
+
+        const dataForChart = countryData.years.map(year => {
+            const overallYearData = selectedData.years.find(y => y.year === year.year);
+            return {
+                year: year.year,
+                maleRate: year.genders.find(g => g.gender === 'male')?.rate,
+                femaleRate: year.genders.find(g => g.gender === 'female')?.rate,
+                overallRate: overallYearData ? overallYearData.rate : null
+            };
+        });
+
+        // console.log('dataForChart', dataForChart);
+
+        const margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = 800 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        const svg = d3.select(svgElement)
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+
+        const x = d3.scaleLinear()
+            .domain(d3.extent(dataForChart, d => d.year))
+            .range([0, width]);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(dataForChart, d => Math.max(d.maleRate, d.femaleRate))])
+            .range([height, 0]);
+
+        svg.append('g')
+            .attr('transform', `translate(0,${height})`)
+            .call(d3.axisBottom(x).tickFormat(d3.format('d')));
+
+        svg.append('g')
+            .call(d3.axisLeft(y));
+
+            ['maleRate', 'femaleRate', 'overallRate'].forEach((rateType, i) => {
+        const line = d3.line()
+            .defined(d => !isNaN(d[rateType]))
+            .x(d => x(d.year))
+            .y(d => y(d[rateType]));
+
+        svg.append('path')
+            .datum(dataForChart)
+            .attr('fill', 'none')
+            .attr('stroke', countryColors.get(selectedData.country)) // Use a different color if needed
+            .style("stroke-dasharray", rateType === 'overallRate' ? "0" : `${2 * i + 3}, ${2 * i + 3}`)
+            .attr('stroke-width', 2)
+            .attr('d', line)
+            .on('mousemove', function (event, d) {
+                const pointer = d3.pointer(event, this);
+                const x0 = x.invert(pointer[0]);
+                const bisect = d3.bisector(d => d.year).left;
+                const idx = bisect(dataForChart, x0, 1);
+                const a = dataForChart[idx - 1];
+                const b = dataForChart[idx];
+                const yearData = b && (x0 - a.year > b.year - x0) ? b : a;
+                if (!yearData) return;
+
+                d3.select('#tooltipSuicide')
+                    .style('left', `${event.pageX}px`)
+                    .style('top', `${event.pageY}px`)
+                    .style('visibility', 'visible')
+                    .html(`
+                        ${selectedData.country}<br>
+                        Year: ${yearData.year}<br>
+                        Male Rate: ${yearData.maleRate.toFixed(2)}<br>
+                        Female Rate: ${yearData.femaleRate.toFixed(2)}<br>
+                        Overall Rate: ${yearData.overallRate.toFixed(2)}
+                    `);
+            })
+            .on('mouseout', () => {
+                d3.select('#tooltipSuicide').style('visibility', 'hidden');
+            });
+    }); 
+    }
+
+    function handleGoBack() {
+        countrySelected = false;
+        drawMainChart();
+    }
+</script>
 
 <div class="header-and-paragraphs">
     <h3>Prevalence of Suicide</h3>
     <p>Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo. Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est vitae maximus faucibus.</p>
 </div>
 
-
 <h4>Average Suicide Rates per 100k, 1986-2016</h4>
-
-<div>
-    <label>Show Top </label>
-    <select bind:value = {topCutoff}>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-    </select>
+<div id="controls">
+    {#if countrySelected}
+        <button on:click={handleGoBack}>GO BACK</button>
+    {:else}
+        <div id="controls-radios">
+            <label>
+                <input checked={radioSelected==="top25"} on:change={onChange} type="radio" name="amount" value="top25" /> Top 25
+            </label>
+            <label>
+                <input checked={radioSelected==="top50"} on:change={onChange} type="radio" name="amount" value="top50" /> Top 50
+            </label>
+            <label>
+                <input checked={radioSelected==="countriesInterest"} on:change={onChange} type="radio" name="amount" value="countriesInterest" /> Countries of Interest Only
+            </label>
+            <label>
+                <input checked={radioSelected==='caribbean'} on:change={onChange} type="radio" name="amount" value="caribbean" /> All Caribbean
+            </label>
+            <label>
+                <input checked={radioSelected==='southAmerica'} on:change={onChange} type="radio" name="amount" value="southAmerica" /> All South America
+            </label>
+        </div>
+    {/if}
 </div>
-<div>
-
-</div>
 
 <div>
+    
 <svg id="suicideChart" bind:this={svgElement}></svg>
 <div id="tooltipSuicide" style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></div>
 </div>
@@ -159,5 +318,14 @@
         background-color:white;
     }
 
+    #controls{
+        display:flex;
+        gap:25px;
+    }
+
+    #controls-radios{
+        display:flex;
+        gap:15px;
+    }
 
 </style>

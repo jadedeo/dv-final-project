@@ -15,13 +15,13 @@
     let filteredShipData = [];
     let selectedCountry = null;
     let selectedCountryColor = '#087F8C';
+    const countryColors = new Map(countrySummary.map(entry => [entry.countryName, entry.color]));
 
-    // let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
     const maxIndentures = Math.max(...countrySummary.map(d => d.numIndentures));
     const lineThicknessScale = d3.scaleLinear()
         .domain([0, maxIndentures])
-        .range([3, 6]);
+        .range([3, 8]);
 
     function getLineColor(numIndentures) {
         if (numIndentures > 200000) return '#E54F6D';
@@ -31,8 +31,8 @@
     }
 
     function getOpacity(totalPassengers) {
-        if (!totalPassengers) return 1; // Minimum opacity for ships with undefined or 0 passengers
-        return 0.1 + (totalPassengers / 800) * 0.7; // Scale opacity between 0.3 and 1 based on max passengers ~800
+        if (!totalPassengers) return 1;
+        return 0.1 + (totalPassengers / 800) * 0.7;
     }
 
     
@@ -41,20 +41,19 @@
             ...row,
             'ArrivalFormatted': new Date(row['Date of Arrival'])
         }));
-        // console.log("shipData", shipData);
 
         map = new mapboxgl.Map({
             container: 'map',
             projection: 'mercator',
             style: 'mapbox://styles/mapbox/light-v11',
-            // center: [79.0947321558388, 22.960021056344114],
-            zoom: 1.5
+            zoom: 1.5,
         });
 
         tooltip = document.getElementById('tooltip');
 
         map.on('load', function() {
             countrySummary.forEach(country => {
+                // console.log('COUNTRY', country);
                 const route = routes[country.route].coordinates;
                 const layerId = `route-${country.route}`;
                 map.addLayer({
@@ -84,7 +83,8 @@
                         'visibility': 'visible'
                     },
                     'paint': {
-                        'line-color': getLineColor(country.numIndentures),
+                        // 'line-color': getLineColor(country.numIndentures),
+                        'line-color' : countryColors.get(country.countryName),
                         'line-width' : 6,
                         'line-width': lineThicknessScale(country.numIndentures),
                         'line-dasharray': country.shipDataAvailable ? [1, 0] : [2, 2]  
@@ -125,15 +125,12 @@
         };
     });
 
-    $: yearMax = d3.max(filteredShipData, d => d['ArrivalFormatted']);
-
 
     let minYear, maxYear, selectedYear;
     $: if (filteredShipData.length > 0) {
         minYear = d3.min(filteredShipData, d => d['ArrivalFormatted'] ? d['ArrivalFormatted'].getFullYear() : new Date().getFullYear());
         maxYear = d3.max(filteredShipData, d => d['ArrivalFormatted'] ? d['ArrivalFormatted'].getFullYear() : new Date().getFullYear());
 
-        // console.log(minYear, '---', maxYear);
         selectedYear = maxYear;
     }
     
@@ -141,7 +138,7 @@
         // console.log("d['ArrivalFormatted'].getFullYear()", d['ArrivalFormatted'].getFullYear());
         return d['ArrivalFormatted'] && d['ArrivalFormatted'].getFullYear() <= selectedYear;
     });
-    // $: console.log('filteredByYearShipData', filteredByYearShipData);
+    $: console.log('filteredByYearShipData', filteredByYearShipData);
 
 
     let selectedShip = null;
@@ -153,26 +150,29 @@
         selectedShip = index;
         selectedCountry = ship.Country;
         // console.log('selectedCountry', selectedCountry);
-        // console.log('SELECT SHIP', ship, selectedShip);
+        // console.log('SELECTED SHIP:', ship, selectedShip);
     }
 
     function selectCountry(countryName) {
-        selectedCountryColor = getLineColor(countrySummary.find(c => c.countryName === countryName).numIndentures);
+        // selectedCountryColor = getLineColor(countrySummary.find(c => c.countryName === countryName).numIndentures);
+        selectedCountryColor = countryColors.get(countryName);
         filteredShipData = shipData.filter(d => d.Country === countryName);
         selectedCountry = countryName;  // This ensures we keep track of the current selected country
     }
-
 
     function scrollTo(node) {
         // console.log('HERE');
         node.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    $: gradientStyle = `background-image: linear-gradient(to right, ${selectedCountryColor}33, ${selectedCountryColor})`;
+
 </script>
 
 <div class="header-and-paragraphs">
     <div>
         <h2>Where Did They Go?</h2>
-        <h4>Each of the dots below represents a single ship, most carrying hundreds of people.</h4>
+        <h4>Some subheading goes here.</h4>
     </div>
     
     <p>Mauris auctor aliquam cursus. Praesent id vehicula est. Maecenas ut eros enim. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec euismod dui, et maximus velit. Donec nec consequat libero.</p>
@@ -185,7 +185,7 @@
 <div id="map-container">
     <div id="map" style="width: 100%; height: 600px;"></div>
     <div id="tooltip" style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1;">Tooltip Content</div>
-    <div id="legend" class="legend">
+    <!-- <div id="legend" class="legend">
         <h4>Legend</h4>
         <div><span class="legend-key" style="background-color: #E54F6D;"></span><span>Over 200,000 indentures</span></div>
         <div><span class="legend-key" style="background-color: #F6AE2D;"></span><span>Over 100,000 indentures</span></div>
@@ -193,7 +193,7 @@
         <div><span class="legend-key" style="background-color: #087F8C;"></span><span>Less than 50,000 indentures</span></div>
         <div><span class="legend-line solid"></span><span>Ship Lists Available</span></div>
         <div><span class="legend-line dotted"></span><span>Ship Lists Unavailable</span></div>
-    </div>
+    </div> -->
 </div>
 
 {#if filteredShipData.length > 0}
@@ -207,6 +207,37 @@
         <p>Mauris auctor aliquam cursus. Praesent id vehicula est. Maecenas ut eros enim. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec euismod dui, et maximus velit. Donec nec consequat libero.</p>
     </div>
 
+
+
+    <di id="dot-settings">
+        <div id="dot-legend">
+            <div class="dot-legend-label row">
+                <div class="ship" style=" background-color:unset; {`border: 1px solid ${selectedCountryColor}`}"></div>
+                <p>Passenger information unavailable</p>
+            </div>
+            <div class="dot-legend-label">
+                <div id="dot-gradient" style={gradientStyle}></div>
+                <div id="passenger-amounts">
+                    <p>Less Passengers</p>
+                    <p>More Passengers</p>
+                </div>
+            </div>
+        </div>
+        <div id="slider">
+            <p><span>Show voyages until: {selectedYear}</span></p>
+            <input type="range" min="{minYear}" max="{maxYear}" bind:value="{selectedYear}" style="width:100%;" />
+        </div>
+    </div>
+    
+    <div id="units">
+        {#each filteredByYearShipData as ship, index}
+            <div
+                class="ship"
+                style="border: {ship['Total Passengers'] ? '' : `1px solid ${selectedCountryColor}`}; background-color: {ship['Total Passengers'] ? selectedCountryColor : 'unset'}; opacity: {getOpacity(ship['Total Passengers'])}"
+                on:click={() => selectShip(ship, index)}
+            ></div>
+        {/each}
+    </div>
     {#if selectedShip !== null}
         <div id="voyage-details" transition:slide="{{ duration: 500 }}">
             <h3>The {filteredByYearShipData[selectedShip]['Name of Ship']}</h3>
@@ -229,27 +260,53 @@
             <p></p>
         </div>
     {/if}
-    
-    <div id="units">
-        {#each filteredByYearShipData as ship, index}
-            <div
-                class="ship"
-                style="background-color: {selectedCountryColor}; opacity: {getOpacity(ship['Total Passengers'])}"
-                on:click={() => selectShip(ship, index)}
-            ></div>
-        {/each}
-    </div>
 
-    <div>
-        <span>Show voyages until: {selectedYear}</span>
-        <input type="range" min="{minYear}" max="{maxYear}" bind:value="{selectedYear}" style="width:100%;" />
-    </div>
-</div>
 
 <hr>
 {/if}
 
 <style>
+
+    #dot-settings{
+        display:grid;
+        grid-template-columns:3fr 5fr;
+        gap:30px;
+        align-items: center;
+    }
+
+    #passenger-amounts{
+        width:100%;
+        display:flex;
+        justify-content: space-between;
+    }
+
+    #dot-gradient {
+        width:100%;
+        height:15px;
+    }
+
+    .dot-legend-label{
+        display:flex;
+        flex-direction: column;
+        gap:5px;
+        width:100%;
+        justify-content: center;
+    }
+    .dot-legend-label.row{
+        flex-direction: row;
+        justify-content: flex-start;
+        gap:8px;
+
+    }
+
+    #dot-legend{
+        background-color:white;
+        display:flex;
+        flex-direction: column;
+        gap:15px;
+    }
+
+
 
     .emphasis {
         color:#E54F6D;

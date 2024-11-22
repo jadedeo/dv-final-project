@@ -1,4 +1,4 @@
-export const northCentralAmerica = [
+export const northCentralAmericaCountries = [
   "Belize",
   "Costa Rica",
   "El Salvador",
@@ -9,7 +9,7 @@ export const northCentralAmerica = [
   "Panama",
 ];
 
-export const southAmerica = [
+export const southAmericaCountries = [
   "Argentina",
   "Bolivia",
   "Brazil",
@@ -17,22 +17,28 @@ export const southAmerica = [
   "Colombia",
   "Ecuador",
   "French Guiana",
+  "Guyana",
   "Paraguay",
   "Peru",
+  "Suriname",
   "Uruguay",
   "Venezuela",
 ];
 
-export const caribbean = [
+export const caribbeanCountries = [
   "Antigua and Barbuda",
   "Bahamas",
   "Barbados",
   "Dominica",
   "Dominican Republic",
   "Grenada",
+  "Guyana",
   "Haiti",
+  "Jamaica",
   "Saint Lucia",
   "St. Kitts an Neis",
   "St. Vincent and Grenadines",
+  "Suriname",
+  "Trinidad & Tobago",
   "Venezuela",
 ];
