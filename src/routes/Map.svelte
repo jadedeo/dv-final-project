@@ -6,6 +6,7 @@
     import { countrySummary } from '../lib/countrySummary';
     import * as d3 from 'd3';
     import "../style.css";
+    import Beeswarm from './Beeswarm.svelte';
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiamFkZWRlbyIsImEiOiJjbTJuZzFpYWkwNTdhMmlvbW16bmt3bjlhIn0.QCsOvTO9JomVioOyAgZgPA';
 
@@ -53,7 +54,6 @@
 
         map.on('load', function() {
             countrySummary.forEach(country => {
-                // console.log('COUNTRY', country);
                 const route = routes[country.route].coordinates;
                 const layerId = `route-${country.route}`;
                 map.addLayer({
@@ -83,7 +83,6 @@
                         'visibility': 'visible'
                     },
                     'paint': {
-                        // 'line-color': getLineColor(country.numIndentures),
                         'line-color' : countryColors.get(country.countryName),
                         'line-width' : 6,
                         'line-width': lineThicknessScale(country.numIndentures),
@@ -95,6 +94,7 @@
                     const shipDataAvailable = e.features[0].properties.shipDataAvailable;
                     map.getCanvas().style.cursor = shipDataAvailable ? 'pointer' : 'default';
                     const description = e.features[0].properties.description;
+                    // console.log(description);
                     tooltip.innerHTML = description;
                     tooltip.style.display = 'block';
                     
@@ -135,10 +135,9 @@
     }
     
     $: filteredByYearShipData = filteredShipData.filter(d => {
-        // console.log("d['ArrivalFormatted'].getFullYear()", d['ArrivalFormatted'].getFullYear());
         return d['ArrivalFormatted'] && d['ArrivalFormatted'].getFullYear() <= selectedYear;
     });
-    $: console.log('filteredByYearShipData', filteredByYearShipData);
+    // $: console.log('filteredByYearShipData', filteredByYearShipData);
 
 
     let selectedShip = null;
@@ -149,21 +148,25 @@
     function selectShip(ship, index) {
         selectedShip = index;
         selectedCountry = ship.Country;
-        // console.log('selectedCountry', selectedCountry);
-        // console.log('SELECTED SHIP:', ship, selectedShip);
+
     }
 
     function selectCountry(countryName) {
         // selectedCountryColor = getLineColor(countrySummary.find(c => c.countryName === countryName).numIndentures);
         selectedCountryColor = countryColors.get(countryName);
-        filteredShipData = shipData.filter(d => d.Country === countryName);
+
+        filteredShipData = shipData.filter(d => d.Country === countryName).map(d => ({
+            ...d,
+            'ArrivalYear': d['ArrivalFormatted'].getFullYear(),
+            'Passengers': d['Total Passengers'] ? parseInt(d['Total Passengers'], 10) : 10
+        }));
         selectedCountry = countryName;  // This ensures we keep track of the current selected country
     }
 
-    function scrollTo(node) {
-        // console.log('HERE');
-        node.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // function scrollTo(node) {
+    //     // console.log('HERE');
+    //     node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // }
 
     $: gradientStyle = `background-image: linear-gradient(to right, ${selectedCountryColor}33, ${selectedCountryColor})`;
 
@@ -197,14 +200,15 @@
 </div>
 
 {#if filteredShipData.length > 0}
-<div id="ship-list-info" use:scrollTo>
+
+<Beeswarm data={filteredShipData} />
+
+<!-- use:scrollTo -->
+<div id="ship-list-info" >
     <div class="header-and-paragraphs">
         <div>
             <h2>Voyages Destined for {filteredByYearShipData[0]['Country']}</h2>
-            <h4>Each of the dots below represents a single ship, most carrying hundreds of people.</h4>
         </div>
-        
-        <p>Mauris auctor aliquam cursus. Praesent id vehicula est. Maecenas ut eros enim. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec euismod dui, et maximus velit. Donec nec consequat libero.</p>
     </div>
 
 
@@ -213,7 +217,7 @@
         <div id="dot-legend">
             <div class="dot-legend-label row">
                 <div class="ship" style=" background-color:unset; {`border: 1px solid ${selectedCountryColor}`}"></div>
-                <p>Passenger information unavailable</p>
+                <p>Passenger Information Unavailable</p>
             </div>
             <div class="dot-legend-label">
                 <div id="dot-gradient" style={gradientStyle}></div>
@@ -239,6 +243,8 @@
         {/each}
     </div>
     {#if selectedShip !== null}
+
+
         <div id="voyage-details" transition:slide="{{ duration: 500 }}">
             <h3>The {filteredByYearShipData[selectedShip]['Name of Ship']}</h3>
 
@@ -260,9 +266,6 @@
             <p></p>
         </div>
     {/if}
-
-
-<hr>
 {/if}
 
 <style>

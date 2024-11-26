@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
   
-    let dots = new Array(50).fill(false);
+    let dots = new Array(100).fill(false);
     let hoverIndex = -1;
     let indexClicked = null;
     let locked = false;
@@ -32,7 +32,7 @@
     };
   
     onMount(() => {
-      dots = new Array(50).fill(false);
+      dots = new Array(100).fill(false);
     });
   </script>
   
@@ -74,7 +74,7 @@
     </div>
 
     <div>
-        <p>{showAnswerGrid ? "You Guessed" : "Your Guess"}: {hoverIndex + 1} males to {50-(hoverIndex + 1)} females </p>
+        <p>{showAnswerGrid ? "You Guessed" : "Your Guess"}: {hoverIndex + 1} males to {100-(hoverIndex + 1)} females </p>
         {#if locked && !showAnswerGrid}
             <button on:click = {() => showAnswer()}>Show Correct Answer</button>
         {/if}
@@ -85,7 +85,8 @@
     #dot-grids{
         display:flex;
         gap:25px;
-
+        max-height:400px;
+        justify-content:center;
     }
     .dot {
         width: 100%;
@@ -93,12 +94,19 @@
         border-radius: 50%;
         cursor: pointer;
     }
+
+    #dots{
+        max-width:400px;
+        /* height:500px; */
+    }
     
     .grid {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         gap: 8px;
         width: 100%;
-        margin: 20px auto;
+        /* margin: 20px auto; */
+        max-height:400px;
+
     }
 </style>

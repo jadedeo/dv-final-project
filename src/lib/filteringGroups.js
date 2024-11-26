@@ -29,6 +29,7 @@ export const caribbeanCountries = [
   "Antigua and Barbuda",
   "Bahamas",
   "Barbados",
+  "Cuba",
   "Dominica",
   "Dominican Republic",
   "Grenada",
@@ -36,9 +37,30 @@ export const caribbeanCountries = [
   "Haiti",
   "Jamaica",
   "Saint Lucia",
-  "St. Kitts an Neis",
+  "St. Kitts and Nevis",
   "St. Vincent and Grenadines",
   "Suriname",
   "Trinidad & Tobago",
   "Venezuela",
+];
+
+export const westAfrica = [
+  "Senegal",
+  "Gambia",
+  "Ivory Coast",
+  "Ghana",
+  "Benin",
+  "Togo",
+  "Nigeria",
+];
+
+export const southAsia = [
+  "India",
+  "Pakistan",
+  "Bangladesh",
+  "Nepal",
+  "Afghanistan",
+  "Bhutan",
+  "Sri Lanka",
+  "Maldives",
 ];

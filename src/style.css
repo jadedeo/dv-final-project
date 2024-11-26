@@ -47,3 +47,8 @@ hr {
   flex-direction: column;
   gap: 15px;
 }
+
+.sources,
+.sources a {
+  color: gray;
+}

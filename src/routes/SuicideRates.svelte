@@ -46,7 +46,7 @@
             averageRate: d3.mean(years, ([, data]) => (data.suicides / data.population) * 100000)
         }));
 
-        console.log('countryRates', countryRates);
+        // console.log('countryRates', countryRates);
 
         if(radioSelected == 'top50'){
             processedData = countryRates.sort((a, b) => b.averageRate - a.averageRate).slice(0, 50);
@@ -93,7 +93,7 @@
     });
 
     $: if (radioSelected && suicideData.length > 0) {
-        console.log('triggered');
+        // console.log('triggered');
         processAndDraw();
     }
 
@@ -166,7 +166,7 @@
                     .style('left', event.pageX + 'px')
                     .style('top', event.pageY + 'px')
                     .style('visibility', 'visible')
-                    .html(`${d.country}<br>Year: ${yearData.year}<br>Rate: ${yearData.rate.toFixed(2)}`);
+                    .html(`<strong>${d.country}</strong><br>Year: ${yearData.year}<br>Rate: ${yearData.rate.toFixed(2)}`);
             })
             .on('mouseout', function(event, d) {
                 d3.select(this).attr('stroke', summaryCountries.has(d.country) ? countryColors.get(d.country) : colorFallback);
@@ -240,7 +240,7 @@
             .attr('fill', 'none')
             .attr('stroke', countryColors.get(selectedData.country)) // Use a different color if needed
             .style("stroke-dasharray", rateType === 'overallRate' ? "0" : `${2 * i + 3}, ${2 * i + 3}`)
-            .attr('stroke-width', 2)
+            .attr('stroke-width', 4)
             .attr('d', line)
             .on('mousemove', function (event, d) {
                 const pointer = d3.pointer(event, this);
@@ -276,31 +276,42 @@
     }
 </script>
 
+<hr>
+
 <div class="header-and-paragraphs">
     <h3>Prevalence of Suicide</h3>
     <p>Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo. Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est vitae maximus faucibus.</p>
 </div>
 
-<h4>Average Suicide Rates per 100k, 1986-2016</h4>
+<div>
+    <h4>Average Suicide Rates per 100k, 1986-2016</h4>
+    <small class="sources">Source: Suicide Rates Overview 1985 to 2016, <a href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv">Kraggle</a></small>
+</div>
+
 <div id="controls">
     {#if countrySelected}
         <button on:click={handleGoBack}>GO BACK</button>
     {:else}
-        <div id="controls-radios">
-            <label>
-                <input checked={radioSelected==="top25"} on:change={onChange} type="radio" name="amount" value="top25" /> Top 25
+        <div class="radio-inputs">
+            <label class="radio">
+                <input type="radio" name="radio" bind:group={radioSelected} value="top25" on:change={onChange}>
+                <span class="name">Top 25</span>
             </label>
-            <label>
-                <input checked={radioSelected==="top50"} on:change={onChange} type="radio" name="amount" value="top50" /> Top 50
+            <label class="radio">
+                <input type="radio" name="radio" bind:group={radioSelected} value="top50" on:change={onChange}>
+                <span class="name">Top 50</span>
             </label>
-            <label>
-                <input checked={radioSelected==="countriesInterest"} on:change={onChange} type="radio" name="amount" value="countriesInterest" /> Countries of Interest Only
+            <label class="radio">
+                <input type="radio" name="radio" bind:group={radioSelected} value="countriesInterest" on:change={onChange}>
+                <span class="name">Countries of Interest Only</span>
             </label>
-            <label>
-                <input checked={radioSelected==='caribbean'} on:change={onChange} type="radio" name="amount" value="caribbean" /> All Caribbean
+            <label class="radio">
+                <input type="radio" name="radio" bind:group={radioSelected} value="caribbean" on:change={onChange}>
+                <span class="name">Caribbean Only</span>
             </label>
-            <label>
-                <input checked={radioSelected==='southAmerica'} on:change={onChange} type="radio" name="amount" value="southAmerica" /> All South America
+            <label class="radio">
+                <input type="radio" name="radio" bind:group={radioSelected} value="southAmerica" on:change={onChange}>
+                <span class="name">South America Only</span>
             </label>
         </div>
     {/if}
@@ -327,5 +338,50 @@
         display:flex;
         gap:15px;
     }
+
+    /* ANIMATIONS? */
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #eee;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 100%;
+  font-size: 14px;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all 0.15s ease-in-out;
+}
+
+.radio-inputs .radio .name:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
+}
+
 
 </style>
