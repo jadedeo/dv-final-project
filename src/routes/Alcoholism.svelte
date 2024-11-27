@@ -48,6 +48,8 @@
         const width = 800 - margin.left - margin.right;
         const height = 500 - margin.top - margin.bottom;
 
+        
+
         const xScale = d3.scaleLinear()
             .domain([0, 3.5/*d3.max(filteredData, d => d.Female)*/])
             .range([0, width]);
@@ -65,6 +67,21 @@
 
         const g = svg.append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+            const yAxisGridlines = d3.axisLeft(yScale)
+            .tickSize(-width)
+            .tickFormat('')
+            .ticks(height / 50);
+
+        g.append('g')
+            .attr('class', 'grid')
+            .call(yAxisGridlines)
+            .selectAll('line')
+            .style('stroke', '#ddd')
+            .style('stroke-opacity', 0.7);
+
+        g.select('.grid path')
+            .style('stroke-width', 0);
 
         // Draw the X-axis
         g.append('g')

@@ -95,6 +95,10 @@
         processAndDraw();
     }
 
+    const margin = { top: 20, right: 30, bottom: 50, left: 80 };
+    const width = 800 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+
     function drawMainChart() {
 
         if (!processedData.length) return;
@@ -109,9 +113,7 @@
             .attr('viewBox', '0 0 800 500')
             .append('g');
 
-        const margin = { top: 20, right: 30, bottom: 50, left: 80 };
-        const width = 800 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
+
 
         const g = svg.append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
@@ -126,6 +128,21 @@
         const yScale = d3.scaleLinear()
             .domain([yMin > 0 ? yMin * 0.9 : yMin * 1.1, yMax * 1.1])
             .range([height, 0]);
+
+        const yAxisGridlines = d3.axisLeft(yScale)
+            .tickSize(-width)
+            .tickFormat('')
+            .ticks(height / 50);
+
+        g.append('g')
+            .attr('class', 'grid')
+            .call(yAxisGridlines)
+            .selectAll('line')
+            .style('stroke', '#ddd')
+            .style('stroke-opacity', 0.7);
+
+        svg.select('.grid path')
+            .style('stroke-width', 0);
 
         const line = d3.line()
             .defined(d => d.rate !== null)  
@@ -222,27 +239,38 @@
             .attr('viewBox', '0 0 800 500')
             .append('g');
 
-        const margin = { top: 20, right: 30, bottom: 50, left: 60 };
-        const width = 800 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
-
         const g = svg.append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-        const x = d3.scaleLinear()
+        const xScale = d3.scaleLinear()
             .domain(d3.extent(dataForChart, d => d.year))
             .range([0, width]);
 
-        const y = d3.scaleLinear()
+        const yScale = d3.scaleLinear()
             .domain([0, d3.max(dataForChart, d => Math.max(d.maleRate, d.femaleRate))])
             .range([height, 0]);
 
-        g.append('g')
-            .attr('transform', `translate(0,${height})`)
-            .call(d3.axisBottom(x).tickFormat(d3.format('d')));
+        const yAxisGridlines = d3.axisLeft(yScale)
+            .tickSize(-width)
+            .tickFormat('')
+            .ticks(height / 50);
 
         g.append('g')
-            .call(d3.axisLeft(y));
+            .attr('class', 'grid')
+            .call(yAxisGridlines)
+            .selectAll('line')
+            .style('stroke', '#ddd')
+            .style('stroke-opacity', 0.7);
+
+        svg.select('.grid path')
+            .style('stroke-width', 0);
+
+        g.append('g')
+            .attr('transform', `translate(0,${height})`)
+            .call(d3.axisBottom(xScale).tickFormat(d3.format('d')));
+
+        g.append('g')
+            .call(d3.axisLeft(yScale));
         
         svg.append('text')
         .attr('text-anchor', 'middle')
@@ -260,8 +288,8 @@
         ['maleRate', 'femaleRate', 'overallRate'].forEach((rateType, i) => {
         const line = d3.line()
             .defined(d => !isNaN(d[rateType]))
-            .x(d => x(d.year))
-            .y(d => y(d[rateType]));
+            .x(d => xScale(d.year))
+            .y(d => yScale(d[rateType]));
 
         g.append('path')
             .datum(dataForChart)
@@ -272,7 +300,7 @@
             .attr('d', line)
             .on('mousemove', function (event, d) {
                 const pointer = d3.pointer(event, this);
-                const x0 = x.invert(pointer[0]);
+                const x0 = xScale.invert(pointer[0]);
                 const bisect = d3.bisector(d => d.year).left;
                 const idx = bisect(dataForChart, x0, 1);
                 const a = dataForChart[idx - 1];
@@ -285,8 +313,8 @@
                     .style('top', `${event.pageY}px`)
                     .style('visibility', 'visible')
                     .html(`
-                        <strong>${selectedData.country}</strong><br>
-                        Year: ${yearData.year}<br>
+                        <strong>${selectedData.country}</strong>
+                        (${yearData.year})<br>
                         Male Rate: ${yearData.maleRate.toFixed(2)}<br>
                         Female Rate: ${yearData.femaleRate.toFixed(2)}<br>
                         Overall Rate: ${yearData.overallRate.toFixed(2)}
@@ -409,6 +437,5 @@
   background-color: #fff;
   font-weight: 600;
 }
-
 
 </style>
