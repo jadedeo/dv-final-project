@@ -7,7 +7,6 @@
     let suicideData = [];
     let processedData = [];
     let genderSpecificData = {};
-    let svgElement;
     let countrySelected = false;
     let topCutoff = 25;
     const summaryCountries = new Set(countrySummary.map(entry => entry.countryName));
@@ -93,52 +92,67 @@
     });
 
     $: if (radioSelected && suicideData.length > 0) {
-        // console.log('triggered');
         processAndDraw();
     }
 
     function drawMainChart() {
-        d3.select(svgElement).selectAll('*').remove();
 
         if (!processedData.length) return;
 
         const colorFallback = '#e0e0e0';
         const hoverColor = '#707070';
 
-        const margin = {top: 20, right: 30, bottom: 30, left: 60},
-            width = 800 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+        const svgElement = document.getElementById('suicideChart');
+        svgElement.innerHTML = '';
 
         const svg = d3.select(svgElement)
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', `translate(${margin.left},${margin.top})`);
+            .attr('viewBox', '0 0 800 500')
+            .append('g');
 
-        const x = d3.scaleLinear()
+        const margin = { top: 20, right: 30, bottom: 50, left: 80 };
+        const width = 800 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const g = svg.append('g')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+        const xScale = d3.scaleLinear()
             .domain(d3.extent(processedData.flatMap(c => c.years), d => d.year))
             .range([0, width]);
 
         const yMin = d3.min(processedData, c => d3.min(c.years, d => d.rate));
         const yMax = d3.max(processedData, c => d3.max(c.years, d => d.rate));
 
-        const y = d3.scaleLinear()
+        const yScale = d3.scaleLinear()
             .domain([yMin > 0 ? yMin * 0.9 : yMin * 1.1, yMax * 1.1])
             .range([height, 0]);
 
         const line = d3.line()
             .defined(d => d.rate !== null)  
-            .x(d => x(d.year))
-            .y(d => y(d.rate));
+            .x(d => xScale(d.year))
+            .y(d => yScale(d.rate));
 
-        svg.append('g')
+        g.append('g')
             .attr('transform', `translate(0,${height})`)
-            .call(d3.axisBottom(x).tickFormat(d3.format('d')));
+            .call(d3.axisBottom(xScale).ticks(width / 50).tickFormat(d => d));
 
-        svg.append('g')
-            .call(d3.axisLeft(y));
+        g.append('g')
+            .call(d3.axisLeft(yScale).ticks(height / 50).tickFormat(d => d));
 
-        const lines = svg.selectAll('.line')
+        svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('x', width / 2 + margin.left)
+        .attr('y', height + margin.top + 40)
+        .text('Year');
+
+        svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', margin.left / 4)
+        .attr('x', -(margin.top + height / 2))
+        .text('Rate per 100k');
+
+        const lines = g.selectAll('.line')
             .data(processedData)
             .enter()
             .append('path')
@@ -154,7 +168,7 @@
             })
             .on('mousemove', function(event, d) {
                 const pointer = d3.pointer(event, this);
-                const x0 = x.invert(pointer[0]);
+                const x0 = xScale.invert(pointer[0]);
                 const bisect = d3.bisector(d => d.year).left;
                 const idx = bisect(d.years, x0, 1);
                 const a = d.years[idx - 1];
@@ -183,8 +197,8 @@
     }
 
     function drawRatesBySexChart(selectedData) {
-        // console.log("overall:", selectedData);
-        d3.select(svgElement).selectAll('*').remove();
+        const svgElement = document.getElementById('suicideChart');
+        svgElement.innerHTML = '';
 
         const countryData =  genderSpecificData.find((item) => item.country == selectedData.country);
 
@@ -204,15 +218,16 @@
 
         // console.log('dataForChart', dataForChart);
 
-        const margin = {top: 20, right: 20, bottom: 30, left: 50},
-            width = 800 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
-
         const svg = d3.select(svgElement)
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', `translate(${margin.left},${margin.top})`);
+            .attr('viewBox', '0 0 800 500')
+            .append('g');
+
+        const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+        const width = 800 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        const g = svg.append('g')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
         const x = d3.scaleLinear()
             .domain(d3.extent(dataForChart, d => d.year))
@@ -222,23 +237,36 @@
             .domain([0, d3.max(dataForChart, d => Math.max(d.maleRate, d.femaleRate))])
             .range([height, 0]);
 
-        svg.append('g')
+        g.append('g')
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(x).tickFormat(d3.format('d')));
 
-        svg.append('g')
+        g.append('g')
             .call(d3.axisLeft(y));
+        
+        svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('x', width / 2 + margin.left)
+        .attr('y', height + margin.top + 40)
+        .text('Year');
 
-            ['maleRate', 'femaleRate', 'overallRate'].forEach((rateType, i) => {
+        svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', margin.left / 4)
+        .attr('x', -(margin.top + height / 2))
+        .text('Rate per 100k');
+
+        ['maleRate', 'femaleRate', 'overallRate'].forEach((rateType, i) => {
         const line = d3.line()
             .defined(d => !isNaN(d[rateType]))
             .x(d => x(d.year))
             .y(d => y(d[rateType]));
 
-        svg.append('path')
+        g.append('path')
             .datum(dataForChart)
             .attr('fill', 'none')
-            .attr('stroke', countryColors.get(selectedData.country)) // Use a different color if needed
+            .attr('stroke', countryColors.get(selectedData.country))
             .style("stroke-dasharray", rateType === 'overallRate' ? "0" : `${2 * i + 3}, ${2 * i + 3}`)
             .attr('stroke-width', 4)
             .attr('d', line)
@@ -257,7 +285,7 @@
                     .style('top', `${event.pageY}px`)
                     .style('visibility', 'visible')
                     .html(`
-                        ${selectedData.country}<br>
+                        <strong>${selectedData.country}</strong><br>
                         Year: ${yearData.year}<br>
                         Male Rate: ${yearData.maleRate.toFixed(2)}<br>
                         Female Rate: ${yearData.femaleRate.toFixed(2)}<br>
@@ -318,9 +346,8 @@
 </div>
 
 <div>
-    
-<svg id="suicideChart" bind:this={svgElement}></svg>
-<div id="tooltipSuicide" style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></div>
+    <svg id="suicideChart"></svg>
+    <div id="tooltipSuicide" style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></div>
 </div>
 
 

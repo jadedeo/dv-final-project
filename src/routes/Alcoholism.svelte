@@ -49,23 +49,22 @@
         const height = 500 - margin.top - margin.bottom;
 
         const xScale = d3.scaleLinear()
-                        .domain([0, 3.5/*d3.max(filteredData, d => d.Female)*/])
-                        .range([0, width]);
+            .domain([0, 3.5/*d3.max(filteredData, d => d.Female)*/])
+            .range([0, width]);
 
         const yScale = d3.scaleLinear()
-                        .domain([0, 16 /*d3.max(filteredData, d => d.Male)*/])
-                        .range([height, 0]);
-
+            .domain([0, 16 /*d3.max(filteredData, d => d.Male)*/])
+            .range([height, 0]);
 
         const populationExtent = d3.extent(filteredData, d => +d.Population);
         // console.log('Population Extent:', populationExtent);
 
         const populationScale = d3.scaleSqrt()
-                .domain(populationExtent)
-                .range([8, 20]); 
+            .domain(populationExtent)
+            .range([8, 20]); 
 
         const g = svg.append('g')
-                    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+            .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
         // Draw the X-axis
         g.append('g')
@@ -104,10 +103,9 @@
         .attr('stroke', 'gray')
         .attr('opacity', 0.7)
         .on('mouseover', function(event, d) {
-            console.log('HOVERING', d, event)
+            // console.log('HOVERING', d, event)
             const description = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
             tooltip.innerHTML = description;
-            
             tooltip.style.display = 'block';
             
             const xOffset = 10;
