@@ -87,7 +87,7 @@
       case "symbol":
         return ["icon-opacity", "text-opacity"];
       default:
-        return null; // Unsupported layer type
+        return null;
     }
   }
 
@@ -110,25 +110,17 @@
   <div id="container">
     <div id="map"></div>
     <div id="story">
-      <div id="features">
-        <div class="chapter-content">
-          <h3>{config.chapters[currentChapterIndex]?.title}</h3>
-          <p>{@html config.chapters[currentChapterIndex]?.description}</p>
-        </div>
-      </div>
-      <div class="controls">
-        <button
-          on:click={goToPreviousChapter}
-          disabled={currentChapterIndex === 0}
+      <h3>{config.chapters[currentChapterIndex]?.title}</h3>
+      <p>{@html config.chapters[currentChapterIndex]?.description}</p>
+      <div class="map-nav-buttons">
+        {#if currentChapterIndex > 0}
+          <button on:click={goToPreviousChapter}>Previous</button>
+        {/if}
+        <button on:click={goToNextChapter}
+          >{currentChapterIndex == config.chapters.length - 1
+            ? "Next Section"
+            : "Next"}</button
         >
-          Previous
-        </button>
-        <button
-          on:click={goToNextChapter}
-          disabled={currentChapterIndex === config.chapters.length - 1}
-        >
-          Next
-        </button>
       </div>
     </div>
   </div>
@@ -151,36 +143,39 @@
   }
 
   #story {
-    position: relative;
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
     z-index: 5;
-    width: 50%;
+    width: 30%;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
   }
 
-  .chapter-content {
-    margin-bottom: 1rem;
-  }
-
-  .controls {
+  .map-nav-buttons {
     display: flex;
     justify-content: space-between;
   }
 
   button {
-    background-color: #0071bc;
-    color: white;
+    background-color: #eee;
+    color: rgb(51, 65, 85);
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    width: 100px;
   }
 
   button:disabled {
-    background-color: #ccc;
+    background-color: white;
     cursor: not-allowed;
+    color: rgb(200, 200, 200);
   }
 </style>

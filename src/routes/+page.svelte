@@ -1,14 +1,13 @@
 <script>
   import NewMap from "./NewMap.svelte";
-  import Map from "./Map.svelte";
-  import SuicideRates from "./SuicideRates.svelte";
+  import ShipLists from "./ShipLists.svelte";
+  import Suicide from "./Suicide.svelte";
   import IPV from "./IPV.svelte";
   import Alcoholism from "./Alcoholism.svelte";
   import "../style.css";
 
   const config = {
     style: "mapbox://styles/jadedeo/cm40cifbq00j101qr1z6hh9wb",
-    // leave commented to use Mapbox Standard Style
     accessToken:
       "pk.eyJ1IjoiamFkZWRlbyIsImEiOiJjbTJuZzFpYWkwNTdhMmlvbW16bmt3bjlhIn0.QCsOvTO9JomVioOyAgZgPA",
     showMarkers: false,
@@ -67,7 +66,6 @@
         alignment: "left",
         hidden: false,
         title: "Ports of Departure",
-        //   image: "./assets/washington-dc.jpg",
         description:
           "Ships carrying laborers to the colonies departed from either Madras (now Chennai), Tamil Nadu or Kolkata, West Bengal.",
         location: {
@@ -91,7 +89,7 @@
         title: "Geneva",
         image: "./assets/geneva.jpg",
         description:
-          "Geneva, Switzerland, is a picturesque city nestled along the shores of Lake Geneva, surrounded by the Alps and Jura mountains. Known as a global hub for diplomacy and finance, it is home to numerous international organizations, including the United Nations and the Red Cross.",
+          "Geneva, Switzerland, is a picturesque city nestled along the shores of Lake Geneva, surrounded by the Alps and Jura mountains.",
         location: {
           center: [6.15116, 46.20595],
           zoom: 12.52,
@@ -111,7 +109,7 @@
         title: "Buenos Aires",
         image: "./assets/buenos-aires.jpg",
         description:
-          'Buenos Aires, the capital of Argentina, is a dynamic city known for its European-inspired architecture, vibrant tango culture, and rich culinary scene. Often called the "Paris of South America," it blends historic charm with modern energy.  You can add as many chapters as you need, just copy the JSON data and make changes.',
+          'Buenos Aires, the capital of Argentina, is a dynamic city known for its European-inspired architecture, vibrant tango culture, and rich culinary scene. Often called the "Paris of South America," it blends historic charm with modern energy.',
         location: {
           center: [-58.54195, -34.716],
           zoom: 4,
@@ -127,18 +125,25 @@
     ],
   };
 
-  function navigateToMap() {}
+  function navigateToMap() {
+    const mapSection = document.getElementById("map-section");
+    if (mapSection) {
+      mapSection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 </script>
 
 <div class="main-container">
   <div class="intro-section">
     <h1>[Final Project Title Here]</h1>
-    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit nunc
-      sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum venenatis
-      et, vehicula ac ex.
-    </p>
+    <div>
+      <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit
+        nunc sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum
+        venenatis et, vehicula ac ex.
+      </p>
+    </div>
     <button on:click={navigateToMap}>Start</button>
   </div>
 
@@ -147,7 +152,8 @@
   </div>
 
   <div class="additional-sections">
-    <SuicideRates />
+    <ShipLists />
+    <Suicide />
     <Alcoholism />
     <IPV />
   </div>
@@ -159,19 +165,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    row-gap: 25px;
   }
 
   .map-section {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full viewport height for map scrolling */
+    height: 100vh;
     margin: 0;
   }
 
   .intro-section,
   .additional-sections {
     margin: 0;
-    /* background-color: pink; */
     padding: 0 10%;
+  }
+
+  button {
+    color: rgb(51, 65, 85);
+    background-color: #eeeeee;
+    border: 0;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
   }
 </style>

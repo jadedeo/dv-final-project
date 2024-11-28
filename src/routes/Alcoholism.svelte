@@ -52,18 +52,11 @@
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, 3.5 /*d3.max(filteredData, d => d.Female)*/])
-      .range([0, width]);
+    const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
 
-    const yScale = d3
-      .scaleLinear()
-      .domain([0, 16 /*d3.max(filteredData, d => d.Male)*/])
-      .range([height, 0]);
+    const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
 
     const populationExtent = d3.extent(filteredData, (d) => +d.Population);
-    // console.log('Population Extent:', populationExtent);
 
     const populationScale = d3
       .scaleSqrt()
@@ -183,7 +176,7 @@
     <label class="radio">
       <input
         type="radio"
-        name="radio"
+        name="alcoholismRadio"
         bind:group={year}
         value="2000"
         on:change={() => filterByYear()}
@@ -193,7 +186,7 @@
     <label class="radio">
       <input
         type="radio"
-        name="radio"
+        name="alcoholismRadio"
         bind:group={year}
         value="2005"
         on:change={() => filterByYear()}
@@ -204,7 +197,7 @@
     <label class="radio">
       <input
         type="radio"
-        name="radio"
+        name="alcoholismRadio"
         bind:group={year}
         value="2010"
         on:change={() => filterByYear()}
@@ -215,7 +208,7 @@
     <label class="radio">
       <input
         type="radio"
-        name="radio"
+        name="alcoholismRadio"
         bind:group={year}
         value="2015"
         on:change={() => filterByYear()}
@@ -226,7 +219,7 @@
     <label class="radio">
       <input
         type="radio"
-        name="radio"
+        name="alcoholismRadio"
         bind:group={year}
         value="2019"
         on:change={() => filterByYear()}

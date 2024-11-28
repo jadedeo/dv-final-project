@@ -99,6 +99,15 @@
 </section>
 
 <style>
+  button {
+    color: rgb(51, 65, 85);
+    background-color: #eeeeee;
+    border: 0;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
   #guess-and-actual.two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;

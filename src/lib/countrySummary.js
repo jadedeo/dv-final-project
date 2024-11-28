@@ -21,7 +21,7 @@ export const countrySummary = [
     numIndentures: 144000,
     route: "indiaToTrinidad",
     shipDataAvailable: true,
-    color: "#ff8c21",
+    color: "#FF7F50",
   },
   {
     countryName: "Jamaica",

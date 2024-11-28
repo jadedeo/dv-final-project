@@ -413,7 +413,7 @@
 
 <section id="suicide-section">
   <div class="header-and-paragraphs">
-    <h3>Prevalence of Suicide</h3>
+    <h3>Suicide</h3>
     <p>
       Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
       placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
@@ -442,7 +442,7 @@
         <label class="radio">
           <input
             type="radio"
-            name="radio"
+            name="suicideRadio"
             bind:group={radioSelected}
             value="top25"
             on:change={onChange}
@@ -452,7 +452,7 @@
         <label class="radio">
           <input
             type="radio"
-            name="radio"
+            name="suicideRadio"
             bind:group={radioSelected}
             value="top50"
             on:change={onChange}
@@ -462,7 +462,7 @@
         <label class="radio">
           <input
             type="radio"
-            name="radio"
+            name="suicideRadio"
             bind:group={radioSelected}
             value="countriesInterest"
             on:change={onChange}
@@ -472,7 +472,7 @@
         <label class="radio">
           <input
             type="radio"
-            name="radio"
+            name="suicideRadio"
             bind:group={radioSelected}
             value="caribbean"
             on:change={onChange}
@@ -482,7 +482,7 @@
         <label class="radio">
           <input
             type="radio"
-            name="radio"
+            name="suicideRadio"
             bind:group={radioSelected}
             value="southAmerica"
             on:change={onChange}
