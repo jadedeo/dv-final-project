@@ -159,94 +159,96 @@
   }
 </script>
 
-<div class="header-and-paragraphs">
-  <h3>Alcoholism</h3>
-  <p>
-    Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
-    placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
-    mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
-    Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
-    elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
-    vitae maximus faucibus.
-  </p>
-</div>
-
-<div>
-  <h4>Alcohol Consumtion Per Capita, 2000-2019</h4>
-  <small class="sources"
-    >Source: Title Here, <a href="/">World Health Organization</a></small
-  >
-</div>
-
-<div class="radio-inputs">
-  <label class="radio">
-    <input
-      type="radio"
-      name="radio"
-      bind:group={year}
-      value="2000"
-      on:change={() => filterByYear()}
-    />
-    <span class="name">2000</span>
-  </label>
-  <label class="radio">
-    <input
-      type="radio"
-      name="radio"
-      bind:group={year}
-      value="2005"
-      on:change={() => filterByYear()}
-    />
-    <span class="name">2005</span>
-  </label>
-
-  <label class="radio">
-    <input
-      type="radio"
-      name="radio"
-      bind:group={year}
-      value="2010"
-      on:change={() => filterByYear()}
-    />
-    <span class="name">2010</span>
-  </label>
-
-  <label class="radio">
-    <input
-      type="radio"
-      name="radio"
-      bind:group={year}
-      value="2015"
-      on:change={() => filterByYear()}
-    />
-    <span class="name">2015</span>
-  </label>
-
-  <label class="radio">
-    <input
-      type="radio"
-      name="radio"
-      bind:group={year}
-      value="2019"
-      on:change={() => filterByYear()}
-    />
-    <span class="name">2019</span>
-  </label>
-</div>
-
-<div>
-  <svg id="chart"></svg>
-  <div
-    id="tooltipAlcoholism"
-    style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1;"
-  >
-    Tooltip Content
+<section id="alcoholism-section">
+  <div class="header-and-paragraphs">
+    <h3>Alcoholism</h3>
+    <p>
+      Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
+      placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
+      mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
+      Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
+      elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
+      vitae maximus faucibus.
+    </p>
   </div>
-</div>
+
+  <div>
+    <h4>Alcohol Consumtion Per Capita, 2000-2019</h4>
+    <small class="sources"
+      >Source: Title Here, <a href="/">World Health Organization</a></small
+    >
+  </div>
+
+  <div class="radio-inputs">
+    <label class="radio">
+      <input
+        type="radio"
+        name="radio"
+        bind:group={year}
+        value="2000"
+        on:change={() => filterByYear()}
+      />
+      <span class="name">2000</span>
+    </label>
+    <label class="radio">
+      <input
+        type="radio"
+        name="radio"
+        bind:group={year}
+        value="2005"
+        on:change={() => filterByYear()}
+      />
+      <span class="name">2005</span>
+    </label>
+
+    <label class="radio">
+      <input
+        type="radio"
+        name="radio"
+        bind:group={year}
+        value="2010"
+        on:change={() => filterByYear()}
+      />
+      <span class="name">2010</span>
+    </label>
+
+    <label class="radio">
+      <input
+        type="radio"
+        name="radio"
+        bind:group={year}
+        value="2015"
+        on:change={() => filterByYear()}
+      />
+      <span class="name">2015</span>
+    </label>
+
+    <label class="radio">
+      <input
+        type="radio"
+        name="radio"
+        bind:group={year}
+        value="2019"
+        on:change={() => filterByYear()}
+      />
+      <span class="name">2019</span>
+    </label>
+  </div>
+
+  <div>
+    <svg id="chart"></svg>
+    <div
+      id="tooltipAlcoholism"
+      style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1;"
+    >
+      Tooltip Content
+    </div>
+  </div>
+</section>
 
 <style>
   /* ANIMATIONS? */
-  .radio-inputs {
+  #alcoholism-section .radio-inputs {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -259,16 +261,16 @@
     font-size: 14px;
   }
 
-  .radio-inputs .radio {
+  #alcoholism-section .radio-inputs .radio {
     flex: 1 1 auto;
     text-align: center;
   }
 
-  .radio-inputs .radio input {
+  #alcoholism-section .radio-inputs .radio input {
     display: none;
   }
 
-  .radio-inputs .radio .name {
+  #alcoholism-section .radio-inputs .radio .name {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -280,11 +282,11 @@
     transition: all 0.15s ease-in-out;
   }
 
-  .radio-inputs .radio .name:hover {
+  #alcoholism-section .radio-inputs .radio .name:hover {
     background-color: rgb(219, 219, 219);
   }
 
-  .radio-inputs .radio input:checked + .name {
+  #alcoholism-section .radio-inputs .radio input:checked + .name {
     background-color: #fff;
     font-weight: 600;
   }

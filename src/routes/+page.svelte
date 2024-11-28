@@ -53,6 +53,7 @@
             opacity: 1,
             duration: 500,
           },
+          { layer: "indiaports-9jzlwj", opacity: 0 },
         ],
         onChapterExit: [
           {
@@ -68,7 +69,7 @@
         title: "Ports of Departure",
         //   image: "./assets/washington-dc.jpg",
         description:
-          "Ships carrying laborers to the colonies departed from either Madra (now Chennai), Tamil Nadu or Kolkata, West Bengal.",
+          "Ships carrying laborers to the colonies departed from either Madras (now Chennai), Tamil Nadu or Kolkata, West Bengal.",
         location: {
           center: [78.14475, 21.69509],
           zoom: 3,
@@ -125,6 +126,8 @@
       },
     ],
   };
+
+  function navigateToMap() {}
 </script>
 
 <div class="main-container">
@@ -136,6 +139,7 @@
       sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum venenatis
       et, vehicula ac ex.
     </p>
+    <button on:click={navigateToMap}>Start</button>
   </div>
 
   <div class="map-section">
@@ -152,6 +156,9 @@
 <style>
   .intro-section {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .map-section {
@@ -164,6 +171,7 @@
   .intro-section,
   .additional-sections {
     margin: 0;
-    background-color: pink;
+    /* background-color: pink; */
+    padding: 0 10%;
   }
 </style>

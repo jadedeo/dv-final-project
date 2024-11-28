@@ -4,7 +4,7 @@ export const countrySummary = [
     geographicRegion: ["South America", "Caribbean"],
     startYear: "1838",
     endYear: "1917",
-    origins: ["Uttar Pradesh", "Bihar"],
+    origins: ["Bhojpur", "Awadh"],
     numVoyages: 534,
     numIndentures: 239000,
     route: "indiaToGuyana",

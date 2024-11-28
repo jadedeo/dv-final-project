@@ -106,31 +106,33 @@
   }
 </script>
 
-<div id="container">
-  <div id="map"></div>
-  <div id="story">
-    <div id="features">
-      <div class="chapter-content">
-        <h3>{config.chapters[currentChapterIndex]?.title}</h3>
-        <p>{@html config.chapters[currentChapterIndex]?.description}</p>
+<section id="map-section">
+  <div id="container">
+    <div id="map"></div>
+    <div id="story">
+      <div id="features">
+        <div class="chapter-content">
+          <h3>{config.chapters[currentChapterIndex]?.title}</h3>
+          <p>{@html config.chapters[currentChapterIndex]?.description}</p>
+        </div>
+      </div>
+      <div class="controls">
+        <button
+          on:click={goToPreviousChapter}
+          disabled={currentChapterIndex === 0}
+        >
+          Previous
+        </button>
+        <button
+          on:click={goToNextChapter}
+          disabled={currentChapterIndex === config.chapters.length - 1}
+        >
+          Next
+        </button>
       </div>
     </div>
-    <div class="controls">
-      <button
-        on:click={goToPreviousChapter}
-        disabled={currentChapterIndex === 0}
-      >
-        Previous
-      </button>
-      <button
-        on:click={goToNextChapter}
-        disabled={currentChapterIndex === config.chapters.length - 1}
-      >
-        Next
-      </button>
-    </div>
   </div>
-</div>
+</section>
 
 <style>
   #container {

@@ -6,7 +6,6 @@
 }
 
 body {
-  /* margin: 100px 10%; */
   background-color: rgb(255, 255, 255);
 }
 
@@ -14,7 +13,6 @@ body,
 .main-container {
   display: flex;
   flex-direction: column;
-  gap: 40px;
 }
 
 hr {
@@ -51,4 +49,15 @@ hr {
 .sources,
 .sources a {
   color: gray;
+}
+
+
+
+#alcoholism-section,
+#ipv-section,
+#suicide-section{
+  display:flex;
+  flex-direction: column;
+  gap:25px;
+  margin:10% 0;
 }

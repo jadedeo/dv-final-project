@@ -64,7 +64,7 @@
                     
                     ${country.numIndentures} indentures
                 `,
-                shipDataAvailable: country.shipDataAvailable,
+                shipDataAvailable: csountry.shipDataAvailable,
               },
               geometry: {
                 type: "LineString",

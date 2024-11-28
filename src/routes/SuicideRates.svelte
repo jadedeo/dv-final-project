@@ -411,96 +411,96 @@
   }
 </script>
 
-<hr />
+<section id="suicide-section">
+  <div class="header-and-paragraphs">
+    <h3>Prevalence of Suicide</h3>
+    <p>
+      Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
+      placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
+      mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
+      Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
+      elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
+      vitae maximus faucibus.
+    </p>
+  </div>
 
-<div class="header-and-paragraphs">
-  <h3>Prevalence of Suicide</h3>
-  <p>
-    Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
-    placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
-    mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
-    Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
-    elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
-    vitae maximus faucibus.
-  </p>
-</div>
+  <div>
+    <h4>Average Suicide Rates per 100k, 1986-2016</h4>
+    <small class="sources"
+      >Source: Suicide Rates Overview 1985 to 2016, <a
+        href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"
+        >Kraggle</a
+      ></small
+    >
+  </div>
 
-<div>
-  <h4>Average Suicide Rates per 100k, 1986-2016</h4>
-  <small class="sources"
-    >Source: Suicide Rates Overview 1985 to 2016, <a
-      href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"
-      >Kraggle</a
-    ></small
-  >
-</div>
+  <div id="controls">
+    {#if countrySelected}
+      <button on:click={handleGoBack}>GO BACK</button>
+    {:else}
+      <div class="radio-inputs">
+        <label class="radio">
+          <input
+            type="radio"
+            name="radio"
+            bind:group={radioSelected}
+            value="top25"
+            on:change={onChange}
+          />
+          <span class="name">Top 25</span>
+        </label>
+        <label class="radio">
+          <input
+            type="radio"
+            name="radio"
+            bind:group={radioSelected}
+            value="top50"
+            on:change={onChange}
+          />
+          <span class="name">Top 50</span>
+        </label>
+        <label class="radio">
+          <input
+            type="radio"
+            name="radio"
+            bind:group={radioSelected}
+            value="countriesInterest"
+            on:change={onChange}
+          />
+          <span class="name">Countries of Interest Only</span>
+        </label>
+        <label class="radio">
+          <input
+            type="radio"
+            name="radio"
+            bind:group={radioSelected}
+            value="caribbean"
+            on:change={onChange}
+          />
+          <span class="name">Caribbean Only</span>
+        </label>
+        <label class="radio">
+          <input
+            type="radio"
+            name="radio"
+            bind:group={radioSelected}
+            value="southAmerica"
+            on:change={onChange}
+          />
+          <span class="name">South America Only</span>
+        </label>
+      </div>
+    {/if}
+  </div>
 
-<div id="controls">
-  {#if countrySelected}
-    <button on:click={handleGoBack}>GO BACK</button>
-  {:else}
-    <div class="radio-inputs">
-      <label class="radio">
-        <input
-          type="radio"
-          name="radio"
-          bind:group={radioSelected}
-          value="top25"
-          on:change={onChange}
-        />
-        <span class="name">Top 25</span>
-      </label>
-      <label class="radio">
-        <input
-          type="radio"
-          name="radio"
-          bind:group={radioSelected}
-          value="top50"
-          on:change={onChange}
-        />
-        <span class="name">Top 50</span>
-      </label>
-      <label class="radio">
-        <input
-          type="radio"
-          name="radio"
-          bind:group={radioSelected}
-          value="countriesInterest"
-          on:change={onChange}
-        />
-        <span class="name">Countries of Interest Only</span>
-      </label>
-      <label class="radio">
-        <input
-          type="radio"
-          name="radio"
-          bind:group={radioSelected}
-          value="caribbean"
-          on:change={onChange}
-        />
-        <span class="name">Caribbean Only</span>
-      </label>
-      <label class="radio">
-        <input
-          type="radio"
-          name="radio"
-          bind:group={radioSelected}
-          value="southAmerica"
-          on:change={onChange}
-        />
-        <span class="name">South America Only</span>
-      </label>
-    </div>
-  {/if}
-</div>
-
-<div>
-  <svg id="suicideChart"></svg>
-  <div
-    id="tooltipSuicide"
-    style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
-  ></div>
-</div>
+  <div>
+    <svg id="suicideChart"></svg>
+    <div
+      id="tooltipSuicide"
+      style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+    ></div>
+  </div>
+</section>
 
 <style>
   #suicideChart {
@@ -517,8 +517,7 @@
     gap: 15px;
   }
 
-  /* ANIMATIONS? */
-  .radio-inputs {
+  #suicide-section .radio-inputs {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -531,16 +530,16 @@
     font-size: 14px;
   }
 
-  .radio-inputs .radio {
+  #suicide-section .radio-inputs .radio {
     flex: 1 1 auto;
     text-align: center;
   }
 
-  .radio-inputs .radio input {
+  #suicide-section .radio-inputs .radio input {
     display: none;
   }
 
-  .radio-inputs .radio .name {
+  #suicide-section .radio-inputs .radio .name {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -552,11 +551,11 @@
     transition: all 0.15s ease-in-out;
   }
 
-  .radio-inputs .radio .name:hover {
+  #suicide-section .radio-inputs .radio .name:hover {
     background-color: rgb(219, 219, 219);
   }
 
-  .radio-inputs .radio input:checked + .name {
+  #suicide-section .radio-inputs .radio input:checked + .name {
     background-color: #fff;
     font-weight: 600;
   }
