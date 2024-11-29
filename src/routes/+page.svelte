@@ -1,5 +1,5 @@
 <script>
-  import NewMap from "./NewMap.svelte";
+  import Map from "./Map.svelte";
   import ShipLists from "./ShipLists.svelte";
   import Suicide from "./Suicide.svelte";
   import IPV from "./IPV.svelte";
@@ -148,7 +148,7 @@
   </div>
 
   <div class="map-section">
-    <NewMap {config} />
+    <Map {config} />
   </div>
 
   <div class="additional-sections">
