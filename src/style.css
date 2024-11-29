@@ -25,11 +25,6 @@ hr {
   filter: drop-shadow(5px 5px 5px rgb(177, 177, 177));
 }
 
-#ship-list-info {
-  /* background-color: #ffffff;
-  padding: 100px 15px; */
-}
-
 .mapboxgl-ctrl-bottom-right {
   display: none;
 }
@@ -70,3 +65,4 @@ hr {
   border-radius: 5px;
   cursor: pointer;
 }
+

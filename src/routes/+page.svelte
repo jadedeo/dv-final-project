@@ -135,16 +135,18 @@
 
 <div class="main-container">
   <div class="intro-section">
-    <h1>[Final Project Title Here]</h1>
-    <div>
-      <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit
-        nunc sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum
-        venenatis et, vehicula ac ex.
-      </p>
+    <div id="intro-section-content">
+      <h1>[Final Project Title Here]</h1>
+      <div>
+        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit
+          nunc sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum
+          venenatis et, vehicula ac ex.
+        </p>
+      </div>
+      <button on:click={navigateToMap}>Start</button>
     </div>
-    <button on:click={navigateToMap}>Start</button>
   </div>
 
   <div class="map-section">
@@ -165,7 +167,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    row-gap: 25px;
   }
 
   .map-section {
@@ -188,5 +189,22 @@
     padding: 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+  }
+
+  .intro-section {
+    background-image: url("leaves2.png");
+    background-color: #bababa99;
+    background-blend-mode: lighten;
+  }
+
+  #intro-section-content {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 25px;
   }
 </style>
