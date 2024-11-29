@@ -129,7 +129,6 @@
           : getOpacity(d.PassengerCount)
       )
       .on("mouseover", function (event, d) {
-        // Highlight hovered circle
         d3.select(this)
           .transition()
           .duration(200)
@@ -143,16 +142,24 @@
           .style("display", "inline-block")
           .html(
             `<strong>The ${d["Name of Ship"]}</strong><br/>
-            Arrived on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
-              "en-US",
-              {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }
-            )}</span> carrying <span class="underline">${d.PassengerCount || "N/A"} passengers</span> given
-            registration numbers <span class="underline">${d["Registration Numbers"] || "N/A"}</span>`
+            Arrived ${
+              !isNaN(new Date(d.ArrivalFormatted).getMonth())
+                ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
+                    "en-US",
+                    {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )}</span>`
+                : "on an unknown date"
+            } ${
+              !isNaN(d.PassengerCount) && d.PassengerCount !== 0
+                ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
+            registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
+                : ""
+            }`
           );
       })
       .on("mouseout", function (event, d) {
@@ -161,14 +168,13 @@
           .duration(200)
           .attr("stroke", (d) =>
             isNaN(d.PassengerCount) || d.PassengerCount <= 0
-              ? "steelblue"
+              ? countryColors.get(d.Country)
               : "none"
           )
           .attr("stroke-width", (d) =>
             isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
           );
 
-        // Hide tooltip
         d3.select("#tooltip").style("display", "none");
       });
   }
@@ -188,7 +194,7 @@
   </div>
 
   <div id="ship-list-settings">
-    <div class="select-container">
+    <div class="label-value-container">
       <p><strong>Country:</strong></p>
       <select bind:value={selectedCountry} on:change={filterShipData}>
         {#each availableCountries as country}
@@ -196,7 +202,10 @@
         {/each}
       </select>
     </div>
-    <p><strong>Ship Count:</strong> {shipCount}</p>
+    <div class="label-value-container">
+      <p><strong>Ship Count:</strong></p>
+      <p class="style-like-button">{shipCount}</p>
+    </div>
   </div>
 
   <div id="beeswarm-plot" style="position: relative;"></div>
@@ -223,9 +232,10 @@
     border-radius: 5px;
     color: rgb(51, 65, 85);
     cursor: pointer;
+    font-size: 16px;
   }
 
-  .select-container {
+  .label-value-container {
     display: flex;
     align-items: center;
     gap: 5px;

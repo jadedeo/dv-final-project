@@ -3,12 +3,14 @@
   import * as d3 from "d3";
   import { countrySummary } from "../lib/countrySummary";
   import { southAsia, westAfrica } from "../lib/filteringGroups";
+  import "../style.css";
 
   let data = [];
   let filteredData = [];
-  let year = "2019";
+  let sliderYear = 2019; // Slider-controlled year
   let tooltip;
 
+  const validYears = [2000, 2005, 2010, 2015, 2019]; // Only valid years for the slider
   const countryColors = new Map(
     countrySummary.map((entry) => [entry.countryName, entry.color])
   );
@@ -17,6 +19,10 @@
     ...southAsia,
     ...westAfrica,
   ]);
+
+  const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+  const width = 800 - margin.left - margin.right;
+  const height = 500 - margin.top - margin.bottom;
 
   onMount(async () => {
     data = await d3.csv("alcoholConsumption.csv", (row) => ({
@@ -27,63 +33,51 @@
       Population: row.Population,
     }));
 
-    filterByYear();
-
     tooltip = document.getElementById("tooltipAlcoholism");
+
+    createChart(); // Initialize chart
+    filterByYear(); // Render initial data
   });
 
   function filterByYear() {
     filteredData = data.filter(
-      (d) => d.Year == year && relevantCountries.has(d.Country)
+      (d) => d.Year == sliderYear && relevantCountries.has(d.Country)
     );
-    createChart();
+    updateChart();
   }
 
   function createChart() {
     const svgElement = document.getElementById("chart");
-    svgElement.innerHTML = "";
-
     const svg = d3
       .select(svgElement)
-      .attr("viewBox", "0 0 800 500")
-      .append("g");
-
-    const margin = { top: 20, right: 30, bottom: 50, left: 60 };
-    const width = 800 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
-
-    const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
-
-    const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
-
-    const populationExtent = d3.extent(filteredData, (d) => +d.Population);
-
-    const populationScale = d3
-      .scaleSqrt()
-      .domain(populationExtent)
-      .range([8, 20]);
-
-    const g = svg
+      .attr("viewBox", `0 0 800 500`)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+    const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
+    const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
+
+    // Draw gridlines
     const yAxisGridlines = d3
       .axisLeft(yScale)
       .tickSize(-width)
       .tickFormat("")
       .ticks(height / 50);
 
-    g.append("g")
+    svg
+      .append("g")
       .attr("class", "grid")
       .call(yAxisGridlines)
       .selectAll("line")
       .style("stroke", "#ddd")
       .style("stroke-opacity", 0.7);
 
-    g.select(".grid path").style("stroke-width", 0);
+    svg.select(".grid path").style("stroke-width", 0);
 
-    // Draw the X-axis
-    g.append("g")
+    // Draw axes
+    svg
+      .append("g")
+      .attr("class", "x-axis")
       .attr("transform", `translate(0, ${height})`)
       .call(
         d3
@@ -92,33 +86,57 @@
           .tickFormat((d) => `${d}L`)
       );
 
-    // Draw the Y-axis
-    g.append("g").call(
-      d3
-        .axisLeft(yScale)
-        .ticks(height / 50)
-        .tickFormat((d) => `${d}L`)
-    );
+    svg
+      .append("g")
+      .attr("class", "y-axis")
+      .call(
+        d3
+          .axisLeft(yScale)
+          .ticks(height / 50)
+          .tickFormat((d) => `${d}L`)
+      );
 
-    // Axis Labels
+    // Add axis labels
     svg
       .append("text")
       .attr("text-anchor", "middle")
-      .attr("x", width / 2 + margin.left)
-      .attr("y", height + margin.top + 40)
+      .attr("x", width / 2)
+      .attr("y", height + 40)
       .text("Female Consumption (liters)");
 
     svg
       .append("text")
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
-      .attr("y", margin.left / 4)
-      .attr("x", -(margin.top + height / 2))
+      .attr("x", -height / 2)
+      .attr("y", -40)
       .text("Male Consumption (liters)");
+  }
 
-    // Draw circles
-    g.selectAll("circle")
-      .data(filteredData)
+  function updateChart() {
+    const svg = d3.select("#chart g");
+    const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
+    const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
+    const populationScale = d3
+      .scaleSqrt()
+      .domain(d3.extent(data, (d) => +d.Population))
+      .range([8, 20]);
+
+    // Bind data to circles
+    const circles = svg
+      .selectAll("circle")
+      .data(filteredData, (d) => d.Country);
+
+    // Update existing circles
+    circles
+      .transition()
+      .duration(1000)
+      .attr("cx", (d) => xScale(d.Female))
+      .attr("cy", (d) => yScale(d.Male))
+      .attr("r", (d) => populationScale(d.Population));
+
+    // Enter new circles
+    circles
       .enter()
       .append("circle")
       .attr("cx", (d) => xScale(d.Female))
@@ -133,22 +151,27 @@
       .attr("stroke", "gray")
       .attr("opacity", 0.7)
       .on("mouseover", function (event, d) {
-        // console.log('HOVERING', d, event)
-        const description = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
-        tooltip.innerHTML = description;
+        tooltip.innerHTML = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
         tooltip.style.display = "block";
-
-        const xOffset = 10;
-        const yOffset = 10;
-
-        tooltip.style.left = `${event.pageX + xOffset}px`;
-        tooltip.style.top = `${event.pageY + yOffset}px`;
-
-        // console.log(event.x, event.y);
+        tooltip.style.left = `${event.pageX + 10}px`;
+        tooltip.style.top = `${event.pageY + 10}px`;
       })
       .on("mouseout", function () {
         tooltip.style.display = "none";
       });
+
+    // Remove old circles
+    circles.exit().transition().duration(1000).attr("r", 0).remove();
+  }
+
+  // Snap slider to valid years
+  function snapToValidYear(event) {
+    const inputYear = +event.target.value;
+    const closestYear = validYears.reduce((prev, curr) =>
+      Math.abs(curr - inputYear) < Math.abs(prev - inputYear) ? curr : prev
+    );
+    sliderYear = closestYear;
+    filterByYear();
   }
 </script>
 
@@ -172,60 +195,16 @@
     >
   </div>
 
-  <div class="radio-inputs">
-    <label class="radio">
-      <input
-        type="radio"
-        name="alcoholismRadio"
-        bind:group={year}
-        value="2000"
-        on:change={() => filterByYear()}
-      />
-      <span class="name">2000</span>
-    </label>
-    <label class="radio">
-      <input
-        type="radio"
-        name="alcoholismRadio"
-        bind:group={year}
-        value="2005"
-        on:change={() => filterByYear()}
-      />
-      <span class="name">2005</span>
-    </label>
-
-    <label class="radio">
-      <input
-        type="radio"
-        name="alcoholismRadio"
-        bind:group={year}
-        value="2010"
-        on:change={() => filterByYear()}
-      />
-      <span class="name">2010</span>
-    </label>
-
-    <label class="radio">
-      <input
-        type="radio"
-        name="alcoholismRadio"
-        bind:group={year}
-        value="2015"
-        on:change={() => filterByYear()}
-      />
-      <span class="name">2015</span>
-    </label>
-
-    <label class="radio">
-      <input
-        type="radio"
-        name="alcoholismRadio"
-        bind:group={year}
-        value="2019"
-        on:change={() => filterByYear()}
-      />
-      <span class="name">2019</span>
-    </label>
+  <div id="slider-container">
+    <span class="style-like-button">{sliderYear}</span>
+    <input
+      type="range"
+      min="2000"
+      max="2019"
+      step="1"
+      bind:value={sliderYear}
+      on:input={snapToValidYear}
+    />
   </div>
 
   <div>
@@ -240,47 +219,14 @@
 </section>
 
 <style>
-  /* ANIMATIONS? */
-  #alcoholism-section .radio-inputs {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #eee;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
+  input[type="range"] {
     width: 100%;
-    font-size: 14px;
+    margin: 10px 0;
   }
 
-  #alcoholism-section .radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-
-  #alcoholism-section .radio-inputs .radio input {
-    display: none;
-  }
-
-  #alcoholism-section .radio-inputs .radio .name {
+  #slider-container {
     display: flex;
-    cursor: pointer;
     align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: 0.5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all 0.15s ease-in-out;
-  }
-
-  #alcoholism-section .radio-inputs .radio .name:hover {
-    background-color: rgb(219, 219, 219);
-  }
-
-  #alcoholism-section .radio-inputs .radio input:checked + .name {
-    background-color: #fff;
-    font-weight: 600;
+    gap: 25px;
   }
 </style>
