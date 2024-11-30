@@ -61,7 +61,7 @@ export const config = {
       hidden: false,
       title: "Ports of Departure",
       description:
-        "Ships carrying laborers to the colonies departed from either Madras (now Chennai), Tamil Nadu or Kolkata, West Bengal.<br>Though there are others, the following countries received some of the most sizable poplations of 'indentured Indians'.",
+        "<span>Ships carrying laborers to the colonies departed from either Madras (now Chennai), Tamil Nadu or Kolkata, West Bengal.</span><span>Though there are others, the following countries received some of the most sizable poplations of 'indentured Indians'.</span>",
       location: {
         center: [78.14475, 21.69509],
         zoom: 3,
@@ -231,6 +231,7 @@ config.chapters.forEach((chapter) => {
 
   if (countryInfo) {
     chapter.description = `
+          <div>
           <hr class="map-description-line">
           <p class="map-description-item"><strong>Region:</strong><span>${countryInfo.geographicRegion.join(
             ", "
@@ -244,7 +245,7 @@ config.chapters.forEach((chapter) => {
           <p class="map-description-item"><strong>No. of Indentures:</strong><span>~${countryInfo.numIndentures.toLocaleString()}</span></p>
           <p class="map-description-item"><strong>Prim. Origins:</strong><span>${countryInfo.origins.join(
             ", "
-          )}</span></p>
+          )}</span></p></div>
         `;
   } else {
     chapter.description = chapter.description || "";

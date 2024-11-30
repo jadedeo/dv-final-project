@@ -163,6 +163,12 @@
     row-gap: 10px;
   }
 
+  #story > p {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+  }
+
   .map-nav-buttons {
     display: flex;
     justify-content: space-between;
