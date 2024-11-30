@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import mapboxgl from "mapbox-gl";
-
-  export let config;
+  import { config } from "../lib/mapConfig";
+  import "../style.css";
 
   let map;
   let currentChapterIndex = 0;
@@ -169,13 +169,13 @@
   }
 
   button {
-    background-color: #eee;
+    background-color: #e4e4e4;
     color: rgb(51, 65, 85);
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
-    width: 100px;
+    width: 120px;
   }
 
   button.previous {
@@ -187,6 +187,6 @@
   }
 
   .spacer {
-    width: 100px; /* Matches the button width */
+    width: 120px; /* Matches the button width */
   }
 </style>

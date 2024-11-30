@@ -9,7 +9,7 @@ export const countrySummary = [
     numIndentures: 239000,
     route: "indiaToGuyana",
     shipDataAvailable: false,
-    color: "red",
+    color: "#e76f51",
   },
   {
     countryName: "Trinidad & Tobago",
@@ -21,7 +21,7 @@ export const countrySummary = [
     numIndentures: 144000,
     route: "indiaToTrinidad",
     shipDataAvailable: true,
-    color: "#FF7F50",
+    color: "#f4a261",
   },
   {
     countryName: "Jamaica",
@@ -33,7 +33,7 @@ export const countrySummary = [
     numIndentures: 36000,
     route: "indiaToJamaica",
     shipDataAvailable: false,
-    color: "cornflowerblue",
+    color: "#e9c46a",
   },
   {
     countryName: "Suriname",
@@ -45,7 +45,7 @@ export const countrySummary = [
     numIndentures: 34000,
     route: "indiaToSuriname",
     shipDataAvailable: true,
-    color: "#1fb84f",
+    color: "#8ab17d",
   },
   {
     countryName: "South Africa",
@@ -57,11 +57,11 @@ export const countrySummary = [
     numIndentures: 152000,
     route: "indiaToSouthAfrica",
     shipDataAvailable: false,
-    color: "blue",
+    color: "#2a9d8f",
   },
   {
     countryName: "Mauritius",
-    geographicRegion: ["Mascarene Islands", "Indian Ocean"],
+    geographicRegion: ["Indian Ocean"],
     startYear: "1840",
     endYear: "1907",
     origins: ["Uttar Pradesh", "Bihar"],
@@ -69,11 +69,11 @@ export const countrySummary = [
     numIndentures: 10,
     route: "indiaToMauritius",
     shipDataAvailable: false,
-    color: "purple",
+    color: "#287271",
   },
   {
     countryName: "Fiji",
-    geographicRegion: ["Oceania", "Pacific Ocean"],
+    geographicRegion: ["Oceania"],
     startYear: "1879",
     endYear: "1916",
     origins: ["Uttar Pradesh", "Bihar"],
@@ -81,6 +81,6 @@ export const countrySummary = [
     numIndentures: 60513,
     route: "indiaToFiji",
     shipDataAvailable: true,
-    color: "#cf57a9",
+    color: "#923e4d",
   },
 ];

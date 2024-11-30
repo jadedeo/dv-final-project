@@ -46,15 +46,14 @@ hr {
   color: gray;
 }
 
-
 #ship-section,
 #alcoholism-section,
 #ipv-section,
-#suicide-section{
-  display:flex;
+#suicide-section {
+  display: flex;
   flex-direction: column;
-  gap:25px;
-  margin:10% 0;
+  gap: 25px;
+  margin: 10% 0;
 }
 
 .style-like-button {
@@ -66,3 +65,27 @@ hr {
   cursor: pointer;
 }
 
+.label-value-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+button {
+  color: rgb(51, 65, 85);
+  background-color: #eeeeee;
+  border: 0;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.map-description-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+hr.map-description-line {
+  margin: 0 0 10px 0;
+}

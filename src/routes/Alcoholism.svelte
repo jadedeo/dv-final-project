@@ -7,10 +7,10 @@
 
   let data = [];
   let filteredData = [];
-  let sliderYear = 2019; // Slider-controlled year
+  let sliderYear = 2019;
   let tooltip;
 
-  const validYears = [2000, 2005, 2010, 2015, 2019]; // Only valid years for the slider
+  const validYears = [2000, 2005, 2010, 2015, 2019];
   const countryColors = new Map(
     countrySummary.map((entry) => [entry.countryName, entry.color])
   );
@@ -41,11 +41,11 @@
 
   function filterByYear() {
     filteredData = data.filter(
-      (d) => d.Year == sliderYear && relevantCountries.has(d.Country)
+      (d) => d.Year === sliderYear && relevantCountries.has(d.Country)
     );
+    d3.selectAll("text.label").style("opacity", 0); // Hide labels
     updateChart();
   }
-
   function createChart() {
     const svgElement = document.getElementById("chart");
     const svg = d3
@@ -115,6 +115,7 @@
 
   function updateChart() {
     const svg = d3.select("#chart g");
+
     const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
     const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
     const populationScale = d3
@@ -149,14 +150,16 @@
           (southAsia.includes(d.Country) ? "#ccc" : "#7d7d7d")
       )
       .attr("stroke", "gray")
-      .attr("opacity", 0.7)
+      .attr("opacity", 1.0)
       .on("mouseover", function (event, d) {
+        // d3.select(this.nextSibling).style("display", "none");  // Hide label
         tooltip.innerHTML = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
         tooltip.style.display = "block";
         tooltip.style.left = `${event.pageX + 10}px`;
         tooltip.style.top = `${event.pageY + 10}px`;
       })
       .on("mouseout", function () {
+        // d3.select(this.nextSibling).style("display", "block");
         tooltip.style.display = "none";
       });
 
@@ -196,7 +199,11 @@
   </div>
 
   <div id="slider-container">
-    <span class="style-like-button">{sliderYear}</span>
+    <!-- <p><strong>Year:</strong><span class="style-like-button">{sliderYear}</span></p> -->
+    <div class="label-value-container">
+      <p><strong>Year:</strong></p>
+      <p class="style-like-button">{sliderYear}</p>
+    </div>
     <input
       type="range"
       min="2000"

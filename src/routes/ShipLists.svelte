@@ -14,8 +14,8 @@
   let shipCount = 0;
 
   let svg;
-  const margin = { top: 20, right: 30, bottom: 50, left: 60 };
-  let width = 800 - margin.left - margin.right; // Default width
+  const margin = { top: 20, right: 10, bottom: 50, left: 60 };
+  let width = 800 - margin.left - margin.right;
   const height = 450 - margin.top - margin.bottom;
 
   onMount(async () => {
@@ -123,7 +123,7 @@
       .attr("stroke-width", (d) =>
         isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
       )
-      .attr("opacity", (d) =>
+      .attr("fill-opacity", (d) =>
         isNaN(d.PassengerCount) || d.PassengerCount <= 0
           ? 1
           : getOpacity(d.PassengerCount)
@@ -233,12 +233,6 @@
     color: rgb(51, 65, 85);
     cursor: pointer;
     font-size: 16px;
-  }
-
-  .label-value-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
   }
 
   #ship-list-settings {
