@@ -193,7 +193,7 @@
   }
 
   .intro-section {
-    background-image: url("static/leaves2.png");
+    background-image: url("images/leaves2.png");
     background-color: #bababa99;
     background-blend-mode: lighten;
   }
