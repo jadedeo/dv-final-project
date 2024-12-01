@@ -49,12 +49,14 @@ hr {
 #ship-section,
 #alcoholism-section,
 #ipv-section,
-#suicide-section {
+#suicide-section,
+#reading-section {
   display: flex;
   flex-direction: column;
   gap: 25px;
   margin: 3% 0;
   max-width:1024px;
+  width:100%;
 }
 
 .style-like-button {

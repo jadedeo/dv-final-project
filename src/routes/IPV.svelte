@@ -41,11 +41,17 @@
 
 <section id="ipv-section">
   <div class="header-and-paragraphs">
-    <h3>Intimate Partner Violence</h3>
+    <h2>Intimate Partner Violence</h2>
     <p>
-      Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
-      placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
-      mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
+      The gender dynamics of indentureship significantly shaped social attitudes
+      and behaviors towards women. During the indentureship era, a vastly
+      disproportionate number of male laborers were brought to sugar colonies
+      compared to females creating highly skewed gender ratios. This imbalance
+      facilitated an environment where women were vastly outnumbered and often
+      viewed as commodities rather than individuals with rights. Such conditions
+      bred a culture of gender inequality that has perpetuated negative
+      attitudes towards women and contributed to the prevalence of IPV within
+      these communities.
     </p>
   </div>
 
@@ -77,7 +83,7 @@
         {#each dots as dot, i}
           <div
             class="dot"
-            style="background-color: {i < 40 ? '#e76f51' : 'gray'}"
+            style="background-color: {i < 20 ? '#e76f51' : 'gray'}"
           ></div>
         {/each}
       </div>

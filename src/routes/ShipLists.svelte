@@ -3,6 +3,7 @@
   import * as d3 from "d3";
   import "../style.css";
   import { countrySummary } from "../lib/countrySummary";
+
   const countryColors = new Map(
     countrySummary.map((entry) => [entry.countryName, entry.color])
   );
@@ -48,7 +49,7 @@
 
   function resizeChart() {
     const containerWidth = document.getElementById("beeswarm-plot").clientWidth;
-    width = Math.max(containerWidth - margin.left - margin.right, 300); // Set a minimum width
+    width = Math.max(containerWidth - margin.left - margin.right, 300);
     drawBeeswarmPlot();
   }
 
@@ -182,14 +183,28 @@
 
 <section id="ship-section">
   <div class="header-and-paragraphs">
-    <h3>Ship Lists</h3>
+    <h2>Ship Lists</h2>
     <p>
-      Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
-      placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
-      mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
-      Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
-      elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
-      vitae maximus faucibus.
+      Each of the dots below represents a voyage carrying indentured laborers
+      from the subcontinent to the selected colony.
+    </p>
+    <p>
+      With recent generations, many descendents of indenture have attempted to
+      trace their roots. This is an extremely difficult and time consuming
+      process for most, made worse by the fact that <span class="emphasis"
+        >not every country has digitized their indentureship records</span
+      >, whether that be ship or passenger lists.
+    </p>
+    <p>
+      Guyana, previously both a Dutch and English colony, recevied the single
+      largest population of indentured laborers from South Asia, and yet this
+      information has not been compiled in any accessible or searchable form.
+      There are
+      <a
+        href="https://westindiandiplomacy.com/petition-to-preserve-digitize-indian-indentured-enslaved-african-records-in-the-caribbean/"
+        >ongoing petitions</a
+      > to urge local governments to take up this important work before physical
+      record books become irreversibly damaged.
     </p>
   </div>
 
@@ -247,8 +262,12 @@
 </section>
 
 <style>
+  a {
+    color: inherit;
+  }
+
   #beeswarm-container {
-    max-width: 900px;
+    max-width: 1024px;
     margin: 0 auto;
   }
   #key-empty-circle {
@@ -291,7 +310,6 @@
     border-radius: 5px;
     color: rgb(51, 65, 85);
     cursor: pointer;
-    font-size: 16px;
   }
 
   .ship-list-settings {

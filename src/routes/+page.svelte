@@ -4,6 +4,7 @@
   import Suicide from "./Suicide.svelte";
   import IPV from "./IPV.svelte";
   import Alcoholism from "./Alcoholism.svelte";
+  import FurtherReading from "./FurtherReading.svelte";
   import "../style.css";
 
   function navigateToMap() {
@@ -38,9 +39,10 @@
 
   <div class="additional-sections">
     <ShipLists />
-    <Suicide />
     <Alcoholism />
+    <Suicide />
     <IPV />
+    <FurtherReading />
   </div>
 </div>
 
@@ -79,7 +81,7 @@
   }
 
   #intro-section-content {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.7);
     padding: 25px;
     border-radius: 4px;
     display: flex;

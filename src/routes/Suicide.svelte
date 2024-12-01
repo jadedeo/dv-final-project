@@ -444,14 +444,24 @@
 
 <section id="suicide-section">
   <div class="header-and-paragraphs">
-    <h3>Suicide</h3>
+    <h2>Suicide</h2>
     <p>
-      Vivamus ut ex vitae mi iaculis vulputate. Morbi maximus ac nulla non
-      placerat. Aliquam erat volutpat. Cras molestie, purus elementum tempus
-      mattis, arcu nunc placerat risus, vitae accumsan tellus purus nec justo.
-      Cras sollicitudin arcu nisi, in feugiat lorem facilisis non. Aliquam
-      elementum erat ut purus sollicitudin sollicitudin. Mauris condimentum est
-      vitae maximus faucibus.
+      The enduring legacy of colonization and indentureship has profoundly
+      impacted the mental health of populations in former colonies. The
+      oppressive conditions and social isolation experienced during
+      indentureship fostered a legacy of psychological distress, which can be
+      seen today in the disproportionately high suicide rates within these
+      communities.
+    </p>
+    <p>
+      This section of the visualization aims to highlight how the brutal
+      realities of forced labor, displacement, and the lack of mental health
+      resources during and after indentureship have contributed to ongoing
+      mental health crises. By comparing these rates with those in other
+      regions, we can better understand the specific socio-historical factors
+      that continue to influence mental health outcomes in these populations,
+      underscoring the deep-seated effects of colonial practices on contemporary
+      health issues.
     </p>
   </div>
 
