@@ -14,6 +14,9 @@
   const countryColors = new Map(
     countrySummary.map((entry) => [entry.countryName, entry.color])
   );
+  const summaryCountries = new Set(
+    countrySummary.map((entry) => entry.countryName)
+  );
   const relevantCountries = new Set([
     ...countrySummary.map((country) => country.countryName),
     ...southAsia,
@@ -35,8 +38,9 @@
 
     tooltip = document.getElementById("tooltipAlcoholism");
 
-    createChart(); // Initialize chart
-    filterByYear(); // Render initial data
+    createChart();
+    filterByYear();
+    drawLegend();
   });
 
   function filterByYear() {
@@ -149,17 +153,14 @@
           countryColors.get(d.Country) ||
           (southAsia.includes(d.Country) ? "#ccc" : "#7d7d7d")
       )
-      .attr("stroke", "gray")
-      .attr("opacity", 1.0)
+      .attr("opacity", 0.8)
       .on("mouseover", function (event, d) {
-        // d3.select(this.nextSibling).style("display", "none");  // Hide label
         tooltip.innerHTML = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
         tooltip.style.display = "block";
         tooltip.style.left = `${event.pageX + 10}px`;
         tooltip.style.top = `${event.pageY + 10}px`;
       })
       .on("mouseout", function () {
-        // d3.select(this.nextSibling).style("display", "block");
         tooltip.style.display = "none";
       });
 
@@ -176,6 +177,8 @@
     sliderYear = closestYear;
     filterByYear();
   }
+  $: console.log(data);
+  $: console.log(filteredData);
 </script>
 
 <section id="alcoholism-section">
@@ -214,12 +217,31 @@
   </div>
 
   <div>
-    <svg id="chart"></svg>
-    <div
-      id="tooltipAlcoholism"
-      style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1;"
-    >
-      Tooltip Content
+    <!-- <div id="legend" class="legend">HERE</div> -->
+    <div id="legend" class="legend">
+      {#each countrySummary as country}
+        <div
+          class="legend-entry"
+          style="align-items: center; display: flex; margin-right: 10px;"
+        >
+          <div
+            style="width: 15px; height: 15px; border-radius: 50%; background-color: {countryColors.get(
+              country.countryName
+            )}; margin-right: 5px;"
+          ></div>
+          <span>{country.countryName}</span>
+        </div>
+      {/each}
+    </div>
+
+    <div>
+      <svg id="chart"></svg>
+      <div
+        id="tooltipAlcoholism"
+        style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1;"
+      >
+        Tooltip Content
+      </div>
     </div>
   </div>
 </section>
@@ -234,5 +256,23 @@
     display: flex;
     align-items: center;
     gap: 25px;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* column-gap: 25px; */
+    row-gap: 5px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    justify-content: space-around;
+  }
+
+  .legend-entry {
+    display: flex;
+    align-items: center;
+    color: rgba(51, 65, 85, 1);
+    font-size: 14px;
   }
 </style>
