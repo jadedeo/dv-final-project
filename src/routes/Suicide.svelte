@@ -274,6 +274,8 @@
 
     lines.filter((d) => !summaryCountries.has(d.country)).lower();
     lines.filter((d) => summaryCountries.has(d.country)).raise();
+
+    drawLegend();
   }
 
   function drawRatesBySexChart(selectedData) {
@@ -409,6 +411,35 @@
     countrySelected = false;
     drawMainChart();
   }
+
+  function drawLegend() {
+    const legendContainer = d3.select("#legend");
+    legendContainer.selectAll("*").remove();
+
+    const activeCountries = processedData.filter((d) =>
+      summaryCountries.has(d.country)
+    );
+    const legendEntries = legendContainer
+      .selectAll(".legend-entry")
+      .data(activeCountries)
+      .enter()
+      .append("div")
+      .attr("class", "legend-entry")
+      .style("display", "flex")
+      .style("align-items", "center")
+      .style("color", "rgba(51, 65, 85, 1)")
+      .style("font-size", "14px");
+
+    legendEntries
+      .append("p")
+      .style("width", "15px")
+      .style("height", "15px")
+      .style("margin-right", "5px")
+      .style("border-radius", "50%")
+      .style("background-color", (d) => countryColors.get(d.country));
+
+    legendEntries.append("p").text((d) => d.country);
+  }
 </script>
 
 <section id="suicide-section">
@@ -494,15 +525,30 @@
   </div>
 
   <div>
-    <svg id="suicideChart"></svg>
-    <div
-      id="tooltipSuicide"
-      style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
-    ></div>
+    <div id="legend" class="legend"></div>
+
+    <div>
+      <svg id="suicideChart"></svg>
+      <div
+        id="tooltipSuicide"
+        style="position: absolute; visibility: hidden; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+      ></div>
+    </div>
   </div>
 </section>
 
 <style>
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    column-gap: 25px;
+    row-gap: 5px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+  }
+
   #suicideChart {
     background-color: white;
   }

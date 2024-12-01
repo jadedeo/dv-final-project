@@ -206,6 +206,18 @@
       <p><strong>Ship Count:</strong></p>
       <p class="style-like-button">{shipCount}</p>
     </div>
+    <div class="label-value-container">
+      <div id="key-empty-circle"></div>
+      <p>No Passengers Data Available</p>
+    </div>
+    <div class="label-value-container">
+      <div id="key-small-circle"></div>
+      <p>Less Passengers</p>
+    </div>
+    <div class="label-value-container">
+      <div id="key-large-circle"></div>
+      <p>More Passengers</p>
+    </div>
   </div>
 
   <div id="beeswarm-plot" style="position: relative;"></div>
@@ -216,6 +228,31 @@
 </section>
 
 <style>
+#key-empty-circle{
+  width:0.7em;
+  height:0.7em;
+  /* background-color:white; */
+  border:1.5px solid;
+  border-radius:50%;
+  opacity:1;
+}
+
+#key-small-circle{
+  width:0.7em;
+  height:0.7em;
+  background-color:red;
+  border-radius:50%;
+  opacity:0.3;
+}
+
+#key-large-circle{
+  width:1.2em;
+  height:1.2em;
+  background-color:red; 
+  border-radius:50%;
+  opacity:1;
+}
+
   #tooltip {
     pointer-events: none;
     max-width: 300px;

@@ -199,7 +199,6 @@
   </div>
 
   <div id="slider-container">
-    <!-- <p><strong>Year:</strong><span class="style-like-button">{sliderYear}</span></p> -->
     <div class="label-value-container">
       <p><strong>Year:</strong></p>
       <p class="style-like-button">{sliderYear}</p>
