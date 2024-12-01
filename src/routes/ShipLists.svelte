@@ -14,7 +14,7 @@
   let shipCount = 0;
 
   let svg;
-  const margin = { top: 20, right: 10, bottom: 50, left: 60 };
+  const margin = { top: 20, right: 10, bottom: 0, left: 60 };
   let width = 800 - margin.left - margin.right;
   const height = 450 - margin.top - margin.bottom;
 
@@ -237,18 +237,23 @@
       </div>
     </div>
   </div>
-  <div id="beeswarm-plot" style="position: relative;"></div>
-  <div
-    id="tooltip"
-    style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; padding: 10px; border-radius: 4px;"
-  ></div>
+  <div id="beeswarm-container">
+    <div id="beeswarm-plot" style="position: relative;"></div>
+    <div
+      id="tooltip"
+      style="position: absolute; display: none; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; padding: 10px; border-radius: 4px;"
+    ></div>
+  </div>
 </section>
 
 <style>
+  #beeswarm-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
   #key-empty-circle {
     width: 1em;
     height: 1em;
-    /* background-color:white; */
     border: 1.5px solid;
     border-radius: 50%;
     opacity: 1;

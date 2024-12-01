@@ -57,7 +57,10 @@
     </h4>
   </div>
 
-  <div id="dot-grids">
+  <div
+    id="dot-grids"
+    class={!showAnswerGrid ? "one-dot-grid" : "two-dot-grids"}
+  >
     <div id="dots" class="grid" style={showAnswerGrid ? "opacity: 50%" : ""}>
       {#each dots as dot, i}
         <div
@@ -112,6 +115,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px;
+    justify-items: center;
   }
   #guess-and-actual.one-col {
     display: grid;
@@ -119,11 +123,18 @@
     margin: 0 auto;
     row-gap: 10px;
   }
-  #dot-grids {
-    display: flex;
+  #dot-grids.two-dot-grids {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 25px;
     max-height: 400px;
-    justify-content: center;
+    justify-items: center;
+  }
+  #dot-grids.one-dot-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    max-height: 400px;
   }
   .dot {
     width: 100%;
@@ -131,7 +142,8 @@
     border-radius: 50%;
     cursor: pointer;
   }
-  #dots {
+  #dots,
+  #dots-answer {
     max-width: 400px;
   }
   .grid {

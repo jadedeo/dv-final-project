@@ -529,7 +529,7 @@
       <div id="legend" class="legend"></div>
     {/if}
 
-    <div>
+    <div id="suicideChart-container">
       <svg id="suicideChart"></svg>
       <div
         id="tooltipSuicide"
@@ -540,6 +540,10 @@
 </section>
 
 <style>
+  #suicideChart-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
   .legend {
     display: flex;
     flex-wrap: wrap;

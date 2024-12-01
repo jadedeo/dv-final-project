@@ -216,7 +216,6 @@
   </div>
 
   <div>
-    <!-- <div id="legend" class="legend">HERE</div> -->
     <div id="legend" class="legend">
       {#each countrySummary as country}
         <div class="legend-entry" style="align-items: center; display: flex;">
@@ -244,7 +243,7 @@
       </div>
     </div>
 
-    <div>
+    <div id="alcoholismChart-container">
       <svg id="chart"></svg>
       <div
         id="tooltipAlcoholism"
@@ -257,6 +256,10 @@
 </section>
 
 <style>
+  #alcoholismChart-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
   input[type="range"] {
     width: 100%;
     margin: 10px 0;

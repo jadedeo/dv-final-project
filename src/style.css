@@ -53,7 +53,8 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  margin: 10% 0;
+  margin: 3% 0;
+  max-width:1024px;
 }
 
 .style-like-button {

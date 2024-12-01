@@ -152,7 +152,7 @@
     left: 2rem;
     bottom: 2rem;
     z-index: 5;
-    width: 35%;
+    width: 30%;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.8);
     padding: 2rem;
@@ -164,9 +164,9 @@
   }
 
   #story > p {
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
   .map-nav-buttons {

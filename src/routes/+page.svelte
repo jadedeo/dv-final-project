@@ -50,6 +50,25 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-image: url("images/leaves2.png");
+    background-color: #bababa99;
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0 10%;
+  }
+
+  .additional-sections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin:50px 0; */
+    /* margin-top: 50; */
+    margin: 50px 0;
+    padding: 0 10%;
   }
 
   .map-section {
@@ -57,18 +76,6 @@
     width: 100%;
     height: 100vh;
     margin: 0;
-  }
-
-  .intro-section,
-  .additional-sections {
-    margin: 0;
-    padding: 0 10%;
-  }
-
-  .intro-section {
-    background-image: url("images/leaves2.png");
-    background-color: #bababa99;
-    background-blend-mode: lighten;
   }
 
   #intro-section-content {
@@ -79,5 +86,6 @@
     flex-direction: column;
     justify-content: center;
     row-gap: 25px;
+    max-width: 1024px;
   }
 </style>
