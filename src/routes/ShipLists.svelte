@@ -193,33 +193,50 @@
     </p>
   </div>
 
-  <div id="ship-list-settings">
-    <div class="label-value-container">
-      <p><strong>Country:</strong></p>
-      <select bind:value={selectedCountry} on:change={filterShipData}>
-        {#each availableCountries as country}
-          <option value={country.countryName}>{country.countryName}</option>
-        {/each}
-      </select>
+  <div id="ship-list-all-settings">
+    <div class="ship-list-settings">
+      <div class="label-value-container">
+        <p><strong>Country:</strong></p>
+        <select bind:value={selectedCountry} on:change={filterShipData}>
+          {#each availableCountries as country}
+            <option value={country.countryName}>{country.countryName}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="label-value-container">
+        <p><strong>Ship Count:</strong></p>
+        <p class="style-like-button">{shipCount}</p>
+      </div>
     </div>
-    <div class="label-value-container">
-      <p><strong>Ship Count:</strong></p>
-      <p class="style-like-button">{shipCount}</p>
-    </div>
-    <div class="label-value-container">
-      <div id="key-empty-circle"></div>
-      <p>No Passengers Data Available</p>
-    </div>
-    <div class="label-value-container">
-      <div id="key-small-circle"></div>
-      <p>Less Passengers</p>
-    </div>
-    <div class="label-value-container">
-      <div id="key-large-circle"></div>
-      <p>More Passengers</p>
+
+    <div class="ship-list-settings">
+      <div class="label-value-container">
+        <div
+          id="key-empty-circle"
+          style="border-color: {countryColors.get(selectedCountry)};"
+        ></div>
+        <p>No Passenger Data Available</p>
+      </div>
+      <div class="label-value-container">
+        <div
+          id="key-small-circle"
+          style="background-color: {countryColors.get(
+            selectedCountry
+          )}; opacity: 0.3;"
+        ></div>
+        <p>Less Passengers</p>
+      </div>
+      <div class="label-value-container">
+        <div
+          id="key-large-circle"
+          style="background-color: {countryColors.get(
+            selectedCountry
+          )}; opacity: 1;"
+        ></div>
+        <p>More Passengers</p>
+      </div>
     </div>
   </div>
-
   <div id="beeswarm-plot" style="position: relative;"></div>
   <div
     id="tooltip"
@@ -228,30 +245,30 @@
 </section>
 
 <style>
-#key-empty-circle{
-  width:0.7em;
-  height:0.7em;
-  /* background-color:white; */
-  border:1.5px solid;
-  border-radius:50%;
-  opacity:1;
-}
+  #key-empty-circle {
+    width: 1em;
+    height: 1em;
+    /* background-color:white; */
+    border: 1.5px solid;
+    border-radius: 50%;
+    opacity: 1;
+  }
 
-#key-small-circle{
-  width:0.7em;
-  height:0.7em;
-  background-color:red;
-  border-radius:50%;
-  opacity:0.3;
-}
+  #key-small-circle {
+    width: 0.8em;
+    height: 0.8em;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 0.3;
+  }
 
-#key-large-circle{
-  width:1.2em;
-  height:1.2em;
-  background-color:red; 
-  border-radius:50%;
-  opacity:1;
-}
+  #key-large-circle {
+    width: 1.2em;
+    height: 1.2em;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 1;
+  }
 
   #tooltip {
     pointer-events: none;
@@ -272,7 +289,7 @@
     font-size: 16px;
   }
 
-  #ship-list-settings {
+  .ship-list-settings {
     display: flex;
     gap: 25px;
     align-items: center;
@@ -281,5 +298,15 @@
   span.underline {
     text-decoration: underline !important;
     color: pink;
+  }
+
+  .label-value-container p {
+    font-size: 14px;
+  }
+
+  #ship-list-all-settings {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
   }
 </style>

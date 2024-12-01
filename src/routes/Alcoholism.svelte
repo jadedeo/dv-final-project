@@ -177,8 +177,8 @@
     sliderYear = closestYear;
     filterByYear();
   }
-  $: console.log(data);
-  $: console.log(filteredData);
+  // $: console.log(data);
+  // $: console.log(filteredData);
 </script>
 
 <section id="alcoholism-section">

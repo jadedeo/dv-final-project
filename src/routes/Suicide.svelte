@@ -419,7 +419,7 @@
     const activeCountries = processedData.filter((d) =>
       summaryCountries.has(d.country)
     );
-    // console.log("activeCountries", activeCountries);
+
     const legendEntries = legendContainer
       .selectAll(".legend-entry")
       .data(activeCountries)
