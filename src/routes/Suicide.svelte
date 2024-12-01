@@ -264,13 +264,12 @@
         d3.select("#tooltipSuicide").style("visibility", "hidden");
       });
 
-    lines
-      .filter((d) => summaryCountries.has(d.country))
-      .on("click", function (event, d) {
-        countrySelected = true;
-        drawRatesBySexChart(d);
-        d3.select("#tooltipSuicide").style("visibility", "hidden");
-      });
+    lines.filter((d) => summaryCountries.has(d.country));
+    // .on("click", function (event, d) {
+    //   countrySelected = true;
+    //   drawRatesBySexChart(d);
+    //   d3.select("#tooltipSuicide").style("visibility", "hidden");
+    // });
 
     lines.filter((d) => !summaryCountries.has(d.country)).lower();
     lines.filter((d) => summaryCountries.has(d.country)).raise();
@@ -526,7 +525,9 @@
   </div>
 
   <div>
-    <div id="legend" class="legend"></div>
+    {#if !countrySelected}
+      <div id="legend" class="legend"></div>
+    {/if}
 
     <div>
       <svg id="suicideChart"></svg>
@@ -543,7 +544,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    column-gap: 25px;
+    column-gap: 20px;
     row-gap: 5px;
     padding: 0.5rem;
     border-radius: 0.5rem;

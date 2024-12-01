@@ -28,9 +28,9 @@
 
   const getDotStyle = (index) => {
     return index <= hoverIndex && locked
-      ? "#E54F6D"
+      ? "#e76f51"
       : index <= hoverIndex && !locked
-        ? "#faae20"
+        ? "#f4a261"
         : "gray";
   };
 
@@ -74,7 +74,7 @@
         {#each dots as dot, i}
           <div
             class="dot"
-            style="background-color: {i < 40 ? '#E54F6D' : 'gray'}"
+            style="background-color: {i < 40 ? '#e76f51' : 'gray'}"
           ></div>
         {/each}
       </div>

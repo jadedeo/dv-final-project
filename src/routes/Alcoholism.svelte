@@ -40,7 +40,6 @@
 
     createChart();
     filterByYear();
-    drawLegend();
   });
 
   function filterByYear() {
@@ -220,10 +219,7 @@
     <!-- <div id="legend" class="legend">HERE</div> -->
     <div id="legend" class="legend">
       {#each countrySummary as country}
-        <div
-          class="legend-entry"
-          style="align-items: center; display: flex; margin-right: 10px;"
-        >
+        <div class="legend-entry" style="align-items: center; display: flex;">
           <div
             style="width: 15px; height: 15px; border-radius: 50%; background-color: {countryColors.get(
               country.countryName
@@ -232,6 +228,20 @@
           <span>{country.countryName}</span>
         </div>
       {/each}
+    </div>
+    <div class="legend">
+      <div class="legend-entry" style="align-items: center; display: flex;">
+        <div
+          style="width: 15px; height: 15px; border-radius: 50%; background-color: #7d7d7d; margin-right: 5px;"
+        ></div>
+        <span>West Africa</span>
+      </div>
+      <div class="legend-entry" style="align-items: center; display: flex;">
+        <div
+          style="width: 15px; height: 15px; border-radius: 50%; background-color: #ccc; margin-right: 5px;"
+        ></div>
+        <span>South Asia</span>
+      </div>
     </div>
 
     <div>
@@ -262,11 +272,11 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* column-gap: 25px; */
+    column-gap: 20px;
     row-gap: 5px;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    justify-content: space-around;
+    justify-content: center;
   }
 
   .legend-entry {
