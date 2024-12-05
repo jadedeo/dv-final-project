@@ -68,11 +68,11 @@
       The gender dynamics of indentureship significantly shaped social attitudes
       and behaviors towards women. During the indentureship era, a vastly
       disproportionate number of male laborers were brought to sugar colonies
-      compared to females creating highly skewed gender ratios. This imbalance
+      compared to females, creating highly skewed gender ratios. This imbalance
       facilitated an environment where women were vastly outnumbered and often
-      viewed as commodities rather than individuals with rights. Such conditions
-      bred a culture of gender inequality that has contributed to the prevalence
-      of IPV within these communities.
+      viewed as commodities rather than individuals. Such conditions bred a
+      culture of gender inequality that has contributed to the prevalence of IPV
+      within these communities.
     </p>
   </div>
 
@@ -128,29 +128,33 @@
     {/if}
   </div>
 
-  <p>
-    The first indentured arrivals to the colony of British Guiana were known as <em
-      >the Gladstone Coolies</em
-    >, conscripted to work on the plantations of John Gladstone (who had
-    previously owned more than 2,000 enslaved Africans).
-  </p>
+  {#if locked && showAnswerGrid}
+    <div style="display:flex; flex-direction: column; gap:15px;">
+      <p>
+        The first indentured arrivals to the colony of British Guiana were known
+        as <em>the Gladstone Coolies</em>, conscripted to work on the
+        plantations of John Gladstone (who had previously owned more than 2,000
+        enslaved Africans).
+      </p>
 
-  <div>
-    <p>
-      Though precise counts are difficult to come by, it is estimated that the
-      group was composed of approximately 400 men and 25 women, some of whom
-      were actually young girls.
-    </p>
-    <div>
-      <small class="sources"
-        >Source: <a
-          href=" http://westindiandiplomacy.com/indian-indentured-women/"
-          target="_blank"
-          ><em>Indian Indentured Women</em>, West Indian Diplomacy</a
-        ></small
-      >
+      <div>
+        <p>
+          Though precise counts are difficult to come by, it is estimated that
+          the group was composed of approximately 400 men and 25 women, some of
+          whom were actually young girls.
+        </p>
+        <div>
+          <small class="sources"
+            >Source: <a
+              href=" http://westindiandiplomacy.com/indian-indentured-women/"
+              target="_blank"
+              ><em>Indian Indentured Women</em>, West Indian Diplomacy</a
+            ></small
+          >
+        </div>
+      </div>
     </div>
-  </div>
+  {/if}
 </section>
 
 <style>

@@ -182,22 +182,19 @@
     <h2>Alcoholism</h2>
     <p>
       The historical context of indentureship in former sugar colonies such as
-      Guyana, Trinidad, Suriname, Fiji, and South Africa is intrinsically linked
-      to the cultivation of sugarcane and the production of rum—a byproduct of
-      the sugar industry. Rum not only served as a significant economic
-      commodity but also played a complex role in the lives of indentured
-      laborers, often being used as a form of payment and a means to cope with
-      the harsh realities of their servitude.
+      Guyana, Trinidad, Suriname, etc. is intrinsically linked to the
+      cultivation of sugarcane and the production of rum — a byproduct of the
+      sugar industry. Rum not only served as a significant economic commodity
+      but also played a complex role in the lives of indentured laborers, often
+      being used as a form of payment and a means to cope with the harsh
+      realities of their servitude.
     </p>
     <p>
       This practice embedded patterns of alcohol use among populations, which
-      have evolved differently across regions due to varying cultural
-      influences. By juxtaposing these countries with regions in West Africa and
-      South Asia, where racial similarities exist but cultural contexts differ
-      significantly, this visualization aims to explore how these differences
-      influence contemporary patterns of alcoholism, providing insight into the
-      enduring impacts of colonial economic practices on public health and
-      social behaviors.
+      have evolved differently across regions due to varying cultures &
+      circumstances. This visulzations aims to juxtapose these countries of
+      interest with those in mainland South Asia, where racial similarities
+      exist but contexts differ significantly.
     </p>
   </div>
 
