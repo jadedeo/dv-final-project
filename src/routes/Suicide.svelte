@@ -223,7 +223,7 @@
           ? countryColors.get(d.country)
           : colorFallback
       )
-      .attr("stroke-width", 2)
+      .attr("stroke-width", 2.5)
       .attr("class", "line")
       .attr("d", (d) => line(d.years))
       .attr("stroke-dasharray", function () {
@@ -338,9 +338,26 @@
   <div>
     <h4>Average Suicide Rates per 100k, 1986-2016</h4>
     <small class="sources"
-      >Source: <a
+      >Sources: <a
         href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"
         target="_blank"><em>Suicide Rates Overview 1985 to 2016</em>, Kraggle</a
+      >
+      |
+      <a
+        href="https://hdr.undp.org/data-center/country-insights#/ranks"
+        target="_blank"
+        ><em>Human Development Index</em>, United Nations Development Program</a
+      >
+      | <a href="" target="_blank"></a> |
+      <a
+        href="https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook"
+        target="_blank"><em>Suicide in the Twenty-First Century</em>, Kraggle</a
+      >
+      |
+      <a
+        href="http://www.who.int/mental_health/suicide-prevention/en/"
+        target="_blank"
+        ><em>Suicide Prevention</em>, World Health Organization</a
       ></small
     >
   </div>
