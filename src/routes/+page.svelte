@@ -21,15 +21,15 @@
     <div id="intro-section-content">
       <div>
         <h1>A Jahaji's Shadow</h1>
-        <h4>The legacy of indentured servitude in ex-colonies.</h4>
+        <h3>The legacy of indentured servitude in ex-colonies.</h3>
       </div>
       <div style="display:flex; flex-direction:column; gap:15px;">
         <p>
           When the Atlantic Slave Trade was abolished in the 19th century,
           nations such as Britain, France & the Netherlands still required labor
           for their plantation colonies. To meet this demand, so began the era
-          of the Indian Indenture System, forcing the migration of hundreds of
-          thousands of South Asians from their homelands.
+          of the Indian Indenture System (1838-1920), forcing the migration of
+          approximately 2 million South Asians from their homelands.
         </p>
         <p>
           Colonies such as British Guiana (now Guyana), Trinidad & Tobago,

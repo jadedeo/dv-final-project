@@ -157,20 +157,17 @@
             `<strong>${d["Name of Ship"] ? `The ${d["Name of Ship"]}` : `Unnamed Ship`}</strong><br/>
           Arrived ${
             !isNaN(new Date(d.ArrivalFormatted).getMonth())
-              ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
-                  "en-US",
-                  {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }
-                )}</span>`
+              ? `on <em>${d.ArrivalFormatted.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}</em>`
               : "on an unknown date"
           } ${
             !isNaN(d.PassengerCount) && d.PassengerCount !== 0
-              ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
-          registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
+              ? `carrying <em>${d.PassengerCount} passengers</em> given
+          registration numbers <em>${d["Registration Numbers"]}</em>`
               : ""
           }`
           );
@@ -209,9 +206,9 @@
     <p>
       With recent generations, many descendents of indenture have attempted to
       trace their roots. This is an extremely difficult and time consuming
-      process for most, made worse by the fact that <span class="emphasis"
-        >not every country has digitized their indentureship records</span
-      >, whether that be ship or passenger lists.
+      process for most, made worse by the fact that not every country has
+      digitized their indentureship records, whether that be ship or passenger
+      lists.
     </p>
     <p>
       Guyana, previously both a Dutch and English colony, recevied the single
