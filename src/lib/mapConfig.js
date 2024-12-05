@@ -28,7 +28,7 @@ export const config = {
       id: "slug-style-id",
       alignment: "left",
       hidden: false,
-      title: "The Motherland",
+      title: "The Subcontinent",
       description:
         "South Asian indentureship took place during the time of the British Raj, before the formation of modern-day countries such as India, Pakistan, and Bangladesh.",
       location: {

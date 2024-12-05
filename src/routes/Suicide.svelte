@@ -351,7 +351,7 @@
     <small class="sources"
       >Source: Suicide Rates Overview 1985 to 2016, <a
         href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"
-        >Kraggle</a
+        target="_blank">Kraggle</a
       ></small
     >
   </div>

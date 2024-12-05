@@ -1,4 +1,7 @@
 <script>
+  import { slide } from "svelte/transition"; // Import the slide transition
+  import { cubicOut } from "svelte/easing"; // Optional easing for smoother animations
+
   // Define the state for toggling the whole section
   let isReadingOpen = false;
 
@@ -8,14 +11,9 @@
   }
 </script>
 
-<section id="reading-section">
-  <h2 on:click={toggleReading}>
-    Further Readings
-    <!-- <span
-      class="chevron"
-      style:transform={isReadingOpen ? "rotate(180deg)" : "rotate(0deg)"}
-      >▼</span
-    > -->
+<section id="reading-section" on:click={toggleReading} style="cursor:pointer;">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h3>Further Readings</h3>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="16"
@@ -23,22 +21,24 @@
       fill="currentColor"
       class="bi bi-chevron-down"
       viewBox="0 0 16 16"
+      style:transform={isReadingOpen ? "rotate(180deg)" : "rotate(0deg)"}
+      transition:transform={{ duration: 500 }}
     >
       <path
         fill-rule="evenodd"
         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
       />
     </svg>
-  </h2>
+  </div>
 
-  <!-- All content under Further Readings, grouped together -->
   <div
     class="section-content"
+    transition:slide={{ duration: 300 }}
     style:height={isReadingOpen ? "auto" : "0"}
     class:collapsed={!isReadingOpen}
   >
     <div>
-      <h3>Suicide</h3>
+      <h4>Suicide</h4>
       <p>
         <a
           href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10606164/"
@@ -57,12 +57,27 @@
     </div>
 
     <div>
-      <h3>Intimate Partner Violence</h3>
+      <h4>Intimate Partner Violence</h4>
       <p>
         <a
           href="https://www.researchgate.net/publication/336926774_Indo-Caribbean_Immigrant_Perspectives_on_Intimate_Partner_Violence"
           target="_blank"
           >Indo-Caribbean Immigrant Perspectives on Intimate Partner Violence</a
+        >
+      </p>
+    </div>
+
+    <div>
+      <h4>General Literature</h4>
+      <p>
+        <a href="/" target="_blank"
+          >Coolie Woman: The Odyssey of Indenture by Gaiutra Bahadur</a
+        >
+      </p>
+      <p>
+        <a href="/" target="_blank"
+          >We Mark Your Memory: Writings from the Descendants of Indenture
+          edited by David Dabydeen, et al.</a
         >
       </p>
     </div>
@@ -72,22 +87,24 @@
 <style>
   #reading-section {
     width: 100%;
+    background-color: #e5e5e5;
+    padding: 25px;
+    border-radius: 5px;
   }
 
   a {
     color: inherit;
   }
 
-  h2 {
+  h3 {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .chevron {
+  svg {
     transition: transform 0.3s ease;
-    font-size: 1.5em;
   }
 
   .section-content {

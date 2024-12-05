@@ -212,7 +212,9 @@
   <div>
     <h4>Alcohol Consumtion Per Capita, 2000-2019</h4>
     <small class="sources"
-      >Source: Title Here, <a href="/">World Health Organization</a></small
+      >Source: Title Here, <a href="/" target="_blank"
+        >World Health Organization</a
+      ></small
     >
   </div>
 

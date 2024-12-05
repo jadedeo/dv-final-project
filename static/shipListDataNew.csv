@@ -1,0 +1,565 @@
+Country,Name of Ship,Date of Arrival,Registration Numbers,Total Passengers
+Trinidad & Tobago,Futtle Rozack,5/30/1845,001 - 225,225
+Trinidad & Tobago,Dutchess of Argyle,2/12/1846,226 - 492,267
+Trinidad & Tobago,Bangalore,2/14/1846,493 - 812,320
+Trinidad & Tobago,Duke of Bedford,3/24/1846,813 - 1108,296
+Trinidad & Tobago,Medusa,3/4/1846,1109 - 1290,182
+Trinidad & Tobago,William Abrams,11/4/1846,1291 - 1637,347
+Trinidad & Tobago,London,2/5/1846,1638  - 1931,294
+Trinidad & Tobago,Cadet,6/14/1846,1932 - 2130,199
+Trinidad & Tobago,Lord William Bentinck,6/15/1846,2131 - 2359,229
+Trinidad & Tobago,City of Poonah,1/12/1846,2360 - 2637,278
+Trinidad & Tobago,Duke of Portland,2/1/1847,2638 - 2928,291
+Trinidad & Tobago,John Line,1/19/1847,2929 - 3260,332
+Trinidad & Tobago,Lochlomond,1/26/1847,3261 - 3487,227
+Trinidad & Tobago,Duke of Bedford,8/5/1847,3488 - 3781,294
+Trinidad & Tobago,Emma,5/29/1847,3782 - 3915,134
+Trinidad & Tobago,Cornwall,6/16/1847,3916 - 4287,372
+Trinidad & Tobago,Bangalore,6/17/1847,4288 - 4587,300
+Trinidad & Tobago,Poictiers,12/26/1847,4588 - 4909,322
+Trinidad & Tobago,Agincourt,4/17/1848,4910 - 5237,328
+Trinidad & Tobago,Duke of Bedford,6/5/1848,5238 - 5535,298
+Trinidad & Tobago,Eliza Stewart,4/23/1851,5536 - 5711,176
+Trinidad & Tobago,True Briton,3/2/1852,5712 - 6000,289
+Trinidad & Tobago,Hyderabad,12/2/1852,6001 - 6293,293
+Trinidad & Tobago,Equestrian,3/17/1852,6294 - 6583,290
+Trinidad & Tobago,Eliza stewart,4/30/1852,6584 - 6766,183
+Trinidad & Tobago,Mary Shepherd,5/6/1852,6767 - 7033,267
+Trinidad & Tobago,Benares,1/25/1853,7034 - 7277,244
+Trinidad & Tobago,William Jardine,12/2/1853,7278 - 7556,279
+Trinidad & Tobago,Harkaway,2/13/1853,7557 - 7897,341
+Trinidad & Tobago,Maidstone,3/14/1853,7898 - 8241,344
+Trinidad & Tobago,Mallard,5/13/1853,8242 - 8500,259
+Trinidad & Tobago,Eliza Stewart,5/13/1853,8501 - 8714,214
+Trinidad & Tobago,Bank Of England,5/21/1853,8715 - 9013,299
+Trinidad & Tobago,True Briton,3/23/1854,9014 - 9331,318
+Trinidad & Tobago,Sussex,4/27/1854,9332 - 9683,352
+Trinidad & Tobago,Windsor,3/14/1855,9684 - 9973,290
+Trinidad & Tobago,Scindian,3/16/1856,9974 - 10228,255
+Trinidad & Tobago,Agincourt,4/26/1856,10229 - 10581,353
+Trinidad & Tobago,Benares,1/25/1853,7034 - 7277,244
+Trinidad & Tobago,William Jardine,12/2/1853,7278 - 7556,279
+Trinidad & Tobago,Harkaway,2/13/1853,7557 - 7897,341
+Trinidad & Tobago,Maidstone,3/14/1853,7898 - 8241,344
+Trinidad & Tobago,Mallard,5/13/1853,8242 - 8500,259
+Trinidad & Tobago,Eliza Stewart,5/13/1853,8501 - 8714,214
+Trinidad & Tobago,Bank Of England,5/21/1853,8715 - 9013,299
+Trinidad & Tobago,True Briton,3/23/1854,9014 - 9331,318
+Trinidad & Tobago,Sussex,4/27/1854,9332 - 9683,352
+Trinidad & Tobago,Windsor,3/14/1855,9684 - 9973,290
+Trinidad & Tobago,Scindian,3/16/1856,9974 - 10228,255
+Trinidad & Tobago,Agincourt,4/26/1856,10229 - 10581,353
+Trinidad & Tobago,Adelaide,3/18/1857,10582-10856,275
+Trinidad & Tobago,Eveline,3/23/1857,10857-11158,302
+Trinidad & Tobago,Sir George Seymour,1/4/1857,11159-11472,314
+Trinidad & Tobago,Granville,8/6/1857,11473-11732,260
+Trinidad & Tobago,Scindian,2/7/1857,11733-11955,223
+Trinidad & Tobago,Wellesley,1/28/1858,11956-12329,374
+Trinidad & Tobago,Ellenborough,10/4/1858,12330-12697,368
+Trinidad & Tobago,Saladin,2/6/1858,12698-13021,324
+Trinidad & Tobago,Salsette,2/7/1858,13022-13218,197
+Trinidad & Tobago,Duchef of Argyle,12/1/1846,13219-13223,5
+Trinidad & Tobago,Medusa,3/14/1853,13224-13226,3
+Trinidad & Tobago,Agincourt,4/26/1856,13227,
+Trinidad & Tobago,Edith Moore,6/12/1858,13607-13981,375
+Trinidad & Tobago,Akbar,3/1/1859,13982-14291,310
+Trinidad & Tobago,Themis,12/1/1859,14292-14654,363
+Trinidad & Tobago,Marmion,1/25/1859,15430-15735,306
+Trinidad & Tobago,Dudbrook,3/17/1859,15736-15978,243
+Trinidad & Tobago,John Duncan,7/4/1859,16249-16590,342
+Trinidad & Tobago,Labrador,12/17/1859,16967-17269,303
+Trinidad & Tobago,Conway,1/29/1860,17671-18052,382
+Trinidad & Tobago,Tyburnia,5/3/1860,18053-18354,302
+Trinidad & Tobago,Thomas Lowry,10/5/1860,18605-18870,266
+Trinidad & Tobago,Appleton,5/6/1860,18871-19247,377
+Trinidad & Tobago,Clarence,1/21/1861,19665-20015,351
+Trinidad & Tobago,Sydenham,6/3/1861,20016-20367,352
+Trinidad & Tobago,Castle Howard,3/29/1861,20368-20723,356
+Trinidad & Tobago,Adelaide,7/5/1861,20724-20980,257
+Trinidad & Tobago,Brechin Castle,5/13/1861,20981-21254,274
+Trinidad & Tobago,Nourmahal,6/29/1861,21255-21605,351
+Trinidad & Tobago,Roman Emperor,3/12/1858,13228-13606,379
+Trinidad & Tobago,Palmerton,1/22/1859,14655-15048,394
+Trinidad & Tobago,Hope,1/22/1859,15049-15429,381
+Trinidad & Tobago,Cleaveland,3/19/1859,15979-16248,270
+Trinidad & Tobago,Clara,5/12/1859,16591-16966,376
+Trinidad & Tobago,Bruce,6/1/1860,17270-17670,401
+Trinidad & Tobago,Chatham,4/15/1860,18355-18604,250
+Trinidad & Tobago,Hunter,6/15/1860,19248-19429,182
+Trinidad & Tobago,David Malcolm,1/20/1861,19430-19664,235
+Trinidad & Tobago,John Allan,8/1/1873,44445-44766,322
+Trinidad & Tobago,Indus,1/15/1906,121737-122430,694
+Trinidad & Tobago,Lena,1/14/1906,122431-123108,678
+Trinidad & Tobago,Ex Tyburnia,9/12/1861,21606-21970,365
+Trinidad & Tobago,Ex Daniel Rankin,8/1/1862,21971-22359,389
+Trinidad & Tobago,Alnwick Castle,10/1/1862,22352-22827,476
+Trinidad & Tobago,Clarence,7/3/1862,22828-23281,454
+Trinidad & Tobago,Colgrain,4/17/1862,23282-23557,276
+Trinidad & Tobago,Alnwick Castle,1/22/1863,23558-23999,442
+Trinidad & Tobago,Assaye,1/22/1863,24000-24282,283
+Trinidad & Tobago,Athleta,4/18/1863,24283-24626,344
+Trinidad & Tobago,Brechin Castle,12/6/1863,24627-24909,283
+Trinidad & Tobago,Golden City,12/16/1863,24910-25350,441
+Trinidad & Tobago,Alnwick Castle,5/2/1864,25351-25805,455
+Trinidad & Tobago,Spitfire,4/17/1864,25806-26297,492
+Trinidad & Tobago,Sydenham,7/2/1865,26298-26715,418
+Trinidad & Tobago,Atalanta,10/3/1865,26716-27185,470
+Trinidad & Tobago,New Castle,4/29/1865,27186-27667,482
+Trinidad & Tobago,Carleton,11/22/1865,27668-28111,444
+Trinidad & Tobago,Empress,12/22/1865,28112-28601,490
+Trinidad & Tobago,Koomar,12/25/1865,28602-29008,407
+Trinidad & Tobago,Humber,12/26/1866,29009-29481,473
+Trinidad & Tobago,Roxborough Castle,2/1/1867,29482-29874,393
+Trinidad & Tobago,Salisbury,4/2/1867,29875-30294,420
+Trinidad & Tobago,Alnwick Castle,4/3/1867,30295-30755,461
+Trinidad & Tobago,Sevilla,5/3/1867,30756-31059,304
+Trinidad & Tobago,Hornet,3/30/1867,31060-31487,428
+Trinidad & Tobago,Hougomont,4/25/1867,31488-31879,392
+Trinidad & Tobago,Liverpool,12/23/1867,31884-32398,515
+Trinidad & Tobago,Ellenborough,12/26/1867,32399-32747,349
+Trinidad & Tobago,Sevilla,7/3/1868,32748-33043,296
+Trinidad & Tobago,Ancilla,3/5/1868,33044-33371,328
+Trinidad & Tobago,Albert Victor,6/24/1868,33372-33685,314
+Trinidad & Tobago,Malabar,12/27/1868,33686-34112,427
+Trinidad & Tobago,Poonah,2/22/1869,34113-34499,387
+Trinidad & Tobago,Arima,3/30/1869,34500-34803,304
+Trinidad & Tobago,Sevilla,7/4/1869,34804-35112,309
+Trinidad & Tobago,Ancilla,3/5/1869,35113-35438,326
+Trinidad & Tobago,Flying Foam,7/18/1869,35439-35885,447
+Trinidad & Tobago,Beaumaris Castle,3/11/1869,35886-36376,491
+Trinidad & Tobago,Varuna,8/11/1869,36377-36830,454
+Trinidad & Tobago,Wiltshire,12/20/1869,36831-37440,610
+Trinidad & Tobago,Atalanta,2/24/1870,37441-37836,396
+Trinidad & Tobago,Cochin,7/4/1870,37837-38316,480
+Trinidad & Tobago,Java,4/5/1870,38317-38788,472
+Trinidad & Tobago,Wiltshire,11/26/1870,38789-39330,542
+Trinidad & Tobago,Brechin Castle,11/2/1871,39331-39758,428
+Trinidad & Tobago,Hougomont,2/15/1871,39759-40090,332
+Trinidad & Tobago,Indus,3/23/1871,40091-40462,372
+Trinidad & Tobago,Atalanta,4/23/1871,40463-40838,376
+Trinidad & Tobago,Syria,2/1/1872,40839-41258,420
+Trinidad & Tobago,Ganges,2/27/1872,41259-41638,380
+Trinidad & Tobago,Indus,9/4/1872,41639-42046,408
+Trinidad & Tobago,Atalanta,5/18/1872,42047-42446,400
+Trinidad & Tobago,Woodburn,10/27/1872,42447-43009,563
+Trinidad & Tobago,Wiltshire,11/24/1872,43010-43565,556
+Trinidad & Tobago,Dilharee,12/18/1872,43566-44043,478
+Trinidad & Tobago,Rajah of Cochin,12/23/1872,44044-44444,401
+Trinidad & Tobago,Colmonell,1/28/1873,44767-45228,462
+Trinidad & Tobago,Howrah,3/3/1873,45229-45677,449
+Trinidad & Tobago,Jumna,2/4/1873,45678-46117,440
+Trinidad & Tobago,Atalanta,4/6/1873,46118-46509,392
+Trinidad & Tobago,Syria,11/24/1873,46510-46921,412
+Trinidad & Tobago,Winchester,12/29/1873,46922-47333,412
+Trinidad & Tobago,Brockham,5/2/1874,47334-47739,406
+Trinidad & Tobago,Jumna,10/2/1874,47740-48169,430
+Trinidad & Tobago,Ganges,11/5/1874,48170-48552,383
+Trinidad & Tobago,Golden Fleece,10/20/1874,48553-49046,494
+Trinidad & Tobago,British Empire,2/25/1875,49047-49649,603
+Trinidad & Tobago,Essex,10/3/1875,49650-50161,512
+Trinidad & Tobago,Brechin Castle,10/3/1875,50162-50609,448
+Trinidad & Tobago,St. James,11/4/1875,50610-51032,423
+Trinidad & Tobago,Foyle,12/11/1875,51033-51645,613
+Trinidad & Tobago,Jorawur,12/25/1875,51646-52312,667
+Trinidad & Tobago,Ganges,10/2/1876,52313-52691,379
+Trinidad & Tobago,Foyle,3/11/1876,52692-53222,531
+Trinidad & Tobago,Jorawur,11/28/1876,53223-53828,606
+Trinidad & Tobago,Syria,1/29/1877,53829-54275,447
+Trinidad & Tobago,Jorawur,11/13/1877,54276-54907,632
+Trinidad & Tobago,Lightning,12/25/1877,54908-55424,517
+Trinidad & Tobago,Syria,2/2/1878,55425-55898,474
+Trinidad & Tobago,Ganges,5/2/1878,55899-56375,477
+Trinidad & Tobago,Sheila,3/11/1878,56376-56906,531
+Trinidad & Tobago,Brenda,11/16/1878,56907-57449,543
+Trinidad & Tobago,Jura,12/20/1878,57450-57972,523
+Trinidad & Tobago,Ailsa,12/21/1878,57973-58460,488
+Trinidad & Tobago,Artist,1/25/1879,58461-58975,515
+Trinidad & Tobago,Sheila,7/11/1879,58976-59496,521
+Trinidad & Tobago,Brenda,11/21/1879,59497-60035,539
+Trinidad & Tobago,Jura,12/22/1879,60036-60563,528
+Trinidad & Tobago,Bann,1/28/1880,60564-61163,600
+Trinidad & Tobago,Jumna,2/28/1880,61164-61598,435
+Trinidad & Tobago,Foyle,1/4/1880,61599-62111,513
+Trinidad & Tobago,Jura,10/11/1880,62112-62646,535
+Trinidad & Tobago,British Nation,11/27/1880,62647-63145,499
+Trinidad & Tobago,Sheila,8/12/1880,63146-63668,523
+Trinidad & Tobago,Neva,8/2/1881,63669-64139,471
+Trinidad & Tobago,Bann,6/3/1881,64140-64401,262
+Trinidad & Tobago,Foyle,5/5/1881,64402-64979,578
+Trinidad & Tobago,Jumna,3/6/1881,64980-65370,391
+Trinidad & Tobago,Earl Granville,11/23/1881,65371-65770,400
+Trinidad & Tobago,Sheila,11/26/1881,65771-66307,537
+Trinidad & Tobago,Lee,8/1/1882,66308-66873,566
+Trinidad & Tobago,Neva,5/2/1882,66874-67349,476
+Trinidad & Tobago,Bann,3/22/1882,67350-67934,585
+Trinidad & Tobago,Scottish Admiral,8/11/1882,67935-68358,424
+Trinidad & Tobago,Hesperides,12/30/1882,68359-68906,548
+Trinidad & Tobago,Southesk,1/25/1883,68907-69356,450
+Trinidad & Tobago,Boyne,3/31/1883,69357-69873,517
+Trinidad & Tobago,Brenda,7/11/1883,69874-70399,526
+Trinidad & Tobago,Jura,12/25/1883,70400-70955,556
+Trinidad & Tobago,Sheila,10/2/1884,70956-71476,521
+Trinidad & Tobago,Grecian,11/4/1884,71477-72017,541
+Trinidad & Tobago,Neva,12/5/1884,72018-72520,503
+Trinidad & Tobago,Brenda,10/22/1884,72521-73077,557
+Trinidad & Tobago,British Statesman,11/25/1884,73078-73553,476
+Trinidad & Tobago,Jura,12/12/1884,73554-74091,538
+Trinidad & Tobago,Nerbudda,6/1/1885,74092-74676,585
+Trinidad & Tobago,Brenda,10/26/1885,74677-75215,539
+Trinidad & Tobago,Sheila,2/12/1885,75216-75775,560
+Trinidad & Tobago,Jura,1/13/1886,75776-76333,558
+Trinidad & Tobago,Brenda,10/21/1886,76334-76862,529
+Trinidad & Tobago,Sheila,11/25/1886,76863-77397,535
+Trinidad & Tobago,Jura,12/21/1886,77398-77939,542
+Trinidad & Tobago,Bann,2/24/1887,77940-78521,582
+Trinidad & Tobago,British Nation,10/25/1887,78522-79017,496
+Trinidad & Tobago,Brenda,11/16/1887,79018-79543,526
+Trinidad & Tobago,Sheila,10/12/1887,79544-80086,543
+Trinidad & Tobago,Jura,1/29/1888,80087-80644,558
+Trinidad & Tobago,Rhine,2/10/1888,80645-81321,677
+Trinidad & Tobago,Hereford,10/31/1888,81322-81922,601
+Trinidad & Tobago,Jura,10/1/1889,81923-82452,530
+Trinidad & Tobago,Jumna,10/1/1889,82453-82908,456
+Trinidad & Tobago,Grecian,1/10/1889,82909-83448,540
+Trinidad & Tobago,Volga,10/21/1889,83449-84004,556
+Trinidad & Tobago,Avoca,11/22/1889,84005-84623,619
+Trinidad & Tobago,Jura,12/17/1889,84624-85146,523
+Trinidad & Tobago,Hereford,5/2/1890,85147-85744,598
+Trinidad & Tobago,Grecian,10/16/1890,85745-86288,544
+Trinidad & Tobago,Bruce,11/17/1890,86289-86795,507
+Trinidad & Tobago,Ganges,11/25/1890,86796-87363,568
+Trinidad & Tobago,Allan Shaw,12/13/1890,87364-88021,658
+Trinidad & Tobago,British Peer,3/2/1891,88022-88627,606
+Trinidad & Tobago,Avon,1/3/1891,88628-89185,558
+Trinidad & Tobago,Rhone,9/10/1891,89186-89862,677
+Trinidad & Tobago,Main,10/31/1891,89863-90493,631
+Trinidad & Tobago,Avoca,11/14/1891,90494-91114,621
+Trinidad & Tobago,Rhine,12/13/1891,91115-91771,657
+Trinidad & Tobago,Danube,1/1/1892,91772-92380,609
+Trinidad & Tobago,Allan shaw,12/10/1892,92381-93016,636
+Trinidad & Tobago,Rhone,10/23/1892,93017-93682,666
+Trinidad & Tobago,Rhine,11/13/1892,93683-94346,664
+Trinidad & Tobago,Avoca,4/12/1892,94347-95005,659
+Trinidad & Tobago,Rhine,10/23/1893,95006-95652,647
+Trinidad & Tobago,Rhone,10/28/1893,95653-96307,655
+Trinidad & Tobago,Moy,11/12/1893,96308-96932,625
+Trinidad & Tobago,Rhone,4/12/1894,96933-97594,662
+Trinidad & Tobago,Main,1/11/1894,97595-98237,643
+Trinidad & Tobago,Moy,3/12/1894,98238-98873,636
+Trinidad & Tobago,Hereford,12/27/1894,98874-99438,565
+Trinidad & Tobago,Foyle,1/24/1895,99439-100030,592
+Trinidad & Tobago,Rhone,11/10/1895,100031-100720,690
+Trinidad & Tobago,Rhine,1/11/1895,100721-101400,680
+Trinidad & Tobago,main,1/11/1895,101401-102051,651
+Trinidad & Tobago,Avon,11/17/1895,102052-102202,151
+Trinidad & Tobago,Grecian,10/13/1896,102203-102742,540
+Trinidad & Tobago,Main,4/11/1896,102743-103392,650
+Trinidad & Tobago,Erne,12/11/1896,103393-104025,633
+Trinidad & Tobago,Avon,12/12/1896,104026-104626,601
+Trinidad & Tobago,Rhine,12/13/1896,104629-105226,598
+Trinidad & Tobago,Mersey,10/20/1897,105227-105884,658
+Trinidad & Tobago,Ems,10/23/1897,105885-106515,631
+Trinidad & Tobago,Elbe,12/11/1897,106516-107060,545
+Trinidad & Tobago,Ems,4/11/1898,107061-107684,624
+Trinidad & Tobago,Rhone,10/11/1898,107685-108336,652
+Trinidad & Tobago,Bann,10/27/1899,108337-108889,553
+Trinidad & Tobago,Ems,11/29/1899,108890-109508,619
+Trinidad & Tobago,Main,1/21/1900,109509-110135,627
+Trinidad & Tobago,Moy,1/16/1901,110136-110746,611
+Trinidad & Tobago,Avon,2/16/1901,110747-111344,598
+Trinidad & Tobago,Arno,3/15/1901,111345-112000,656
+Trinidad & Tobago,Foyle,4/3/1901,112001-112564,564
+Trinidad & Tobago,Virawa,10/17/1901,112565-113298,734
+Trinidad & Tobago,Elbe,12/17/1901,113299-113911,613
+Trinidad & Tobago,Erne,1/6/1902,113912-114529,618
+Trinidad & Tobago,Clyde,2/16/1902,114530-115603,1074
+Trinidad & Tobago,Rhine,11/27/1902,115604-115690,87
+Trinidad & Tobago,Avon,1/12/1903,115691-116281,591
+Trinidad & Tobago,Ems,1/17/1903,116282-116895,614
+Trinidad & Tobago,Bann,3/12/1903,116896-117432,537
+Trinidad & Tobago,Forth,11/4/1903,117433-118088,656
+Trinidad & Tobago,Main,12/2/1903,118089-118690,602
+Trinidad & Tobago,Avon,12/25/1903,118691-119266,576
+Trinidad & Tobago,Rhine,2/18/1904,119267-119887,621
+Trinidad & Tobago,Indus,11/13/1904,119888-120521,634
+Trinidad & Tobago,Avon,2/23/1905,120522-121124,603
+Trinidad & Tobago,Rhine,5/9/1905,121125-121736,612
+Trinidad & Tobago,Indus,1/15/1906,121737-122430,694
+Trinidad & Tobago,Lena,1/14/1906,122431-123108,678
+Trinidad & Tobago,Mersey,2/8/1906,123109-123450,342
+Trinidad & Tobago,Mersey,2/8/1906,123451-123774,324
+Trinidad & Tobago,Avon,2/22/1906,123775-124383,609
+Trinidad & Tobago,Rhine,3/9/1906,124384-124895,512
+Trinidad & Tobago,Elbe,10/19/1906,124896-125492,597
+Trinidad & Tobago,Mutlah,10/7/1910,134082-134629,548
+Trinidad & Tobago,,,134630-134851,222
+Trinidad & Tobago,Ganges,11/24/1910,134852-135447,596
+Trinidad & Tobago,,,135448-135693,246
+Trinidad & Tobago,Mutlah,1/25/1911,135694-136535,842
+Trinidad & Tobago,Ganges,3/25/1911,136536-137311,776
+Trinidad & Tobago,Indus,10/8/1911,137312-137713,402
+Trinidad & Tobago,Chenab,11/7/1911,137714-138164,451
+Trinidad & Tobago,Ganges,12/9/1911,138165-138592,428
+Trinidad & Tobago,Mutlah,12/28/1911,138593-138993,401
+Trinidad & Tobago,,,138994-139297,304
+Trinidad & Tobago,Sutlej,1/14/1912,139298-139501,204
+Trinidad & Tobago,,,139502-139729,228
+Trinidad & Tobago,Indus,2/13/1912,139730-140081,352
+Trinidad & Tobago,Chenab,3/7/1912,140082-140431,350
+Trinidad & Tobago,Indus,9/12/1912,140432-140835,404
+Trinidad & Tobago,Mutlah,10/14/1912,140836-141280,445
+Trinidad & Tobago,Chenab,11/8/1912,141281-141690,410
+Trinidad & Tobago,Indus,12/11/1912,141691-142062,372
+Trinidad & Tobago,Mutlah,1/8/1913,142063-142388,326
+Trinidad & Tobago,Chenab,2/5/1913,142389-142705,317
+Trinidad & Tobago,Sutlej,3/13/1913,142706-142801,96
+Trinidad & Tobago,Dewa,8/23/1913,142802-143224,423
+Trinidad & Tobago,Mutlah,9/12/1913,143225-143732,508
+Trinidad & Tobago,Chenab,11/26/1913,143733-143941,209
+Trinidad & Tobago,Sutlej,8/13/1914,143942-144185,244
+Trinidad & Tobago,Chenab,9/12/1914,144186-144364,179
+Trinidad & Tobago,Dewa,10/15/1915,144365-144662,298
+Trinidad & Tobago,Ganges,11/11/1915,144663-144987,325
+Trinidad & Tobago,Chenab,12/14/1916,144988-145362,375
+Trinidad & Tobago,,,145363-145724,362
+Trinidad & Tobago,Sutlej,3/29/1916,145778-146065,288
+Trinidad & Tobago,Ganges,4/18/1916,146066-146265,200
+Trinidad & Tobago,Chenab,10/12/1916,146266-146892,627
+Trinidad & Tobago,Mutlah,1/20/1917,146893-147171,279
+Trinidad & Tobago,Ganges,4/22/1917,147172-147592,421
+Suriname,Lalla Rookh,5/6/1873,,
+Suriname,Bengal,8/7/1873,,
+Suriname,Mangalore Kolkata,8/11/1873,,
+Suriname,Howrah,8/4/1874,,
+Suriname,Ailsa I,6/2/1880,,
+Suriname,Ailsa III,9/1/1882,,
+Suriname,British Nation I,8/2/1884,,
+Suriname,British Nation II,12/12/1884,,
+Suriname,The Bruce,3/1/1889,,
+Suriname,Lena I,2/5/1892,,
+Suriname,Grecian I (Craisni),4/9/1893,,
+Suriname,Mersey I,10/4/1896,,
+Suriname,Rhöne I,10/1/1903,,
+Suriname,Rhöne II,8/11/1905,,
+Suriname,Indus I,3/7/1907,,
+Suriname,Indus II,4/11/1907,,
+Suriname,ss Indus III,5/12/1908,,
+Suriname,Mutlah I,2/5/1909,,
+Suriname,Ganges IV,7/4/1912,,
+Suriname,Chenab I,8/7/1912,,
+Suriname,Chenab II,7/7/1913,,
+Suriname,Indus IV,4/6/1914,,
+Suriname,Sutlej III,7/1/1914,,
+Suriname,Sheila I,1/13/1883,,
+Suriname,Avon II,1/13/1907,,
+Suriname,Ailsa IV,4/13/1884,,
+Suriname,Avon I,4/13/1898,,
+Suriname,Sheila II,1/14/1885,,
+Suriname,British Statesman I,3/14/1881,,
+Suriname,Erne II,4/14/1894,,
+Suriname,Mutlah II,5/14/1912,,
+Suriname,Clide,12/14/1904,,
+Suriname,Main,10/15/1906,,
+Suriname,Zanzibar,8/16/1878,,
+Suriname,Ganges I,2/17/1908,,
+Suriname,Hereford I,5/17/1891,,
+Suriname,Rhine ,11/17/1890,,
+Suriname,Hereford IV,12/17/1896,,
+Suriname,Kate Kellock Medae,1/18/1874,,
+Suriname,John Davie,1/18/1887,,
+Suriname,Hereford II,4/18/1893,,
+Suriname,Ganges II,7/18/1908,,
+Suriname,British Peer,11/18/1892,,
+Suriname,British Statesman II,12/18/1883,,
+Suriname,Sutlej I,2/22/1909,,
+Suriname,Ems,11/22/1894,,
+Suriname,Ganges,4/23/1889,,
+Suriname,Mutlah III,6/23/1913,,
+Suriname,Elbe,11/23/1889,,
+Suriname,Dewa,5/24/1916,,
+Suriname,Kolkata,11/25/1873,,
+Suriname,Grecian II,10/26/1895,,
+Suriname,Ailsa II,11/26/1880,,
+Suriname,Sutlej II,1/27/1910,,
+Suriname,Erne I,4/27/1890,,
+Suriname,Erne III,4/27/1895,,
+Suriname,Erne IV,4/27/1899,,
+Suriname,Laleham & Peshwa,8/27/1884,,
+Suriname,Hereford III,11/27/1895,,
+Suriname,Mersey II,1/28/1902,,
+Suriname,Lena II,3/28/1902,,
+Suriname,Clive,8/29/1877,,
+Suriname,Lalla Rookh,5/6/1873,,
+Suriname,Bengal,8/7/1873,,
+Suriname,Mangalore Kolkata,8/11/1873,,
+Suriname,Howrah,8/4/1874,,
+Suriname,British Nation I,8/2/1884,,
+Suriname,British Nation II,12/12/1884,,
+Suriname,The Bruce,3/1/1889,,
+Suriname,Lena I,2/5/1892,,
+Suriname,Grecian I (Craisni),4/9/1893,,
+Suriname,Mersey I,10/4/1896,,
+Suriname,Rhöne I,10/1/1903,,
+Suriname,Rhöne II,8/11/1905,,
+Suriname,Indus I,3/7/1907,,
+Suriname,Indus II,4/11/1907,,
+Suriname,ss Indus III,5/12/1908,,
+Suriname,Mutlah I,2/5/1909,,
+Suriname,Ganges IV,7/4/1912,,
+Suriname,Chenab I,8/7/1912,,
+Suriname,Chenab II,7/7/1913,,
+Suriname,Indus IV,4/6/1914,,
+Suriname,Sutlej III,7/1/1914,,
+Suriname,Sheila I,1/13/1883,,
+Suriname,Avon II,1/13/1907,,
+Suriname,Ailsa IV,4/13/1884,,
+Suriname,Avon I,4/13/1898,,
+Suriname,Sheila II,1/14/1885,,
+Suriname,British Statesman I,3/14/1881,,
+Suriname,Erne II,4/14/1894,,
+Suriname,Mutlah II,5/14/1912,,
+Suriname,Clide,12/14/1904,,
+Suriname,Main,10/15/1906,,
+Suriname,Zanzibar,8/16/1878,,
+Suriname,Ganges I,2/17/1908,,
+Suriname,Hereford I,5/17/1891,,
+Suriname,Rhine ,11/17/1890,,
+Suriname,Hereford IV,12/17/1896,,
+Suriname,"Kate Kellock
+Medae",1/18/1874,,
+Suriname,John Davie,1/18/1887,,
+Suriname,Hereford II,4/18/1893,,
+Suriname,Ganges II,7/18/1908,,
+Suriname,British Peer,11/18/1892,,
+Suriname,British Statesman II,12/18/1883,,
+Suriname,Sutlej I,2/22/1909,,
+Suriname,Ems,11/22/1894,,
+Suriname,Ganges,4/23/1889,,
+Suriname,Mutlah III,6/23/1913,,
+Suriname,Elbe,11/23/1889,,
+Suriname,Dewa,5/24/1916,,
+Suriname,Kolkata,11/25/1873,,
+Suriname,Grecian II,10/26/1895,,
+Suriname,Sutlej II,1/27/1910,,
+Suriname,Erne I,4/27/1890,,
+Suriname,Erne III,4/27/1895,,
+Suriname,Erne IV,4/27/1899,,
+Suriname,Laleham & Peshwa,8/27/1884,,
+Suriname,Hereford III,11/27/1895,,
+Suriname,Mersey II,1/28/1902,,
+Suriname,Lena II,3/28/1902,,
+Suriname,Clive,8/29/1877,,
+Fiji,Leonidas,5/15/1879,1 - 463,463
+Fiji,Berar,6/29/1882,464 - 887,424
+Fiji,Poonah I,9/17/1882,888 - 1364,477
+Fiji,Poonah II,6/19/1883,1365 - 1860,496
+Fiji,Bayard,8/20/1883,1861 - 2354,494
+Fiji,Syria,5/14/1884,2355 - 2792,438
+Fiji,Howrah,6/26/1884,2793 - 3287,495
+Fiji,Pericles,7/3/1884,3288 - 3748,461
+Fiji,"Newham, SS",7/23/1884,3749 - 4323,575
+Fiji,Main,4/30/1885,4324 - 5048,725
+Fiji,Ganges,6/27/1885,5049 - 5329,281
+Fiji,Ganges,6/27/1885,5330 - 5571,242
+Fiji,Boyne,4/26/1886,5572 - 6108,537
+Fiji,Bruce,5/21/1886,6109 - 6566,458
+Fiji,Hereford I,4/24/1888,6567 - 6839,273
+Fiji,Hereford I,4/24/1888,6840 - 7104,265
+Fiji,Moy I,5/3/1889,7105 - 7782,678
+Fiji,Rhone I,5/15/1890,7783 - 8367,585
+Fiji,Allanshaw,6/17/1890,8368 - 8649,282
+Fiji,Allanshaw,6/17/1890,8650 - 8940,291
+Fiji,Danube,6/15/1891,8941 - 9531,591
+Fiji,Jumna I,6/27/1891,9532 - 9978,447
+Fiji,British Peer,4/23/1892,9979 - 10505,527
+Fiji,Avon I,5/5/1892,10506 - 11025,520
+Fiji,Hereford II,6/15/1892,11026 - 11504,479
+Fiji,Moy II,4/14/1893,11507 - 11971,465
+Fiji,Jumna II,5/23/1893,11972 - 12281,310
+Fiji,Ems I,4/20/1894,12286 - 12851,566
+Fiji,Hereford III,6/28/1894,12855 - 13362,508
+Fiji,"Vadala, SS",3/26/1895,13366 - 13739,374
+Fiji,"Vadala, SS",3/26/1895,13740 - 14109,370
+Fiji,"Virawa I, SS",4/26/1895,14110 - 14786,677
+Fiji,Erne,4/24/1896,14787 - 15343,557
+Fiji,Elbe I,6/13/1896,15344 - 15958,615
+Fiji,Rhone II,5/11/1897,15959 - 16611,653
+Fiji,Clyde,6/1/1897,16612 - 16953,342
+Fiji,Clyde,6/1/1897,16954 - 17281,328
+Fiji,Moy III,6/1/1898,17282 - 17849,568
+Fiji,Avon II,7/25/1899,17850 - 18316,467
+Fiji,Ganges,9/3/1899,18318 - 18551,234
+Fiji,Ganges,9/3/1899,18552 - 18780,229
+Fiji,Ganges,6/21/1900,18781 - 19334,554
+Fiji,Elbe II,7/14/1900,19335 - 19938,604
+Fiji,Arno I,7/23/1900,19939 - 20252,314
+Fiji,Arno I,7/23/1900,20253 - 20565,313
+Fiji,Rhine,8/30/1900,20566 - 21056,491
+Fiji,"Fazilka I, SS",3/28/1901,21057 - 21860,804
+Fiji,"Fultala I, SS",5/12/1901,21861 - 22669,809
+Fiji,"Fazilka II, SS",6/18/1901,22670 - 23445,776
+Fiji,"Virawa II, SS",4/26/1902,23446 - 24164,719
+Fiji,"Fazilka III, SS",6/20/1902,24165 - 25001,837
+Fiji,Mersey,6/13/1903,25004 - 25588,585
+Fiji,Elbe III,8/5/1903,25589 - 26178,590
+Fiji,Arno II,9/4/1903,26179 - 26518,340
+Fiji,Arno II,9/4/1903,26519 - 26812,294
+Fiji,Arno III,5/3/1904,26813 - 27443,631
+Fiji,Ems II,7/30/1904,27444 - 27969,526
+Fiji,Fultala II,4/10/1905,27970 - 28796,827
+Fiji,Virawa III,7/17/1905,28797 - 29411,615
+Fiji,Wardha I,7/28/1905,29412 - 30303,892
+Fiji,Fultala III,8/17/1905,30304 - 30904,601
+Fiji,Fultala III,8/17/1905,30905 - 31093,189
+Fiji,Fazilka IV,4/17/1906,31094 - 31974,881
+Fiji,Fultala IV,4/28/1906,31975 - 32191,217
+Fiji,Fultala IV,4/28/1906,32192 - 32775,584
+Fiji,Wardha II,6/28/1906,32776 - 33609,834
+Fiji,Fazilka V,1/28/1907,33610 - 34484,875
+Fiji,Virawa IV,3/23/1907,34485 - 35075,591
+Fiji,Virawa IV,3/23/1907,35076 - 35244,169
+Fiji,Fazilka VI,4/25/1907,35245 - 36039,795
+Fiji,Sangola I,3/18/1908,36040 - 36317,278
+Fiji,Sangola I,3/18/1908,36318 - 37171,854
+Fiji,Sangola II,6/6/1908,37172 - 37689,518
+Fiji,Sangola II,6/6/1908,37690 - 38258,569
+Fiji,Sangola III,2/1/1909,38260 - 39140,881
+Fiji,Sangola III,2/1/1909,39141 - 39409,269
+Fiji,Sangola IV,4/21/1909,39410 - 40076,667
+Fiji,Sangola V,3/7/1910,40077 - 40442,366
+Fiji,Sangola V,3/7/1910,40443 - 41139,697
+Fiji,Santhia I,4/22/1910,41145 - 41894,750
+Fiji,Santhia I,4/22/1910,41895 - 42023,129
+Fiji,Sangola VI,6/5/1910,42024 - 42891,868
+Fiji,Santhia II,7/8/1910,42892 - 43408,517
+Fiji,Santhia II,7/8/1910,43409 - 43923,515
+Fiji,Mutlah I,5/22/1911,43924 - 44440,517
+Fiji,Mutlah I,5/22/1911,44441 - 44753,313
+Fiji,Sutlej I,6/25/1911,44757 - 45605,849
+Fiji,Ganges I,7/22/1911,45607 - 45900,294
+Fiji,Ganges I,7/22/1911,45901 - 46466,566
+Fiji,Mutlah II,8/18/1911,46467 - 47178,712
+Fiji,Mutlah II,8/18/1911,47179 - 47329,151
+Fiji,Sutlej II,10/4/1911,47330 - 48140,811
+Fiji,Sutlej III,4/27/1912,48141 - 48670,530
+Fiji,Sutlej III,4/27/1912,48671 - 48997,327
+Fiji,Indus,6/8/1912,48998 - 49801,804
+Fiji,Ganges II,7/18/1912,49802 - 50378,577
+Fiji,Ganges II,7/18/1912,50379 - 50644,266
+Fiji,Ganges III,11/8/1912,50645 - 51490,846
+Fiji,Ganges IV,2/21/1913,51491 - 52261,771
+Fiji,Sutlej IV,4/11/1913,52262 - 52900,639
+Fiji,Sutlej IV,4/11/1913,52901 - 53069,169
+Fiji,Ganges V,5/29/1913,53070 - 53917,848
+Fiji,Ganges VI,9/9/1913,53918 - 54300,383
+Fiji,Ganges VI,9/9/1913,54301 - 54701,401
+Fiji,Chenab I,3/24/1914,54702 - 55556,855
+Fiji,Chenab II,6/16/1914,55557 - 55677,121
+Fiji,Chenab II,6/16/1914,55678 - 56273,596
+Fiji,Mutlah III,5/7/1915,56274 - 56977,704
+Fiji,Mutlah III,5/7/1915,56978 - 57125,148
+Fiji,Ganges VII,6/21/1915,57126 - 57971,846
+Fiji,Mutlah IV,8/1/1915,57972 - 58305,334
+Fiji,Mutlah IV,8/1/1915,58306 - 58783,478
+Fiji,Chenab III,9/1/1916,58784 - 59665,882
+Fiji,Sutlej V,11/11/1916,59666 - 60538,873

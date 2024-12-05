@@ -19,6 +19,10 @@ export const countrySummary = [
     numVoyages: 328,
     numIndentures: 144000,
     shipDataAvailable: true,
+    shipDataSource: {
+      text: "Trinidad & Tobago National Archives",
+      link: 'https://www.natt.gov.tt/sites/default/files/images/General-Registers-of-Indian-Indentured-Labourers.pdf'
+    },
     color: "#f4a261",
   },
   {
@@ -41,6 +45,10 @@ export const countrySummary = [
     numVoyages: 64,
     numIndentures: 34000,
     shipDataAvailable: true,
+    shipDataSource: {
+      text: "National Archives Suriname",
+      link: 'https://nationaalarchief.sr/zoekhulpen/hindoestaanse-contractarbeiders-in-suriname-1873-1916'
+    },
     color: "#8ab17d",
   },
   {
@@ -74,6 +82,10 @@ export const countrySummary = [
     numVoyages: 87,
     numIndentures: 60500,
     shipDataAvailable: true,
+    shipDataSource: {
+      text: "National Library of Australia",
+      link: 'https://www.nla.gov.au/research-guides/indian-emigration-passes-to-fiji-1879-1919/access-by-ships-name'
+    },
     color: "#923e4d",
   },
 ];

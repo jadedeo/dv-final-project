@@ -15,19 +15,24 @@
   let shipCount = 0;
 
   let svg;
-  const margin = { top: 20, right: 10, bottom: 0, left: 60 };
-  // let width;
-  // let height;
-  let width = 1024 - margin.left - margin.right;
-  let height = 450 - margin.top - margin.bottom;
+  const margin = { top: 20, right: 10, bottom: 0, left: 10 };
+  let width;
+  let height;
+  // let width = 1024 - margin.left - margin.right;
+  // let height = 450 - margin.top - margin.bottom;
 
   onMount(async () => {
-    shipData = await d3.csv("shipListData.csv", (row) => ({
+    shipData = await d3.csv("shipListDataNew.csv", (row) => ({
       ...row,
       ArrivalFormatted: new Date(row["Date of Arrival"]),
       Year: new Date(row["Date of Arrival"]).getFullYear(),
       PassengerCount: +row["Total Passengers"],
     }));
+
+    // Initial sizing based on container size
+    const container = document.getElementById("ship-section");
+    width = container.clientWidth - margin.left - margin.right;
+    height = container.clientHeight - margin.top - margin.bottom;
 
     filterShipData();
 
@@ -50,13 +55,17 @@
   }
 
   function resizeChart() {
-    const containerWidth = document.getElementById("beeswarm-plot").clientWidth;
-    const containerHeight =
-      document.getElementById("beeswarm-plot").clientHeight;
-    width = Math.max(containerWidth - margin.left - margin.right, 300);
-    height = Math.max(containerHeight - margin.top - margin.bottom, 300); // Dynamically adjust height
+    const container = document.getElementById("ship-section");
+    const containerWidth = container.clientWidth;
+    // const containerHeight = container.clientHeight;
+
+    // Recalculate width and height based on container size
+    width = containerWidth - margin.left - margin.right;
+    // height = containerHeight - margin.top - margin.bottom;
+
     drawBeeswarmPlot();
   }
+
   function drawBeeswarmPlot() {
     if (!svg) {
       svg = d3
@@ -66,13 +75,13 @@
           "viewBox",
           `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`
         )
-        .attr("preserveAspectRatio", "xMidYMid meet") // Ensure proper scaling
+        .attr("preserveAspectRatio", "xMidYMid meet") // Ensures SVG scales correctly
         .append("g");
     } else {
       svg.selectAll("*").remove();
     }
 
-    // Update SVG dimensions (viewBox and size)
+    // Update SVG dimensions
     d3.select("#beeswarm-plot")
       .select("svg")
       .attr("width", width + margin.left + margin.right)
@@ -154,7 +163,7 @@
           .style("top", event.pageY + "px")
           .style("display", "inline-block")
           .html(
-            `<strong>The ${d["Name of Ship"]}</strong><br/>
+            `<strong>${d["Name of Ship"] ? `The ${d["Name of Ship"]}` : `Unnamed Ship`}</strong><br/>
           Arrived ${
             !isNaN(new Date(d.ArrivalFormatted).getMonth())
               ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
@@ -192,132 +201,11 @@
       });
   }
 
-  // function drawBeeswarmPlot() {
-  //   if (!svg) {
-  //     svg = d3.select("#beeswarm-plot").append("svg").append("g");
-  //   } else {
-  //     svg.selectAll("*").remove();
-  //   }
-
-  //   // Update SVG dimensions
-  //   d3.select("#beeswarm-plot")
-  //     .select("svg")
-  //     .attr("width", width + margin.left + margin.right)
-  //     .attr("height", height + margin.top + margin.bottom);
-
-  //   svg.attr("transform", `translate(${margin.left},${margin.top})`);
-
-  //   // Define x-scale
-  //   const xScale = d3
-  //     .scaleLinear()
-  //     .domain(d3.extent(filteredShipData, (d) => d.Year))
-  //     .range([50, width - 50]);
-
-  //   const passengerExtent = d3
-  //     .extent(filteredShipData, (d) => d.PassengerCount)
-  //     .filter((v) => v !== null && v !== undefined && !isNaN(v));
-
-  //   const sizeScale = d3
-  //     .scaleSqrt()
-  //     .domain(passengerExtent.length > 0 ? passengerExtent : [0, 1000])
-  //     .range([6, 12]);
-
-  //   const defaultRadius = 6;
-
-  //   // Draw x-axis
-  //   svg
-  //     .append("g")
-  //     .attr("transform", `translate(0,${height - 50})`)
-  //     .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
-
-  //   // Force simulation
-  //   const simulation = d3
-  //     .forceSimulation(filteredShipData)
-  //     .force("x", d3.forceX((d) => xScale(d.Year)).strength(1.5))
-  //     .force("y", d3.forceY(height / 2).strength(0.5))
-  //     .force(
-  //       "collide",
-  //       d3.forceCollide((d) => sizeScale(d.PassengerCount) || defaultRadius + 1)
-  //     )
-  //     .stop();
-
-  //   for (let i = 0; i < 500; i++) simulation.tick();
-
-  //   svg
-  //     .selectAll("circle")
-  //     .data(filteredShipData)
-  //     .join("circle")
-  //     .attr("cx", (d) => d.x)
-  //     .attr("cy", (d) => d.y)
-  //     .attr("r", (d) => sizeScale(d.PassengerCount) || defaultRadius)
-  //     .attr("fill", (d) =>
-  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
-  //         ? "white"
-  //         : countryColors.get(d.Country)
-  //     )
-  //     .attr("stroke", (d) =>
-  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
-  //         ? countryColors.get(d.Country)
-  //         : "none"
-  //     )
-  //     .attr("stroke-width", (d) =>
-  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
-  //     )
-  //     .attr("fill-opacity", (d) =>
-  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
-  //         ? 1
-  //         : getOpacity(d.PassengerCount)
-  //     )
-  //     .on("mouseover", function (event, d) {
-  //       d3.select(this)
-  //         .transition()
-  //         .duration(200)
-  //         .attr("stroke", "black")
-  //         .attr("stroke-width", 2);
-
-  //       const tooltip = d3.select("#tooltip");
-  //       tooltip
-  //         .style("left", event.pageX + "px")
-  //         .style("top", event.pageY + "px")
-  //         .style("display", "inline-block")
-  //         .html(
-  //           `<strong>The ${d["Name of Ship"]}</strong><br/>
-  //           Arrived ${
-  //             !isNaN(new Date(d.ArrivalFormatted).getMonth())
-  //               ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
-  //                   "en-US",
-  //                   {
-  //                     weekday: "long",
-  //                     year: "numeric",
-  //                     month: "long",
-  //                     day: "numeric",
-  //                   }
-  //                 )}</span>`
-  //               : "on an unknown date"
-  //           } ${
-  //             !isNaN(d.PassengerCount) && d.PassengerCount !== 0
-  //               ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
-  //           registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
-  //               : ""
-  //           }`
-  //         );
-  //     })
-  //     .on("mouseout", function (event, d) {
-  //       d3.select(this)
-  //         .transition()
-  //         .duration(200)
-  //         .attr("stroke", (d) =>
-  //           isNaN(d.PassengerCount) || d.PassengerCount <= 0
-  //             ? countryColors.get(d.Country)
-  //             : "none"
-  //         )
-  //         .attr("stroke-width", (d) =>
-  //           isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
-  //         );
-
-  //       d3.select("#tooltip").style("display", "none");
-  //     });
-  // }
+  $: selectedCountryData = countrySummary.filter(
+    (country) => country.countryName == selectedCountry
+  )[0];
+  $: selectedSource = selectedCountryData.shipDataSource;
+  $: console.log("selectedSource", selectedSource);
 </script>
 
 <section id="ship-section">
@@ -360,6 +248,13 @@
       <div class="label-value-container">
         <p><strong>Ship Count:</strong></p>
         <p class="style-like-button">{shipCount}</p>
+      </div>
+      <div>
+        <small class="sources"
+          >Source: <a href={selectedSource.link} target="_blank"
+            >{selectedSource.text}</a
+          ></small
+        >
       </div>
     </div>
 
@@ -406,7 +301,7 @@
   }
 
   #beeswarm-container {
-    /* max-width: 1024px; */
+    max-width: 1024px;
     margin: 0 auto;
   }
   #key-empty-circle {

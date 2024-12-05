@@ -25,17 +25,19 @@
       </div>
       <div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit
-          nunc sed tortor mattis tempor. Nulla orci justo, dignissim vestibulum
-          venenatis et, vehicula ac ex.
+          When the Atlantic Slave Trade was abolished in the 19th century,
+          colonizing nations such as Britain, France and the Netherlands still
+          required labor for their plantation colonies.
         </p>
       </div>
-      <!-- <button on:click={navigateToMap}>Start</button> -->
+      <button on:click={navigateToMap}>View Map</button>
     </div>
   </div>
-  <div class="additional-sections bg-info">
+
+  <!-- TO EXPAND ON LATER -->
+  <!-- <div class="additional-sections bg-info">
     <BackgroundInfo />
-  </div>
+  </div> -->
 
   <div class="map-section">
     <Map />
