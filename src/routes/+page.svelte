@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url("static/images/leaves2.png");
+    background-image: url("$lib/images/leaves2.png");
     background-color: #bababa99;
     background-blend-mode: lighten;
     background-repeat: no-repeat;

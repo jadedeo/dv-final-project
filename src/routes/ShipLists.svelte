@@ -16,8 +16,10 @@
 
   let svg;
   const margin = { top: 20, right: 10, bottom: 0, left: 60 };
-  let width = 800 - margin.left - margin.right;
-  const height = 450 - margin.top - margin.bottom;
+  // let width;
+  // let height;
+  let width = 1024 - margin.left - margin.right;
+  let height = 450 - margin.top - margin.bottom;
 
   onMount(async () => {
     shipData = await d3.csv("shipListData.csv", (row) => ({
@@ -49,18 +51,28 @@
 
   function resizeChart() {
     const containerWidth = document.getElementById("beeswarm-plot").clientWidth;
+    const containerHeight =
+      document.getElementById("beeswarm-plot").clientHeight;
     width = Math.max(containerWidth - margin.left - margin.right, 300);
+    height = Math.max(containerHeight - margin.top - margin.bottom, 300); // Dynamically adjust height
     drawBeeswarmPlot();
   }
-
   function drawBeeswarmPlot() {
     if (!svg) {
-      svg = d3.select("#beeswarm-plot").append("svg").append("g");
+      svg = d3
+        .select("#beeswarm-plot")
+        .append("svg")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`
+        )
+        .attr("preserveAspectRatio", "xMidYMid meet") // Ensure proper scaling
+        .append("g");
     } else {
       svg.selectAll("*").remove();
     }
 
-    // Update SVG dimensions
+    // Update SVG dimensions (viewBox and size)
     d3.select("#beeswarm-plot")
       .select("svg")
       .attr("width", width + margin.left + margin.right)
@@ -143,24 +155,24 @@
           .style("display", "inline-block")
           .html(
             `<strong>The ${d["Name of Ship"]}</strong><br/>
-            Arrived ${
-              !isNaN(new Date(d.ArrivalFormatted).getMonth())
-                ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
-                    "en-US",
-                    {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  )}</span>`
-                : "on an unknown date"
-            } ${
-              !isNaN(d.PassengerCount) && d.PassengerCount !== 0
-                ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
-            registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
-                : ""
-            }`
+          Arrived ${
+            !isNaN(new Date(d.ArrivalFormatted).getMonth())
+              ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
+                  "en-US",
+                  {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }
+                )}</span>`
+              : "on an unknown date"
+          } ${
+            !isNaN(d.PassengerCount) && d.PassengerCount !== 0
+              ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
+          registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
+              : ""
+          }`
           );
       })
       .on("mouseout", function (event, d) {
@@ -179,6 +191,133 @@
         d3.select("#tooltip").style("display", "none");
       });
   }
+
+  // function drawBeeswarmPlot() {
+  //   if (!svg) {
+  //     svg = d3.select("#beeswarm-plot").append("svg").append("g");
+  //   } else {
+  //     svg.selectAll("*").remove();
+  //   }
+
+  //   // Update SVG dimensions
+  //   d3.select("#beeswarm-plot")
+  //     .select("svg")
+  //     .attr("width", width + margin.left + margin.right)
+  //     .attr("height", height + margin.top + margin.bottom);
+
+  //   svg.attr("transform", `translate(${margin.left},${margin.top})`);
+
+  //   // Define x-scale
+  //   const xScale = d3
+  //     .scaleLinear()
+  //     .domain(d3.extent(filteredShipData, (d) => d.Year))
+  //     .range([50, width - 50]);
+
+  //   const passengerExtent = d3
+  //     .extent(filteredShipData, (d) => d.PassengerCount)
+  //     .filter((v) => v !== null && v !== undefined && !isNaN(v));
+
+  //   const sizeScale = d3
+  //     .scaleSqrt()
+  //     .domain(passengerExtent.length > 0 ? passengerExtent : [0, 1000])
+  //     .range([6, 12]);
+
+  //   const defaultRadius = 6;
+
+  //   // Draw x-axis
+  //   svg
+  //     .append("g")
+  //     .attr("transform", `translate(0,${height - 50})`)
+  //     .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+
+  //   // Force simulation
+  //   const simulation = d3
+  //     .forceSimulation(filteredShipData)
+  //     .force("x", d3.forceX((d) => xScale(d.Year)).strength(1.5))
+  //     .force("y", d3.forceY(height / 2).strength(0.5))
+  //     .force(
+  //       "collide",
+  //       d3.forceCollide((d) => sizeScale(d.PassengerCount) || defaultRadius + 1)
+  //     )
+  //     .stop();
+
+  //   for (let i = 0; i < 500; i++) simulation.tick();
+
+  //   svg
+  //     .selectAll("circle")
+  //     .data(filteredShipData)
+  //     .join("circle")
+  //     .attr("cx", (d) => d.x)
+  //     .attr("cy", (d) => d.y)
+  //     .attr("r", (d) => sizeScale(d.PassengerCount) || defaultRadius)
+  //     .attr("fill", (d) =>
+  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
+  //         ? "white"
+  //         : countryColors.get(d.Country)
+  //     )
+  //     .attr("stroke", (d) =>
+  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
+  //         ? countryColors.get(d.Country)
+  //         : "none"
+  //     )
+  //     .attr("stroke-width", (d) =>
+  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
+  //     )
+  //     .attr("fill-opacity", (d) =>
+  //       isNaN(d.PassengerCount) || d.PassengerCount <= 0
+  //         ? 1
+  //         : getOpacity(d.PassengerCount)
+  //     )
+  //     .on("mouseover", function (event, d) {
+  //       d3.select(this)
+  //         .transition()
+  //         .duration(200)
+  //         .attr("stroke", "black")
+  //         .attr("stroke-width", 2);
+
+  //       const tooltip = d3.select("#tooltip");
+  //       tooltip
+  //         .style("left", event.pageX + "px")
+  //         .style("top", event.pageY + "px")
+  //         .style("display", "inline-block")
+  //         .html(
+  //           `<strong>The ${d["Name of Ship"]}</strong><br/>
+  //           Arrived ${
+  //             !isNaN(new Date(d.ArrivalFormatted).getMonth())
+  //               ? `on <span class="underline">${d.ArrivalFormatted.toLocaleDateString(
+  //                   "en-US",
+  //                   {
+  //                     weekday: "long",
+  //                     year: "numeric",
+  //                     month: "long",
+  //                     day: "numeric",
+  //                   }
+  //                 )}</span>`
+  //               : "on an unknown date"
+  //           } ${
+  //             !isNaN(d.PassengerCount) && d.PassengerCount !== 0
+  //               ? `carrying <span class="underline">${d.PassengerCount} passengers</span> given
+  //           registration numbers <span class="underline">${d["Registration Numbers"]}</span>`
+  //               : ""
+  //           }`
+  //         );
+  //     })
+  //     .on("mouseout", function (event, d) {
+  //       d3.select(this)
+  //         .transition()
+  //         .duration(200)
+  //         .attr("stroke", (d) =>
+  //           isNaN(d.PassengerCount) || d.PassengerCount <= 0
+  //             ? countryColors.get(d.Country)
+  //             : "none"
+  //         )
+  //         .attr("stroke-width", (d) =>
+  //           isNaN(d.PassengerCount) || d.PassengerCount <= 0 ? 1.5 : 0
+  //         );
+
+  //       d3.select("#tooltip").style("display", "none");
+  //     });
+  // }
 </script>
 
 <section id="ship-section">
@@ -267,7 +406,7 @@
   }
 
   #beeswarm-container {
-    max-width: 1024px;
+    /* max-width: 1024px; */
     margin: 0 auto;
   }
   #key-empty-circle {

@@ -75,14 +75,8 @@
           these communities.
         </p>
         <p>
-          This section of the visualization aims to highlight how the brutal
-          realities of forced labor, displacement, and the lack of mental health
-          resources during and after indentureship have contributed to ongoing
-          mental health crises. By comparing these rates with those in other
-          regions, we can better understand the specific socio-historical
-          factors that continue to influence mental health outcomes in these
-          populations, underscoring the deep-seated effects of colonial
-          practices on contemporary health issues.
+          Though the following issues may stem from a variety of causes, the
+          project frames them within the context of colonization.
         </p>
       </div>
     </svelte:fragment>
