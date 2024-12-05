@@ -210,7 +210,7 @@
       .attr("transform", "rotate(-90)")
       .attr("y", margin.left / 4)
       .attr("x", -(margin.top + height / 2))
-      .text("Rate per 100k");
+      .text("Rate Per 100k");
 
     const lines = g
       .selectAll(".line")
@@ -336,7 +336,7 @@
   </div>
 
   <div>
-    <h4>Average Suicide Rates per 100k, 1986-2016</h4>
+    <h4>Average Suicide Rates Per 100k, 1986-2016</h4>
     <small class="sources"
       >Sources: <a
         href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"

@@ -94,7 +94,7 @@
       updateChapter(currentChapterIndex);
     } else {
       document
-        .getElementById("ship-section")
+        .getElementById("after-map")
         ?.scrollIntoView({ behavior: "smooth" });
     }
   }
@@ -113,6 +113,14 @@
     <div id="story">
       <h3>{config.chapters[currentChapterIndex]?.title}</h3>
       <p>{@html config.chapters[currentChapterIndex]?.description}</p>
+      <p>
+        <small class="sources"
+          >Inspiration & Referenced Code: <a
+            href="https://github.com/mapbox/storytelling"
+            target="_blank">Mapbox Interactive Storytelling</a
+          ></small
+        >
+      </p>
       <div class="map-nav-buttons">
         {#if currentChapterIndex > 0}
           <button class="previous" on:click={goToPreviousChapter}

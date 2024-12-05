@@ -9,7 +9,7 @@
   import "../style.css";
 
   function navigateToMap() {
-    const mapSection = document.getElementById("after-map");
+    const mapSection = document.getElementById("map-section");
     if (mapSection) {
       mapSection.scrollIntoView({ behavior: "smooth" });
     }
