@@ -1,5 +1,6 @@
+<!-- NOT CURRENTLY IN USE
 <script>
-  import Scrolly from "svelte-scrolly"; // Importing Scrolly component
+  import Scrolly from "svelte-scrolly";
 
   let scrollPercentage = 0;
   let images = [
@@ -87,4 +88,4 @@
   img {
     max-width: 100%;
   }
-</style>
+</style> -->

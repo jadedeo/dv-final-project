@@ -185,14 +185,14 @@
   }
 
   button.previous {
-    order: 1; /* Ensure the "Previous" button is always on the left */
+    order: 1;
   }
 
   button.next {
-    order: 2; /* Ensure the "Next" button is always on the right */
+    order: 2;
   }
 
   .spacer {
-    width: 120px; /* Matches the button width */
+    width: 120px;
   }
 </style>

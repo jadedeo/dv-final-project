@@ -227,23 +227,19 @@
       .attr("class", "line")
       .attr("d", (d) => line(d.years))
       .attr("stroke-dasharray", function () {
-        const length = this.getTotalLength(); // Get the length of the path
+        const length = this.getTotalLength();
         return `${length} ${length}`;
       })
       .attr("stroke-dashoffset", function () {
         const length = this.getTotalLength();
         return length;
       });
-    //   .transition() // Apply a transition
-    //   .duration(2000); // Set the duration of the transition (2 seconds in this case)
-    // .attr("stroke-dashoffset", 0);
 
     lines
       .transition()
       .duration(2000)
       .attr("stroke-dashoffset", 0)
       .on("end", function () {
-        // Wait for the transition to finish
         d3.select(this)
           .on("mouseover", function (event, d) {
             if (!summaryCountries.has(d.country)) {
@@ -283,7 +279,6 @@
             if (!summaryCountries.has(d.country)) {
               d3.select(this).lower();
             }
-            // Your existing mouseout code
             d3.select(this).attr(
               "stroke",
               summaryCountries.has(d.country)
@@ -315,7 +310,7 @@
 
   function setUpLegend() {
     const legendContainer = d3.select("#legend");
-    legendContainer.selectAll(".legend-entry").remove(); // Clear existing legend entries
+    legendContainer.selectAll(".legend-entry").remove();
 
     activeCountries = processedData.filter((d) =>
       summaryCountries.has(d.country)

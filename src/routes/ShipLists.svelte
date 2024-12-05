@@ -18,8 +18,6 @@
   const margin = { top: 20, right: 10, bottom: 0, left: 10 };
   let width;
   let height;
-  // let width = 1024 - margin.left - margin.right;
-  // let height = 450 - margin.top - margin.bottom;
 
   onMount(async () => {
     shipData = await d3.csv("shipListDataNew.csv", (row) => ({
@@ -29,14 +27,12 @@
       PassengerCount: +row["Total Passengers"],
     }));
 
-    // Initial sizing based on container size
     const container = document.getElementById("ship-section");
     width = container.clientWidth - margin.left - margin.right;
     height = container.clientHeight - margin.top - margin.bottom;
 
     filterShipData();
 
-    // Make chart responsive
     window.addEventListener("resize", resizeChart);
     resizeChart();
   });
@@ -59,7 +55,6 @@
     const containerWidth = container.clientWidth;
     // const containerHeight = container.clientHeight;
 
-    // Recalculate width and height based on container size
     width = containerWidth - margin.left - margin.right;
     // height = containerHeight - margin.top - margin.bottom;
 
@@ -75,13 +70,12 @@
           "viewBox",
           `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`
         )
-        .attr("preserveAspectRatio", "xMidYMid meet") // Ensures SVG scales correctly
+        .attr("preserveAspectRatio", "xMidYMid meet")
         .append("g");
     } else {
       svg.selectAll("*").remove();
     }
 
-    // Update SVG dimensions
     d3.select("#beeswarm-plot")
       .select("svg")
       .attr("width", width + margin.left + margin.right)
@@ -89,7 +83,6 @@
 
     svg.attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Define x-scale
     const xScale = d3
       .scaleLinear()
       .domain(d3.extent(filteredShipData, (d) => d.Year))
@@ -106,13 +99,11 @@
 
     const defaultRadius = 6;
 
-    // Draw x-axis
     svg
       .append("g")
       .attr("transform", `translate(0,${height - 50})`)
       .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
-    // Force simulation
     const simulation = d3
       .forceSimulation(filteredShipData)
       .force("x", d3.forceX((d) => xScale(d.Year)).strength(1.5))
@@ -205,7 +196,7 @@
     (country) => country.countryName == selectedCountry
   )[0];
   $: selectedSource = selectedCountryData.shipDataSource;
-  $: console.log("selectedSource", selectedSource);
+  // $: console.log("selectedSource", selectedSource);
 </script>
 
 <section id="ship-section">

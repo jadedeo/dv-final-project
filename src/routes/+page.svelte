@@ -1,5 +1,5 @@
 <script>
-  import BackgroundInfo from "./BackgroundInfo.svelte";
+  // import BackgroundInfo from "./BackgroundInfo.svelte";
   import Map from "./Map.svelte";
   import ShipLists from "./ShipLists.svelte";
   import Suicide from "./Suicide.svelte";
@@ -23,11 +23,28 @@
         <h1>A Jahaji's Shadow</h1>
         <h4>The legacy of indentured servitude in ex-colonies.</h4>
       </div>
-      <div>
+      <div style="display:flex; flex-direction:column; gap:15px;">
         <p>
           When the Atlantic Slave Trade was abolished in the 19th century,
-          colonizing nations such as Britain, France and the Netherlands still
-          required labor for their plantation colonies.
+          nations such as Britain, France & the Netherlands still required labor
+          for their plantation colonies. To meet this demand, so began the era
+          of the Indian Indenture System, forcing the migration of hundreds of
+          thousands of South Asians from their homelands.
+        </p>
+        <p>
+          Colonies such as British Guiana (now Guyana), Trinidad & Tobago,
+          Suriname, Natal (now part of South Africa), Mauritius & more received
+          some of the largest populations of indentured laborers. This project
+          focuses on these countries, though note that others (Réunion, Grenada,
+          St. Vincent, etc.) are part of the same story.
+        </p>
+        <p>
+          Today, a significant portion of the resulting diaspora now live
+          somewhere in the West & would be considered "twice-removed". Though
+          the following addresses social issues that were exaccerbated by
+          indentureship in the ex-colonies themselves, they are still instances
+          of intergenerational trauma that continue to follow present-day
+          descendents of indenture.
         </p>
       </div>
       <button on:click={navigateToMap}>View Map</button>
@@ -79,9 +96,9 @@
     padding: 0 10%;
   }
 
-  .additional-sections.bg-info {
+  /* .additional-sections.bg-info {
     min-height: 100vh;
-  }
+  } */
 
   .map-section {
     position: relative;

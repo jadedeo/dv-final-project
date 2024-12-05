@@ -1,11 +1,9 @@
 <script>
-  import { slide } from "svelte/transition"; // Import slide transition
-  import { cubicOut } from "svelte/easing"; // Optional easing for smoother animations
+  import { slide } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
 
-  // Define the state for toggling the whole section
   let isReadingOpen = false;
 
-  // Function to toggle the section
   function toggleReading() {
     isReadingOpen = !isReadingOpen;
   }
@@ -34,7 +32,6 @@
     </svg>
   </div>
 
-  <!-- All content under Further Readings, grouped together -->
   <div
     class="section-content"
     transition:slide={{ duration: 300, easing: cubicOut }}

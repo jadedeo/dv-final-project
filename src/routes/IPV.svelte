@@ -31,7 +31,6 @@
       .style("opacity", 0)
       .on("end", () => {
         showAnswerGrid = true;
-        // Apply fade transition to both dot grid and text/button
         d3.select(dotGridElement)
           .transition()
           .duration(500)
@@ -129,27 +128,28 @@
     {/if}
   </div>
 
-  <!-- <div> -->
   <p>
-    The first indentured arrivals to the colony of British Guiana are known as <em
+    The first indentured arrivals to the colony of British Guiana were known as <em
       >the Gladstone Coolies</em
     >, conscripted to work on the plantations of John Gladstone (who had
     previously owned more than 2,000 enslaved Africans).
   </p>
-  <p>
-    Though precise counts are difficult to come by, it is estimated that the
-    group was composed of approximately 400 men and 25 women, some of whom were
-    actually young girls.
-  </p>
-  <!-- </div> -->
+
   <div>
-    <small class="sources"
-      >Source: <a
-        href=" http://westindiandiplomacy.com/indian-indentured-women/"
-        target="_blank"
-        ><em>Indian Indentured Women</em>, West Indian Diplomacy</a
-      ></small
-    >
+    <p>
+      Though precise counts are difficult to come by, it is estimated that the
+      group was composed of approximately 400 men and 25 women, some of whom
+      were actually young girls.
+    </p>
+    <div>
+      <small class="sources"
+        >Source: <a
+          href=" http://westindiandiplomacy.com/indian-indentured-women/"
+          target="_blank"
+          ><em>Indian Indentured Women</em>, West Indian Diplomacy</a
+        ></small
+      >
+    </div>
   </div>
 </section>
 

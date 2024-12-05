@@ -48,7 +48,7 @@
     filteredData = data.filter(
       (d) => d.Year === sliderYear && relevantCountries.has(d.Country)
     );
-    d3.selectAll("text.label").style("opacity", 0); // Hide labels
+    // d3.selectAll("text.label").style("opacity", 0);
     updateChart();
   }
   function createChart() {
@@ -62,7 +62,6 @@
     const xScale = d3.scaleLinear().domain([0, 3.5]).range([0, width]);
     const yScale = d3.scaleLinear().domain([0, 16]).range([height, 0]);
 
-    // Draw gridlines
     const yAxisGridlines = d3
       .axisLeft(yScale)
       .tickSize(-width)
@@ -79,7 +78,6 @@
 
     svg.select(".grid path").style("stroke-width", 0);
 
-    // Draw axes
     svg
       .append("g")
       .attr("class", "x-axis")
@@ -101,7 +99,6 @@
           .tickFormat((d) => `${d}L`)
       );
 
-    // Add axis labels
     svg
       .append("text")
       .attr("text-anchor", "middle")
@@ -128,12 +125,10 @@
       .domain(d3.extent(data, (d) => +d.Population))
       .range([10, 20]);
 
-    // Bind data to circles
     const circles = svg
       .selectAll("circle")
       .data(filteredData, (d) => d.Country);
 
-    // Update existing circles
     circles
       .transition()
       .duration(1000)
@@ -141,7 +136,6 @@
       .attr("cy", (d) => yScale(d.Male))
       .attr("r", (d) => populationScale(d.Population));
 
-    // Enter new circles
     circles
       .enter()
       .append("circle")
@@ -166,11 +160,9 @@
         tooltip.style.display = "none";
       });
 
-    // Remove old circles
     circles.exit().transition().duration(1000).attr("r", 0).remove();
   }
 
-  // Snap slider to valid years
   function snapToValidYear(event) {
     const inputYear = +event.target.value;
     const closestYear = validYears.reduce((prev, curr) =>
@@ -267,14 +259,6 @@
         <span>Mainland South Asia</span>
       </div>
     </div>
-    <!-- <div class="legend">
-      <div class="legend-entry" style="align-items: center; display: flex;">
-        <div
-          style="width: 15px; height: 15px; border-radius: 50%; background-color: #ccc; margin-right: 5px;"
-        ></div>
-        <span>South Asia</span>
-      </div>
-    </div> -->
 
     <div id="alcoholismChart-container">
       <svg id="chart"></svg>
