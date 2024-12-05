@@ -243,13 +243,17 @@ config.chapters.forEach((chapter) => {
             countryInfo.numVoyages
           }</span></p>
           <p class="map-description-item"><strong>No. of Indentures:</strong><span>~${countryInfo.numIndentures.toLocaleString()}</span></p>
-          <p class="map-description-item"><strong>Prim. Origins:</strong><span>${countryInfo.origins.join(
-            ", "
-          )}</span></p></div>
+          </span></p></div>
         `;
   } else {
     chapter.description = chapter.description || "";
   }
 });
+
+/*
+<p class="map-description-item"><strong>Prim. Origins:</strong><span>${countryInfo.origins.join(
+            ", "
+          )}
+*/
 
 export default config;
