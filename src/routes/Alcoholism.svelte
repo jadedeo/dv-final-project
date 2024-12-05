@@ -201,8 +201,32 @@
   <div>
     <h4>Alcohol Consumtion Per Capita, 2000-2019</h4>
     <small class="sources"
-      >Source: Title Here, <a href="/" target="_blank"
-        >World Health Organization</a
+      >Sources & Inspiration: <a
+        href="https://unstats.un.org/sdgs/dataportal"
+        target="_blank">World Health Organization</a
+      >
+      |
+      <a href="https://public.yoda.uu.nl/geo/UU01/AEZZIT.html" target="_blank"
+        >HYDE (2023)</a
+      >
+      |
+      <a
+        href="https://www.gapminder.org/data/documentation/gd003/"
+        target="_blank">Gapminder - Population v7 (2022)</a
+      >
+      |
+      <a
+        href="https://population.un.org/wpp/Download/Standard/MostUsed/"
+        target="_blank">UN, World Population Prospects (2024)</a
+      >
+      |
+      <a
+        href="https://github.com/open-numbers/ddf--gapminder--systema_globalis"
+        target="_blank">Gapminder - Systema Globalis (2022)</a
+      >
+      |
+      <a href="https://ourworldindata.org/alcohol-consumption" target="_blank"
+        >Our World in Data – with major processing by Our World In Data</a
       ></small
     >
   </div>

@@ -9,7 +9,7 @@
   import "../style.css";
 
   function navigateToMap() {
-    const mapSection = document.getElementById("map-section");
+    const mapSection = document.getElementById("after-map");
     if (mapSection) {
       mapSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -60,7 +60,7 @@
     <Map />
   </div>
 
-  <div class="additional-sections">
+  <div class="additional-sections" id="after-map">
     <ShipLists />
     <Alcoholism />
     <Suicide />
