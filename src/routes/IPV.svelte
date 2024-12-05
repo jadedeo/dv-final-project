@@ -31,7 +31,18 @@
       .style("opacity", 0)
       .on("end", () => {
         showAnswerGrid = true;
+        // Apply fade transition to both dot grid and text/button
         d3.select(dotGridElement)
+          .transition()
+          .duration(500)
+          .style("opacity", 1);
+
+        d3.select("#guess-and-actual")
+          .transition()
+          .duration(500)
+          .style("opacity", 1);
+
+        d3.select("#show-answer")
           .transition()
           .duration(500)
           .style("opacity", 1);
@@ -61,17 +72,16 @@
       compared to females creating highly skewed gender ratios. This imbalance
       facilitated an environment where women were vastly outnumbered and often
       viewed as commodities rather than individuals with rights. Such conditions
-      bred a culture of gender inequality that has perpetuated negative
-      attitudes towards women and contributed to the prevalence of IPV within
-      these communities.
+      bred a culture of gender inequality that has contributed to the prevalence
+      of IPV within these communities.
     </p>
   </div>
 
   <div>
     <p>The sex ratio in most communities hovers somewhere around 50:50.</p>
     <h4>
-      What do you think the male to female ratio among indentured laborers in
-      plantation colonies was?
+      What do you think the female to male ratio among the first indentured
+      laborers to arrive in British Guiana was?
     </h4>
   </div>
 
@@ -96,7 +106,7 @@
         {#each dots as dot, i}
           <div
             class="dot"
-            style="background-color: {i < 20 ? '#e76f51' : 'gray'}"
+            style="background-color: {i < 6 ? '#e76f51' : 'gray'}"
           ></div>
         {/each}
       </div>
@@ -106,8 +116,8 @@
   <div id="guess-and-actual" class={!showAnswerGrid ? "one-col" : "two-col"}>
     <p id="your-guess-text">
       <strong>{showAnswerGrid ? "You Guessed" : "Your Guess"}:</strong>
-      {hoverIndex + 1} males to
-      {100 - (hoverIndex + 1)} females
+      {hoverIndex + 1} females to
+      {100 - (hoverIndex + 1)} males
     </p>
     {#if locked && !showAnswerGrid}
       <button id="show-answer" on:click={() => showAnswer()}
@@ -115,8 +125,31 @@
       >
     {/if}
     {#if locked && showAnswerGrid}
-      <p><strong>Actual Ratio:</strong> 80 males to 20 females</p>
+      <p><strong>Actual Ratio:</strong> ~ 6 females to 94 males</p>
     {/if}
+  </div>
+
+  <!-- <div> -->
+  <p>
+    The first indentured arrivals to the colony of British Guiana are known as <em
+      >the Gladstone Coolies</em
+    >, conscripted to work on the plantations of John Gladstone (who had
+    previously owned more than 2,000 enslaved Africans).
+  </p>
+  <p>
+    Though precise counts are difficult to come by, it is estimated that the
+    group was composed of approximately 400 men and 25 women, some of whom were
+    actually young girls.
+  </p>
+  <!-- </div> -->
+  <div>
+    <small class="sources"
+      >Source: <a
+        href=" http://westindiandiplomacy.com/indian-indentured-women/"
+        target="_blank"
+        ><em>Indian Indentured Women</em>, West Indian Diplomacy</a
+      ></small
+    >
   </div>
 </section>
 

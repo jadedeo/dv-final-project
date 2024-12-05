@@ -20,7 +20,7 @@
     countrySummary.map((entry) => [entry.countryName, entry.color])
   );
 
-  let radioSelected = "top25";
+  let radioSelected = "caribbean";
 
   function onChange(event) {
     radioSelected = event.currentTarget.value;
@@ -335,23 +335,17 @@
       communities.
     </p>
     <p>
-      This section of the visualization aims to highlight how the brutal
-      realities of forced labor, displacement, and the lack of mental health
-      resources during and after indentureship have contributed to ongoing
-      mental health crises. By comparing these rates with those in other
-      regions, we can better understand the specific socio-historical factors
-      that continue to influence mental health outcomes in these populations,
-      underscoring the deep-seated effects of colonial practices on contemporary
-      health issues.
+      By comparing rates in countries of interest to others in the region, we
+      can see just how pervasive the issue is.
     </p>
   </div>
 
   <div>
     <h4>Average Suicide Rates per 100k, 1986-2016</h4>
     <small class="sources"
-      >Source: Suicide Rates Overview 1985 to 2016, <a
+      >Source: <a
         href="https://www.kaggle.com/datasets/russellyates88/suicide-rates-overview-1985-to-2016?select=master.csv"
-        target="_blank">Kraggle</a
+        target="_blank"><em>Suicide Rates Overview 1985 to 2016</em>, Kraggle</a
       ></small
     >
   </div>

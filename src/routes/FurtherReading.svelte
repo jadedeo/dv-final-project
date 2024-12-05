@@ -1,5 +1,5 @@
 <script>
-  import { slide } from "svelte/transition"; // Import the slide transition
+  import { slide } from "svelte/transition"; // Import slide transition
   import { cubicOut } from "svelte/easing"; // Optional easing for smoother animations
 
   // Define the state for toggling the whole section
@@ -11,9 +11,12 @@
   }
 </script>
 
-<section id="reading-section" on:click={toggleReading} style="cursor:pointer;">
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h3>Further Readings</h3>
+<section id="reading-section" style="cursor:pointer;">
+  <div
+    style="display:flex; justify-content:space-between; align-items:center;"
+    on:click={toggleReading}
+  >
+    <h3>Further Reading</h3>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="16"
@@ -22,7 +25,7 @@
       class="bi bi-chevron-down"
       viewBox="0 0 16 16"
       style:transform={isReadingOpen ? "rotate(180deg)" : "rotate(0deg)"}
-      transition:transform={{ duration: 500 }}
+      transition:transform={{ duration: 300 }}
     >
       <path
         fill-rule="evenodd"
@@ -31,12 +34,26 @@
     </svg>
   </div>
 
+  <!-- All content under Further Readings, grouped together -->
   <div
     class="section-content"
-    transition:slide={{ duration: 300 }}
-    style:height={isReadingOpen ? "auto" : "0"}
-    class:collapsed={!isReadingOpen}
+    transition:slide={{ duration: 300, easing: cubicOut }}
+    style={`${isReadingOpen ? "display: flex; flex-direction:column; gap:15px;" : "display: none;"}`}
   >
+    <div>
+      <h4>General Literature</h4>
+      <p>
+        <a href="/" target="_blank"
+          >Coolie Woman: The Odyssey of Indenture by Gaiutra Bahadur</a
+        >
+      </p>
+      <p>
+        <a href="/" target="_blank"
+          >We Mark Your Memory: Writings from the Descendants of Indenture
+          edited by David Dabydeen, et al.</a
+        >
+      </p>
+    </div>
     <div>
       <h4>Suicide</h4>
       <p>
@@ -65,19 +82,10 @@
           >Indo-Caribbean Immigrant Perspectives on Intimate Partner Violence</a
         >
       </p>
-    </div>
-
-    <div>
-      <h4>General Literature</h4>
       <p>
-        <a href="/" target="_blank"
-          >Coolie Woman: The Odyssey of Indenture by Gaiutra Bahadur</a
-        >
-      </p>
-      <p>
-        <a href="/" target="_blank"
-          >We Mark Your Memory: Writings from the Descendants of Indenture
-          edited by David Dabydeen, et al.</a
+        <a href="https://caribbeanwomencount.unwomen.org/" target="_blank"
+          >UN Women | Caribbean Women Count: Ending Violence against Women and
+          Girls</a
         >
       </p>
     </div>
@@ -109,11 +117,7 @@
 
   .section-content {
     overflow: hidden;
-    transition: height 0.3s ease;
-  }
-
-  .collapsed {
-    display: none;
+    padding: 10px 0;
   }
 
   .section-content div {
