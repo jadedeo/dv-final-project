@@ -44,7 +44,7 @@
           the following addresses social issues that were exaccerbated by
           indentureship in the ex-colonies themselves, they are still instances
           of intergenerational trauma that continue to follow present-day
-          descendents of indenture.
+          descendents of indenture elsewhere in the world.
         </p>
       </div>
       <button on:click={navigateToMap}>View Map</button>
