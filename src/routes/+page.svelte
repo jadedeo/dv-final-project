@@ -1,4 +1,5 @@
 <script>
+  import BackgroundInfo from "./BackgroundInfo.svelte";
   import Map from "./Map.svelte";
   import ShipLists from "./ShipLists.svelte";
   import Suicide from "./Suicide.svelte";
@@ -29,8 +30,11 @@
           venenatis et, vehicula ac ex.
         </p>
       </div>
-      <button on:click={navigateToMap}>Start</button>
+      <!-- <button on:click={navigateToMap}>Start</button> -->
     </div>
+  </div>
+  <div class="additional-sections bg-info">
+    <BackgroundInfo />
   </div>
 
   <div class="map-section">
@@ -52,7 +56,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url("images/leaves2.png");
+    background-image: url("static/images/leaves2.png");
     background-color: #bababa99;
     background-blend-mode: lighten;
     background-repeat: no-repeat;
@@ -71,6 +75,10 @@
     /* margin-top: 50; */
     margin: 50px 0;
     padding: 0 10%;
+  }
+
+  .additional-sections.bg-info {
+    min-height: 100vh;
   }
 
   .map-section {

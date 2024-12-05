@@ -1,11 +1,13 @@
 <script>
   import { onMount } from "svelte";
+  import * as d3 from "d3";
 
   let dots = new Array(100).fill(false);
   let hoverIndex = -1;
   let indexClicked = null;
   let locked = false;
   let showAnswerGrid = false;
+  let dotGridElement;
 
   const handleHover = (index) => {
     if (!locked) {
@@ -23,7 +25,17 @@
   };
 
   const showAnswer = () => {
-    showAnswerGrid = true;
+    d3.select(dotGridElement)
+      .transition()
+      .duration(500)
+      .style("opacity", 0)
+      .on("end", () => {
+        showAnswerGrid = true;
+        d3.select(dotGridElement)
+          .transition()
+          .duration(500)
+          .style("opacity", 1);
+      });
   };
 
   const getDotStyle = (index) => {
@@ -65,6 +77,7 @@
 
   <div
     id="dot-grids"
+    bind:this={dotGridElement}
     class={!showAnswerGrid ? "one-dot-grid" : "two-dot-grids"}
   >
     <div id="dots" class="grid" style={showAnswerGrid ? "opacity: 50%" : ""}>
@@ -102,7 +115,7 @@
       >
     {/if}
     {#if locked && showAnswerGrid}
-      <p><strong>Actual Ratio:</strong> xx males to xx females</p>
+      <p><strong>Actual Ratio:</strong> 80 males to 20 females</p>
     {/if}
   </div>
 </section>

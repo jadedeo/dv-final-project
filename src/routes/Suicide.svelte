@@ -6,6 +6,7 @@
     caribbeanCountries,
     southAmericaCountries,
   } from "../lib/filteringGroups";
+  import "../style.css";
 
   let suicideData = [];
   let processedData = [];
@@ -126,8 +127,8 @@
   function drawMainChart() {
     if (!processedData.length) return;
 
-    const colorFallback = "#e0e0e0";
-    const hoverColor = "#707070";
+    const colorFallback = "#ebebeb";
+    const hoverColor = "#a6a6a6";
 
     const svgElement = document.getElementById("suicideChart");
     svgElement.innerHTML = "";
@@ -225,185 +226,83 @@
       .attr("stroke-width", 2)
       .attr("class", "line")
       .attr("d", (d) => line(d.years))
-      .on("mouseover", function (event, d) {
-        if (!summaryCountries.has(d.country)) {
-          d3.select(this).attr("stroke", hoverColor);
-          d3.select(this)
-            .raise() // This temporarily brings the hovered gray line to the top.
-            .attr("stroke", hoverColor);
-        }
+      .attr("stroke-dasharray", function () {
+        const length = this.getTotalLength(); // Get the length of the path
+        return `${length} ${length}`;
       })
-      .on("mousemove", function (event, d) {
-        const pointer = d3.pointer(event, this);
-        const x0 = xScale.invert(pointer[0]);
-        const bisect = d3.bisector((d) => d.year).left;
-        const idx = bisect(d.years, x0, 1);
-        const a = d.years[idx - 1];
-        const b = d.years[idx];
-        const yearData = b && x0 - a.year > b.year - x0 ? b : a;
-        if (!yearData) return;
+      .attr("stroke-dashoffset", function () {
+        const length = this.getTotalLength();
+        return length;
+      });
+    //   .transition() // Apply a transition
+    //   .duration(2000); // Set the duration of the transition (2 seconds in this case)
+    // .attr("stroke-dashoffset", 0);
 
-        d3.select("#tooltipSuicide")
-          .style("left", event.pageX + "px")
-          .style("top", event.pageY + "px")
-          .style("visibility", "visible")
-          .html(
-            `<strong>${d.country}</strong><br>Year: ${yearData.year}<br>Rate: ${yearData.rate.toFixed(2)}`
-          );
-      })
-      .on("mouseout", function (event, d) {
-        d3.select(this).attr(
-          "stroke",
-          summaryCountries.has(d.country)
-            ? countryColors.get(d.country)
-            : colorFallback
-        );
-        if (!summaryCountries.has(d.country)) {
-          d3.select(this).lower();
-        }
-        d3.select("#tooltipSuicide").style("visibility", "hidden");
+    lines
+      .transition()
+      .duration(2000)
+      .attr("stroke-dashoffset", 0)
+      .on("end", function () {
+        // Wait for the transition to finish
+        d3.select(this)
+          .on("mouseover", function (event, d) {
+            if (!summaryCountries.has(d.country)) {
+              d3.select(this).attr("stroke", hoverColor);
+              d3.select(this).raise().attr("stroke", hoverColor);
+            }
+            if (!summaryCountries.has(d.country)) {
+              d3.select(this).attr("stroke", hoverColor);
+              d3.select(this).raise().attr("stroke", hoverColor);
+            }
+          })
+          .on("mousemove", function (event, d) {
+            const pointer = d3.pointer(event, this);
+            const x0 = xScale.invert(pointer[0]);
+            const bisect = d3.bisector((d) => d.year).left;
+            const idx = bisect(d.years, x0, 1);
+            const a = d.years[idx - 1];
+            const b = d.years[idx];
+            const yearData = b && x0 - a.year > b.year - x0 ? b : a;
+            if (!yearData) return;
+
+            d3.select("#tooltipSuicide")
+              .style("left", event.pageX + "px")
+              .style("top", event.pageY + "px")
+              .style("visibility", "visible")
+              .html(
+                `<strong>${d.country}</strong><br>Year: ${yearData.year}<br>Rate: ${yearData.rate.toFixed(2)}`
+              );
+          })
+          .on("mouseout", function (event, d) {
+            d3.select(this).attr(
+              "stroke",
+              summaryCountries.has(d.country)
+                ? countryColors.get(d.country)
+                : colorFallback
+            );
+            if (!summaryCountries.has(d.country)) {
+              d3.select(this).lower();
+            }
+            // Your existing mouseout code
+            d3.select(this).attr(
+              "stroke",
+              summaryCountries.has(d.country)
+                ? countryColors.get(d.country)
+                : colorFallback
+            );
+            if (!summaryCountries.has(d.country)) {
+              d3.select(this).lower();
+            }
+            d3.select("#tooltipSuicide").style("visibility", "hidden");
+          });
       });
 
     lines.filter((d) => summaryCountries.has(d.country));
-    // .on("click", function (event, d) {
-    //   countrySelected = true;
-    //   drawRatesBySexChart(d);
-    //   d3.select("#tooltipSuicide").style("visibility", "hidden");
-    // });
 
     lines.filter((d) => !summaryCountries.has(d.country)).lower();
     lines.filter((d) => summaryCountries.has(d.country)).raise();
 
-    drawLegend();
-  }
-
-  function drawRatesBySexChart(selectedData) {
-    const svgElement = document.getElementById("suicideChart");
-    svgElement.innerHTML = "";
-
-    const countryData = genderSpecificData.find(
-      (item) => item.country == selectedData.country
-    );
-
-    // console.log('sex breakdown', countryData);
-
-    if (!countryData) return;
-
-    const dataForChart = countryData.years.map((year) => {
-      const overallYearData = selectedData.years.find(
-        (y) => y.year === year.year
-      );
-      return {
-        year: year.year,
-        maleRate: year.genders.find((g) => g.gender === "male")?.rate,
-        femaleRate: year.genders.find((g) => g.gender === "female")?.rate,
-        overallRate: overallYearData ? overallYearData.rate : null,
-      };
-    });
-
-    // console.log('dataForChart', dataForChart);
-
-    const svg = d3
-      .select(svgElement)
-      .attr("viewBox", "0 0 800 500")
-      .append("g");
-
-    const g = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-    const xScale = d3
-      .scaleLinear()
-      .domain(d3.extent(dataForChart, (d) => d.year))
-      .range([0, width]);
-
-    const yScale = d3
-      .scaleLinear()
-      .domain([
-        0,
-        d3.max(dataForChart, (d) => Math.max(d.maleRate, d.femaleRate)),
-      ])
-      .range([height, 0]);
-
-    const yAxisGridlines = d3
-      .axisLeft(yScale)
-      .tickSize(-width)
-      .tickFormat("")
-      .ticks(height / 50);
-
-    g.append("g")
-      .attr("class", "grid")
-      .call(yAxisGridlines)
-      .selectAll("line")
-      .style("stroke", "#ddd")
-      .style("stroke-opacity", 0.7);
-
-    svg.select(".grid path").style("stroke-width", 0);
-
-    g.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
-
-    g.append("g").call(d3.axisLeft(yScale));
-
-    svg
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("x", width / 2 + margin.left)
-      .attr("y", height + margin.top + 40)
-      .text("Year");
-
-    svg
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("transform", "rotate(-90)")
-      .attr("y", margin.left / 4)
-      .attr("x", -(margin.top + height / 2))
-      .text("Rate per 100k");
-
-    ["maleRate", "femaleRate", "overallRate"].forEach((rateType, i) => {
-      const line = d3
-        .line()
-        .defined((d) => !isNaN(d[rateType]))
-        .x((d) => xScale(d.year))
-        .y((d) => yScale(d[rateType]));
-
-      g.append("path")
-        .datum(dataForChart)
-        .attr("fill", "none")
-        .attr("stroke", countryColors.get(selectedData.country))
-        .style(
-          "stroke-dasharray",
-          rateType === "overallRate" ? "0" : `${2 * i + 3}, ${2 * i + 3}`
-        )
-        .attr("stroke-width", 4)
-        .attr("d", line)
-        .on("mousemove", function (event, d) {
-          const pointer = d3.pointer(event, this);
-          const x0 = xScale.invert(pointer[0]);
-          const bisect = d3.bisector((d) => d.year).left;
-          const idx = bisect(dataForChart, x0, 1);
-          const a = dataForChart[idx - 1];
-          const b = dataForChart[idx];
-          const yearData = b && x0 - a.year > b.year - x0 ? b : a;
-          if (!yearData) return;
-
-          d3
-            .select("#tooltipSuicide")
-            .style("left", `${event.pageX}px`)
-            .style("top", `${event.pageY}px`)
-            .style("visibility", "visible").html(`
-                        <strong>${selectedData.country}</strong>
-                        (${yearData.year})<br>
-                        Male Rate: ${yearData.maleRate.toFixed(2)}<br>
-                        Female Rate: ${yearData.femaleRate.toFixed(2)}<br>
-                        Overall Rate: ${yearData.overallRate.toFixed(2)}
-                    `);
-        })
-        .on("mouseout", () => {
-          d3.select("#tooltipSuicide").style("visibility", "hidden");
-        });
-    });
+    setUpLegend();
   }
 
   function handleGoBack() {
@@ -411,34 +310,16 @@
     drawMainChart();
   }
 
-  function drawLegend() {
-    const legendContainer = d3.select("#legend");
-    legendContainer.selectAll("*").remove();
+  $: activeCountries = [];
+  // $: console.log("Active Countries for Legend:", activeCountries);
 
-    const activeCountries = processedData.filter((d) =>
+  function setUpLegend() {
+    const legendContainer = d3.select("#legend");
+    legendContainer.selectAll(".legend-entry").remove(); // Clear existing legend entries
+
+    activeCountries = processedData.filter((d) =>
       summaryCountries.has(d.country)
     );
-
-    const legendEntries = legendContainer
-      .selectAll(".legend-entry")
-      .data(activeCountries)
-      .enter()
-      .append("div")
-      .attr("class", "legend-entry")
-      .style("display", "flex")
-      .style("align-items", "center")
-      .style("color", "rgba(51, 65, 85, 1)")
-      .style("font-size", "14px");
-
-    legendEntries
-      .append("p")
-      .style("width", "15px")
-      .style("height", "15px")
-      .style("margin-right", "5px")
-      .style("border-radius", "50%")
-      .style("background-color", (d) => countryColors.get(d.country));
-
-    legendEntries.append("p").text((d) => d.country);
   }
 </script>
 
@@ -535,9 +416,24 @@
   </div>
 
   <div>
-    {#if !countrySelected}
-      <div id="legend" class="legend"></div>
-    {/if}
+    <!-- {#if !countrySelected} -->
+    <!-- <div id="suicideLegend" class="legend"></div> -->
+    <div id="suicideLegend">
+      {#each activeCountries as country}
+        <div
+          class="legend-entry"
+          style="align-items: center; display: flex; flex-direction:row;"
+        >
+          <div
+            style="width: 15px; height: 15px; border-radius: 50%; background-color: {countryColors.get(
+              country.country
+            )}; margin-right: 5px;"
+          ></div>
+          <p>{country.country}</p>
+        </div>
+      {/each}
+    </div>
+    <!-- {/if} -->
 
     <div id="suicideChart-container">
       <svg id="suicideChart"></svg>
@@ -554,7 +450,7 @@
     max-width: 900px;
     margin: 0 auto;
   }
-  .legend {
+  #suicideLegend {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

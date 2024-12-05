@@ -46,6 +46,7 @@ hr {
   color: gray;
 }
 
+#bginfo-section,
 #ship-section,
 #alcoholism-section,
 #ipv-section,
@@ -91,4 +92,12 @@ button {
 
 hr.map-description-line {
   margin: 0 0 10px 0;
+}
+
+
+.legend-entry {
+  display: flex;
+  align-items: center;
+  color: rgba(51, 65, 85, 1);
+  font-size: 14px;
 }

@@ -10,6 +10,8 @@
   let sliderYear = 2019;
   let tooltip;
 
+  // console.log(countrySummary);
+
   const validYears = [2000, 2005, 2010, 2015, 2019];
   const countryColors = new Map(
     countrySummary.map((entry) => [entry.countryName, entry.color])
@@ -20,7 +22,7 @@
   const relevantCountries = new Set([
     ...countrySummary.map((country) => country.countryName),
     ...southAsia,
-    ...westAfrica,
+    // ...westAfrica,
   ]);
 
   const margin = { top: 20, right: 30, bottom: 50, left: 60 };
@@ -124,7 +126,7 @@
     const populationScale = d3
       .scaleSqrt()
       .domain(d3.extent(data, (d) => +d.Population))
-      .range([8, 20]);
+      .range([10, 20]);
 
     // Bind data to circles
     const circles = svg
@@ -152,7 +154,8 @@
           countryColors.get(d.Country) ||
           (southAsia.includes(d.Country) ? "#ccc" : "#7d7d7d")
       )
-      .attr("opacity", 0.8)
+      .attr("opacity", (d) => (countryColors.get(d.Country) ? 1 : 0.5))
+      .attr("stroke", (d) => (countryColors.get(d.Country) ? "" : "#b5b3b3"))
       .on("mouseover", function (event, d) {
         tooltip.innerHTML = `<strong>${d.Country}</strong><br>Male: ${d.Male}L<br>Female: ${d.Female}L`;
         tooltip.style.display = "block";
@@ -179,7 +182,7 @@
   // $: console.log(data);
   // $: console.log(filteredData);
 
-  // console.log(countryColors);
+  // console.log(summaryCountries);
 </script>
 
 <section id="alcoholism-section">
@@ -229,32 +232,47 @@
   </div>
 
   <div>
-    <div id="legend" class="legend">
-      {#each countrySummary as country}
+    <div id="legend" class="legend" style="display: none;">
+      {#each summaryCountries as country}
         <div class="legend-entry" style="align-items: center; display: flex;">
           <div
             style="width: 15px; height: 15px; border-radius: 50%; background-color: {countryColors.get(
-              country.countryName
+              country
             )}; margin-right: 5px;"
           ></div>
-          <span>{country.countryName}</span>
+          <span>{country}</span>
         </div>
       {/each}
     </div>
     <div class="legend">
+      {#each summaryCountries as country}
+        <div
+          class="legend-entry"
+          style="align-items: center; display: flex; flex-direction:row;"
+        >
+          <div
+            style="width: 15px; height: 15px; border-radius: 50%; background-color: {countryColors.get(
+              country
+            )}; margin-right: 5px;"
+          ></div>
+          <p>{country}</p>
+        </div>
+      {/each}
       <div class="legend-entry" style="align-items: center; display: flex;">
         <div
-          style="width: 15px; height: 15px; border-radius: 50%; background-color: #7d7d7d; margin-right: 5px;"
+          style="width: 15px; height: 15px; border-radius: 50%; background-color: #ccc; margin-right: 5px;"
         ></div>
-        <span>West Africa</span>
+        <span>Mainland South Asia</span>
       </div>
+    </div>
+    <!-- <div class="legend">
       <div class="legend-entry" style="align-items: center; display: flex;">
         <div
           style="width: 15px; height: 15px; border-radius: 50%; background-color: #ccc; margin-right: 5px;"
         ></div>
         <span>South Asia</span>
       </div>
-    </div>
+    </div> -->
 
     <div id="alcoholismChart-container">
       <svg id="chart"></svg>
@@ -293,12 +311,5 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
     justify-content: center;
-  }
-
-  .legend-entry {
-    display: flex;
-    align-items: center;
-    color: rgba(51, 65, 85, 1);
-    font-size: 14px;
   }
 </style>
