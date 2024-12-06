@@ -161,6 +161,7 @@
     bottom: 2rem;
     z-index: 5;
     width: 30%;
+    max-width: 400px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.8);
     padding: 2rem;
